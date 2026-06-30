@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kabani Safaris — Curated African Experiences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tan:        #A26730;
+      --tan-light:  #C4915A;
+      --tan-pale:   #E8D4BB;
+      --navy:       #2C5064;
+      --navy-dark:  #1A3344;
+      --green:      #4D7338;
+      --green-dark: #354F28;
+      --cream:      #EEE4D4;
+      --cream-dark: #DDD0BA;
+      --dark:       #2D2D2D;
+      --dark-soft:  #3D3D3D;
+      --white:      #FFFFFF;
+      --off-white:  #FAF7F2;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px; height: 72px;
+      background: rgba(26,51,68,0.96);
+      backdrop-filter: blur(8px);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 500; color: var(--white);
+      letter-spacing: 0.04em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--tan-light); }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--white);
+      border: 1px solid var(--tan-light); padding: 9px 22px;
+      text-decoration: none; transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-cta:hover { background: var(--tan); border-color: var(--tan); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, rgba(26,51,68,0.72) 0%, rgba(30,61,48,0.65) 60%, rgba(44,64,32,0.70) 100%), url('serengeti-sunrise.jpg') center/cover no-repeat;
+      position: relative; overflow: hidden; text-align: center;
+      padding: 120px 40px 80px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(162,103,48,0.18) 0%, transparent 70%);
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan-light);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 7vw, 88px);
+      font-weight: 500; line-height: 1.05;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .hero-title em { font-style: italic; color: var(--tan-pale); }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-style: italic; color: rgba(255,255,255,0.72);
+      margin-bottom: 48px; max-width: 620px; margin-inline: auto;
+    }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--tan); border: none; padding: 16px 36px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--tan-light); transform: translateY(-1px); }
+    .btn-outline {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+      background: transparent; border: 1px solid rgba(255,255,255,0.3);
+      padding: 16px 36px; cursor: pointer; text-decoration: none;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { position: relative; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--tan);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 500; line-height: 1.1; color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; line-height: 1.7;
+      color: #5A4A3A; max-width: 680px;
+    }
+
+    /* ── ABOUT ── */
+    #about { padding: 120px 0; background: var(--off-white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      position: relative; aspect-ratio: 4/5;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .about-visual-placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-style: italic;
+      color: #9A8A7A; text-align: center; padding: 40px;
+      line-height: 1.6;
+    }
+    .about-visual::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 4px; background: var(--tan);
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--cream-dark); margin-top: 48px;
+    }
+    .about-stat {
+      background: var(--off-white); padding: 28px 24px;
+    }
+    .about-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 500; color: var(--tan);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #8A7A6A; margin-top: 6px;
+    }
+    .about-highlight {
+      margin-top: 36px; padding: 28px 32px;
+      border-left: 3px solid var(--tan-light);
+      background: var(--cream);
+    }
+    .about-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-style: italic; line-height: 1.65; color: #4A3A2A;
+    }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy { padding: 100px 0; background: var(--navy-dark); }
+    #philosophy .section-eyebrow { color: var(--tan-light); }
+    #philosophy .section-eyebrow::before { background: var(--tan-light); }
+    #philosophy .section-title { color: var(--white); }
+    #philosophy .section-body { color: rgba(255,255,255,0.68); max-width: 760px; }
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .pillar {
+      background: rgba(255,255,255,0.04);
+      padding: 44px 36px;
+      border-top: 2px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pillar:hover { border-color: var(--tan-light); background: rgba(255,255,255,0.07); }
+    .pillar-icon {
+      font-size: 28px; margin-bottom: 20px;
+    }
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 500; color: var(--white);
+      margin-bottom: 14px;
+    }
+    .pillar-body {
+      font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.6);
+    }
+
+    /* ── SERVICES ── */
+    #services { padding: 120px 0; background: var(--off-white); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+    .service-card {
+      background: var(--white);
+      padding: 48px 40px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card:hover { border-color: var(--tan); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .service-card-photo {
+      width: 100%; aspect-ratio: 3/2;
+      background: var(--cream);
+      margin-bottom: 36px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .service-card-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: none;
+    }
+    .service-card-photo-placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-style: italic; color: #9A8A7A;
+      text-align: center; padding: 20px;
+    }
+    .service-number {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 16px;
+    }
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 500; color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .service-sub {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9A8A7A; margin-bottom: 20px;
+    }
+    .service-body {
+      font-size: 14px; line-height: 1.8; color: #5A5A5A;
+      margin-bottom: 28px;
+    }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .service-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 14px;
+      background: var(--cream); color: var(--tan);
+    }
+
+    /* ── COFFEE FOCUS ── */
+    #coffee {
+      padding: 120px 0;
+      background: linear-gradient(135deg, #2C1A0A 0%, #3D2412 40%, var(--green-dark) 100%);
+    }
+    .coffee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    #coffee .section-eyebrow { color: var(--tan-pale); }
+    #coffee .section-eyebrow::before { background: var(--tan-pale); }
+    #coffee .section-title { color: var(--white); }
+    #coffee .section-body { color: rgba(255,255,255,0.7); margin-bottom: 36px; }
+    .coffee-visual {
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .coffee-visual-inner {
+      text-align: center; color: rgba(255,255,255,0.35);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-style: italic; padding: 40px;
+      line-height: 1.6;
+    }
+    .coffee-list { list-style: none; margin-top: 24px; }
+    .coffee-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.75);
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .coffee-list li::before {
+      content: '✦'; color: var(--tan-light); flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── IMPACT DASHBOARD ── */
+    #impact { padding: 120px 0; background: var(--cream); }
+    .impact-header { text-align: center; margin-bottom: 72px; }
+    .impact-header .section-eyebrow { justify-content: center; }
+    .impact-header .section-eyebrow::before { display: none; }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      background: var(--cream-dark); margin-bottom: 64px;
+    }
+    .stat-block {
+      background: var(--off-white); padding: 44px 36px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 64px); font-weight: 500;
+      color: var(--tan); line-height: 1; margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #8A7A6A;
+    }
+    .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+    .chart-card {
+      background: var(--white); padding: 36px; border-bottom: 3px solid var(--tan-pale);
+    }
+    .chart-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 500; color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .chart-card p {
+      font-size: 12px; color: #9A8A7A; margin-bottom: 28px;
+    }
+    canvas { max-width: 100%; }
+
+    /* ── DESTINATIONS ── */
+    #destinations { padding: 120px 0; background: var(--off-white); }
+    .dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+    .dest-card {
+      background: var(--white); padding: 36px 28px;
+      border-top: 3px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .dest-card:hover { border-color: var(--green); }
+    .dest-flag { font-size: 32px; margin-bottom: 16px; }
+    .dest-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 500; color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .dest-tags { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+    .dest-tag {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #7A6A5A;
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding: 120px 0; background: var(--navy-dark); }
+    #contact .section-eyebrow { color: var(--tan-light); }
+    #contact .section-eyebrow::before { background: var(--tan-light); }
+    #contact .section-title { color: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+    .contact-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; line-height: 1.7; color: rgba(255,255,255,0.68);
+      margin-bottom: 36px;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .contact-detail-icon { font-size: 20px; flex-shrink: 0; }
+    .contact-detail-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tan-light); margin-bottom: 4px;
+    }
+    .contact-detail-value {
+      font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.5;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      font-family: 'Montserrat', sans-serif; font-size: 14px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white); padding: 14px 16px; outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--tan-light);
+    }
+    .form-group select option { background: var(--navy-dark); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--tan); border: none; padding: 16px 36px;
+      cursor: pointer; transition: background 0.3s; align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--tan-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 60px; background: #0E1F2A;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 500; color: var(--white);
+    }
+    .footer-logo span { color: var(--tan-light); }
+    .footer-copy {
+      font-size: 12px; color: rgba(255,255,255,0.35);
+    }
+    .footer-admin a {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-admin a:hover { color: var(--tan-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .section-inner { padding: 0 24px; }
+      .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pillars, .services-grid { grid-template-columns: 1fr; }
+      .dest-grid { grid-template-columns: 1fr 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+      .charts-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Kabani <span>Safaris</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Experiences</a>
+      <a href="#coffee">Coffee</a>
+<a href="#destinations">Destinations</a>
+      <a href="#contact" class="nav-cta">Plan Your Journey</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div style="position:relative; z-index:1; max-width:900px;">
+      <p class="hero-eyebrow">Nairobi, Kenya — Est. 2024</p>
+      <h1 class="hero-title">Where the World <em>Meets</em><br>East Africa</h1>
+      <p class="hero-sub">Curated safaris crafted by a consultant who has lived and breathed the continent — connecting travellers with local experts for experiences that leave a mark.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Explore Experiences</a>
+        <a href="#contact" class="btn-outline">Start Planning</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <img src="rafael-portrait.jpg" alt="Rafael" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </div>
+        <div>
+          <p class="section-eyebrow">About Kabani Safaris</p>
+          <h2 class="section-title">A Consultant<br>Rooted in Africa</h2>
+          <p class="section-body">
+            After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.
+          </p>
+          <div class="about-highlight">
+            <p>"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
+          </div>
+          <div class="about-stats" id="about-stats">
+            <div class="about-stat">
+              <div class="about-stat-num" id="stat-guests">—</div>
+              <div class="about-stat-label">Guests Hosted</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num" id="stat-trips">—</div>
+              <div class="about-stat-label">Trips Completed</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num" id="stat-dest">—</div>
+              <div class="about-stat-label">Destinations</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">4</div>
+              <div class="about-stat-label">Years in East Africa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="section-inner">
+      <p class="section-eyebrow">Our Philosophy</p>
+      <h2 class="section-title" style="color:var(--white)">Three Principles That<br>Guide Every Journey</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3 class="pillar-title">Tailor-Made by Design</h3>
+          <p class="pillar-body">No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-title">Local Professionals</h3>
+          <p class="pillar-body">We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-title">Impact-Led Travel</h3>
+          <p class="pillar-body">Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-inner">
+      <p class="section-eyebrow">Our Experiences</p>
+      <h2 class="section-title">Three Ways to<br>Discover Africa</h2>
+      <div class="services-grid">
+
+        <!-- 01 Tailor Made -->
+        <div class="service-card">
+          <div class="service-card-photo">
+            <img id="img-tailormade" src="ngorongoro.jpg" alt="Tailor Made Safari" style="display:block;" />
+          </div>
+          <div class="service-number">01 — Tailor Made</div>
+          <h3 class="service-title">Tailor Made Safaris</h3>
+          <p class="service-sub">Total Immersion · Exclusive · Flexible</p>
+          <p class="service-body">
+            Designed for travellers who want complete disconnection and are willing to invest in the extraordinary. Every detail — from the lodge to the private guide — is curated to match your vision of the perfect journey.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">Private Guides</span>
+            <span class="service-tag">Luxury Lodges</span>
+            <span class="service-tag">Flexible Pace</span>
+            <span class="service-tag">Concierge Planning</span>
+          </div>
+        </div>
+
+        <!-- 02 Adventure -->
+        <div class="service-card">
+          <div class="service-card-photo">
+            <img id="img-adventure" src="adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
+          </div>
+          <div class="service-number">02 — Adventure</div>
+          <h3 class="service-title">Adventure Safaris</h3>
+          <p class="service-sub">Camping · Trekking · Sports</p>
+          <p class="service-body">
+            For those who seek connection with nature through physical effort and willingly trade comfort for wilderness. Expect tented camps, summit attempts, trail runs through savannah, and early mornings that make everything worth it.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">Trekking</span>
+            <span class="service-tag">Wild Camping</span>
+            <span class="service-tag">Mountain Summits</span>
+            <span class="service-tag">Trail Running</span>
+          </div>
+        </div>
+
+        <!-- 03 Agro-Tourism -->
+        <div class="service-card">
+          <div class="service-card-photo">
+            <img id="img-agro" src="agro-tourism-safaris.jpg" alt="Agro Tourism Safari" style="display:block;" />
+          </div>
+          <div class="service-number">03 — Agro-Tourism</div>
+          <h3 class="service-title">Agro-Tourism Safaris</h3>
+          <p class="service-sub">Coffee · Tea · Macadamia</p>
+          <p class="service-body">
+            Journey into the lifecycle of Africa's most important crops — from seedling to export. Visit cooperatives, meet the farmers, and understand the economic and cultural weight of what is in your cup every morning.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">Coffee Tours</span>
+            <span class="service-tag">Tea Estates</span>
+            <span class="service-tag">Cooperatives</span>
+            <span class="service-tag">Macadamia Farms</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COFFEE FOCUS -->
+  <section id="coffee">
+    <div class="section-inner">
+      <div class="coffee-grid">
+        <div>
+          <p class="section-eyebrow">A Special Focus</p>
+          <h2 class="section-title" style="color:var(--white)">Coffee at the<br>Heart of It All</h2>
+          <p class="section-body">
+            African coffee is not just a product — it is a culture, an economy, and a community. Wherever an itinerary allows, I integrate coffee cooperative visits so travellers can witness firsthand the hands behind the harvest.
+          </p>
+          <ul class="coffee-list">
+            <li>Tour washing stations and dry mills with the farmers who run them</li>
+            <li>Visit cooperatives representing thousands of smallholder producers across Kenya, Ethiopia, and Rwanda</li>
+            <li>Participate in cuppings, roastings, and processing demonstrations</li>
+            <li>Understand how speciality coffee economics flow back to origin communities</li>
+            <li>Leave with relationships — and exceptional beans — that tell a real story</li>
+          </ul>
+        </div>
+        <div class="coffee-visual">
+          <img src="coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section id="destinations">
+    <div class="section-inner">
+      <p class="section-eyebrow">Where We Operate</p>
+      <h2 class="section-title">Our Expertise</h2>
+      <div class="dest-grid">
+        <div class="dest-card">
+          <div class="dest-flag">🇰🇪</div>
+          <div class="dest-name">Kenya</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Coffee</span>
+            <span class="dest-tag">Trekking</span>
+            <span class="dest-tag">Beach</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇹🇿</div>
+          <div class="dest-name">Tanzania</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Coffee</span>
+            <span class="dest-tag">Islands</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇿🇦</div>
+          <div class="dest-name">South Africa</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Surf</span>
+            <span class="dest-tag">Vineyards</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇺🇬</div>
+          <div class="dest-name">Uganda</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Gorillas</span>
+            <span class="dest-tag">Coffee</span>
+            <span class="dest-tag">Lakes</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇷🇼</div>
+          <div class="dest-name">Rwanda</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Gorillas</span>
+            <span class="dest-tag">Coffee</span>
+            <span class="dest-tag">Lakes</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇲🇿</div>
+          <div class="dest-name">Mozambique</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Surf</span>
+            <span class="dest-tag">Beach</span>
+            <span class="dest-tag">Islands</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇧🇮</div>
+          <div class="dest-name">Burundi</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Coffee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2 class="section-title">Let's Plan<br>Your Journey</h2>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-intro">
+            Whether you have a vague idea or a detailed wish list, I start with a conversation. Tell me what excites you and I'll take it from there — connecting you with the right people in the right places.
+          </p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <span class="contact-detail-icon">📍</span>
+              <div>
+                <div class="contact-detail-label">Base</div>
+                <div class="contact-detail-value">Nairobi, Kenya</div>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail-icon">✉️</span>
+              <div>
+                <div class="contact-detail-label">Email</div>
+                <div class="contact-detail-value">reservations@kabanisafaris.com</div>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail-icon">💬</span>
+              <div>
+                <div class="contact-detail-label">WhatsApp</div>
+                <div class="contact-detail-value">+254 — available on request</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="handleContactForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Marie" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Dupont" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="marie@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Experience Type</label>
+            <select>
+              <option value="">Select an experience…</option>
+              <option>Tailor Made Safari</option>
+              <option>Adventure Safari</option>
+              <option>Agro-Tourism Safari</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell me about your dream journey</label>
+            <textarea placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+          <div id="form-success" style="display:none; font-size:13px; color:var(--tan-light); padding-top:8px;">
+            Thank you — I'll be in touch within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Kabani <span>Safaris</span></div>
+    <div class="footer-copy">© 2024 Kabani Safaris. All rights reserved.</div>
+    <div class="footer-admin"><a href="admin.html">Admin</a></div>
+  </footer>
+
+  <script>
+    // ── DATA HELPERS ──
+    function getAdventures() {
+      try { return JSON.parse(localStorage.getItem('kabani_adventures') || '[]'); }
+      catch { return []; }
+    }
+
+    // ── DASHBOARD ──
+    function renderDashboard() {
+      const adventures = getAdventures();
+      const completed = adventures.filter(a => a.status === 'Completed');
+
+      const totalGuests = adventures.reduce((s, a) => s + (parseInt(a.guests) || 0), 0);
+      const totalBudget = adventures.reduce((s, a) => s + (parseFloat(a.budget) || 0), 0);
+
+      const allDest = adventures.flatMap(a =>
+        (a.destinations || '').split(',').map(d => d.trim()).filter(Boolean)
+      );
+      const uniqueDest = new Set(allDest.map(d => d.toLowerCase()));
+
+      // Hero stats
+      document.getElementById('dash-guests').textContent = totalGuests || 0;
+      document.getElementById('dash-revenue').textContent =
+        totalBudget >= 1000 ? '$' + (totalBudget / 1000).toFixed(1) + 'k' : '$' + totalBudget;
+      document.getElementById('dash-countries').textContent = uniqueDest.size || 0;
+
+      // About stats
+      document.getElementById('stat-guests').textContent = totalGuests || '—';
+      document.getElementById('stat-trips').textContent = completed.length || '—';
+      document.getElementById('stat-dest').textContent = uniqueDest.size || '—';
+
+      // Status chart
+      const statusCounts = { Interested: 0, Booked: 0, Completed: 0 };
+      adventures.forEach(a => { if (statusCounts[a.status] !== undefined) statusCounts[a.status]++; });
+
+      const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+      if (window._chartStatus) window._chartStatus.destroy();
+      window._chartStatus = new Chart(ctxStatus, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(statusCounts),
+          datasets: [{
+            data: Object.values(statusCounts),
+            backgroundColor: ['#C4915A', '#2C5064', '#4D7338'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1, color: '#9A8A7A' }, grid: { color: '#EEE4D4' } },
+            x: { ticks: { color: '#5A4A3A' }, grid: { display: false } }
+          }
+        }
+      });
+
+      // Destination chart
+      const destCount = {};
+      allDest.forEach(d => { destCount[d] = (destCount[d] || 0) + 1; });
+      const sorted = Object.entries(destCount).sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+      const ctxDest = document.getElementById('chartDest').getContext('2d');
+      if (window._chartDest) window._chartDest.destroy();
+      window._chartDest = new Chart(ctxDest, {
+        type: 'doughnut',
+        data: {
+          labels: sorted.length ? sorted.map(d => d[0]) : ['No data yet'],
+          datasets: [{
+            data: sorted.length ? sorted.map(d => d[1]) : [1],
+            backgroundColor: ['#A26730','#2C5064','#4D7338','#C4915A','#1A3344','#354F28'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#5A4A3A', boxWidth: 12, font: { size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    // ── CONTACT FORM ──
+    function handleContactForm(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+
+    // ── INIT ──
+    renderDashboard();
+    window.addEventListener('storage', renderDashboard);
+  </script>
+</body>
+</html>

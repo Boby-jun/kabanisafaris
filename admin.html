@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Kabani Safaris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tan:        #A26730;
+      --tan-light:  #C4915A;
+      --tan-pale:   #E8D4BB;
+      --navy:       #2C5064;
+      --navy-dark:  #1A3344;
+      --green:      #4D7338;
+      --green-dark: #354F28;
+      --cream:      #EEE4D4;
+      --cream-dark: #DDD0BA;
+      --dark:       #2D2D2D;
+      --white:      #FFFFFF;
+      --off-white:  #FAF7F2;
+      --red:        #C0392B;
+    }
+
+    body { font-family: 'Montserrat', sans-serif; background: var(--off-white); color: var(--dark); }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, var(--navy-dark) 0%, #1e3d30 100%);
+    }
+    .login-box {
+      background: var(--off-white); padding: 52px 48px; width: 100%; max-width: 420px;
+      border-bottom: 4px solid var(--tan);
+    }
+    .login-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 500; color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .login-logo span { color: var(--tan); }
+    .login-sub {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9A8A7A; margin-bottom: 36px;
+    }
+    .login-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .login-group label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #7A6A5A;
+    }
+    .login-group input {
+      font-family: 'Montserrat', sans-serif; font-size: 14px;
+      border: 1px solid var(--cream-dark); background: var(--white);
+      padding: 12px 14px; outline: none; transition: border-color 0.3s;
+    }
+    .login-group input:focus { border-color: var(--tan); }
+    .login-btn {
+      width: 100%; margin-top: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--tan); border: none; padding: 14px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .login-btn:hover { background: var(--tan-light); }
+    .login-error {
+      font-size: 12px; color: var(--red); margin-top: 12px; display: none;
+    }
+
+    /* ── APP SHELL ── */
+    #app { display: none; min-height: 100vh; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--navy-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+    }
+    .topbar-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; color: var(--white); text-decoration: none;
+    }
+    .topbar-logo span { color: var(--tan-light); }
+    .topbar-right { display: flex; align-items: center; gap: 24px; }
+    .topbar-site {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s;
+    }
+    .topbar-site:hover { color: rgba(255,255,255,0.85); }
+    .topbar-user { font-size: 12px; color: rgba(255,255,255,0.5); }
+    .logout-btn {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      background: none; border: 1px solid rgba(255,255,255,0.2);
+      padding: 7px 16px; cursor: pointer; transition: all 0.3s;
+    }
+    .logout-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
+
+    .main { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 64px); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: var(--white); border-right: 1px solid var(--cream-dark);
+      padding: 32px 0;
+    }
+    .sidebar-section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #BBA898;
+      padding: 0 28px; margin-bottom: 8px; margin-top: 24px;
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 28px; font-size: 13px; font-weight: 500;
+      color: #6A5A4A; text-decoration: none;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+    .sidebar-link:hover { background: var(--cream); color: var(--dark); }
+    .sidebar-link.active { background: var(--cream); color: var(--tan); font-weight: 600; }
+    .sidebar-link .icon { font-size: 16px; width: 20px; text-align: center; }
+
+    /* ── CONTENT ── */
+    .content { padding: 48px 48px; background: var(--off-white); }
+
+    /* ── DASHBOARD PANEL ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 500; color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .page-sub {
+      font-size: 13px; color: #9A8A7A; margin-bottom: 40px;
+    }
+
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .kpi {
+      background: var(--white); padding: 28px 24px;
+      border-bottom: 3px solid var(--cream-dark);
+    }
+    .kpi-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 500; line-height: 1;
+      color: var(--tan); margin-bottom: 6px;
+    }
+    .kpi-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9A8A7A;
+    }
+
+    .recent-title {
+      font-size: 16px; font-weight: 600; color: var(--dark); margin-bottom: 20px;
+    }
+
+    /* ── TABLE ── */
+    .table-wrapper { background: var(--white); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { border-bottom: 2px solid var(--cream-dark); }
+    thead th {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9A8A7A;
+      padding: 14px 20px; text-align: left;
+    }
+    tbody tr { border-bottom: 1px solid var(--cream); transition: background 0.15s; }
+    tbody tr:hover { background: var(--off-white); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: 14px 20px; font-size: 13px; color: var(--dark); vertical-align: middle; }
+
+    .status-badge {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px;
+    }
+    .status-Interested { background: #FEF3E2; color: #C07828; }
+    .status-Booked     { background: #E2EDF5; color: #1A5070; }
+    .status-Completed  { background: #E6F0E2; color: #2A5A1A; }
+
+    .table-action {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; background: none; border: none;
+      transition: color 0.2s;
+    }
+    .table-action.edit { color: var(--navy); margin-right: 12px; }
+    .table-action.edit:hover { color: var(--tan); }
+    .table-action.delete { color: #BBA898; }
+    .table-action.delete:hover { color: var(--red); }
+
+    /* ── FORM ── */
+    .form-card { background: var(--white); padding: 40px; max-width: 760px; }
+    .form-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 500; color: var(--dark);
+      margin-bottom: 28px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #7A6A5A;
+    }
+    .field input, .field select, .field textarea {
+      font-family: 'Montserrat', sans-serif; font-size: 14px;
+      border: 1px solid var(--cream-dark); background: var(--off-white);
+      padding: 11px 14px; outline: none; transition: border-color 0.3s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--tan); background: var(--white);
+    }
+    .field select option { background: var(--white); }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .field-hint { font-size: 11px; color: #9A8A7A; margin-top: 2px; }
+    .form-actions { margin-top: 28px; display: flex; gap: 12px; align-items: center; }
+    .btn-save {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--tan); border: none; padding: 13px 32px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .btn-save:hover { background: var(--tan-light); }
+    .btn-cancel {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #7A6A5A;
+      background: none; border: 1px solid var(--cream-dark); padding: 13px 28px;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .btn-cancel:hover { border-color: #9A8A7A; color: var(--dark); }
+    .save-feedback {
+      font-size: 12px; color: var(--green); display: none; font-weight: 500;
+    }
+
+    /* ── SEARCH & FILTER ── */
+    .table-controls {
+      display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .search-input {
+      font-family: 'Montserrat', sans-serif; font-size: 13px;
+      border: 1px solid var(--cream-dark); background: var(--white);
+      padding: 10px 14px; outline: none; flex: 1; min-width: 200px;
+      transition: border-color 0.3s;
+    }
+    .search-input:focus { border-color: var(--tan); }
+    .filter-select {
+      font-family: 'Montserrat', sans-serif; font-size: 12px;
+      border: 1px solid var(--cream-dark); background: var(--white);
+      padding: 10px 14px; outline: none; cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .filter-select:focus { border-color: var(--tan); }
+    .btn-new {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--tan); border: none; padding: 11px 24px;
+      cursor: pointer; transition: background 0.3s; white-space: nowrap;
+    }
+    .btn-new:hover { background: var(--tan-light); }
+
+    .empty-state {
+      padding: 60px; text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-style: italic; color: #BBA898;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5); align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--off-white); width: 100%; max-width: 720px;
+      max-height: 90vh; overflow-y: auto;
+      padding: 48px; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none; font-size: 24px; cursor: pointer;
+      color: #9A8A7A; line-height: 1;
+    }
+    .modal-close:hover { color: var(--dark); }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">Kabani <span>Safaris</span></div>
+      <div class="login-sub">Admin Portal</div>
+      <div class="login-group">
+        <label>Password</label>
+        <input type="password" id="login-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="login-btn" onclick="doLogin()">Sign In</button>
+      <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <div class="topbar">
+      <span class="topbar-logo">Kabani <span>Safaris</span> — Admin</span>
+      <div class="topbar-right">
+        <a href="index.html" class="topbar-site">← View Site</a>
+        <span class="topbar-user">Administrator</span>
+        <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-section-label">Overview</div>
+        <button class="sidebar-link active" onclick="showPanel('dashboard', this)">
+          <span class="icon">📊</span> Dashboard
+        </button>
+
+        <div class="sidebar-section-label">Adventures</div>
+        <button class="sidebar-link" onclick="showPanel('adventures', this)">
+          <span class="icon">🌍</span> All Adventures
+        </button>
+        <button class="sidebar-link" onclick="showNewForm()">
+          <span class="icon">＋</span> New Adventure
+        </button>
+
+        <div class="sidebar-section-label">Pipeline</div>
+        <button class="sidebar-link" onclick="filterAndShow('Interested')">
+          <span class="icon">💬</span> Interested
+        </button>
+        <button class="sidebar-link" onclick="filterAndShow('Booked')">
+          <span class="icon">✅</span> Booked
+        </button>
+        <button class="sidebar-link" onclick="filterAndShow('Completed')">
+          <span class="icon">🏆</span> Completed
+        </button>
+      </nav>
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <!-- DASHBOARD PANEL -->
+        <div class="panel active" id="panel-dashboard">
+          <div class="page-title">Dashboard</div>
+          <div class="page-sub">Your live overview — all adventures at a glance.</div>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-num" id="kpi-total">0</div>
+              <div class="kpi-label">Total Adventures</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-num" id="kpi-guests">0</div>
+              <div class="kpi-label">Total Guests</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-num" id="kpi-budget">$0</div>
+              <div class="kpi-label">Total Budget</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-num" id="kpi-completed">0</div>
+              <div class="kpi-label">Completed Trips</div>
+            </div>
+          </div>
+
+          <div class="recent-title">Recent Adventures</div>
+          <div class="table-wrapper" id="dash-table"></div>
+        </div>
+
+        <!-- ADVENTURES PANEL -->
+        <div class="panel" id="panel-adventures">
+          <div class="page-title">All Adventures</div>
+          <div class="page-sub">Manage your full client pipeline.</div>
+
+          <div class="table-controls">
+            <input class="search-input" id="search-input" placeholder="Search by name, destination…" oninput="renderTable()" />
+            <select class="filter-select" id="filter-status" onchange="renderTable()">
+              <option value="">All Statuses</option>
+              <option>Interested</option>
+              <option>Booked</option>
+              <option>Completed</option>
+            </select>
+            <button class="btn-new" onclick="showNewForm()">+ New Adventure</button>
+          </div>
+          <div class="table-wrapper" id="main-table"></div>
+        </div>
+
+        <!-- FORM PANEL -->
+        <div class="panel" id="panel-form">
+          <div class="page-title" id="form-panel-title">New Adventure</div>
+          <div class="page-sub">Fill in the details below and save.</div>
+
+          <div class="form-card">
+            <h2 id="form-card-title">Client Details</h2>
+            <input type="hidden" id="edit-id" />
+            <div class="form-grid">
+              <div class="field">
+                <label>Client Name *</label>
+                <input type="text" id="f-name" placeholder="e.g. Marie Dupont" required />
+              </div>
+              <div class="field">
+                <label>Number of Guests *</label>
+                <input type="number" id="f-guests" placeholder="2" min="1" />
+              </div>
+              <div class="field">
+                <label>Start Date</label>
+                <input type="date" id="f-date-start" />
+              </div>
+              <div class="field">
+                <label>End Date</label>
+                <input type="date" id="f-date-end" />
+              </div>
+              <div class="field form-full">
+                <label>Destinations</label>
+                <input type="text" id="f-destinations" placeholder="e.g. Kenya, Rwanda, Ethiopia" />
+                <div class="field-hint">Separate multiple destinations with commas</div>
+              </div>
+              <div class="field">
+                <label>Budget (USD)</label>
+                <input type="number" id="f-budget" placeholder="5000" min="0" />
+              </div>
+              <div class="field">
+                <label>Status</label>
+                <select id="f-status">
+                  <option>Interested</option>
+                  <option>Booked</option>
+                  <option>Completed</option>
+                </select>
+              </div>
+              <div class="field form-full">
+                <label>Comments</label>
+                <textarea id="f-comments" placeholder="Any notes about this adventure, client preferences, special requests…"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-save" onclick="saveAdventure()">Save Adventure</button>
+              <button class="btn-cancel" onclick="showPanel('adventures', null)">Cancel</button>
+              <span class="save-feedback" id="save-feedback">Saved successfully ✓</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+  </div><!-- /app -->
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal" style="max-width:440px; padding:40px;">
+      <button class="modal-close" onclick="closeDeleteModal()">×</button>
+      <h2 style="font-family:'Playfair Display',serif; font-size:22px; margin-bottom:12px;">Delete Adventure?</h2>
+      <p style="font-size:14px; color:#5A5A5A; line-height:1.6; margin-bottom:28px;">
+        This will permanently remove <strong id="delete-name"></strong>'s adventure. This action cannot be undone.
+      </p>
+      <div style="display:flex; gap:12px;">
+        <button class="btn-save" style="background:var(--red);" onclick="confirmDelete()">Delete</button>
+        <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── AUTH ──
+    const ADMIN_PASSWORD = 'kabani2024';
+    let deleteTargetId = null;
+
+    function doLogin() {
+      const pw = document.getElementById('login-pw').value;
+      if (pw === ADMIN_PASSWORD) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        refreshAll();
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    }
+
+    function doLogout() {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('login-pw').value = '';
+      document.getElementById('login-error').style.display = 'none';
+    }
+
+    // ── DATA ──
+    function getAdventures() {
+      try { return JSON.parse(localStorage.getItem('kabani_adventures') || '[]'); }
+      catch { return []; }
+    }
+    function saveAdventures(arr) {
+      localStorage.setItem('kabani_adventures', JSON.stringify(arr));
+    }
+    function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+    // ── PANEL NAV ──
+    function showPanel(name, triggerEl) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      if (triggerEl) triggerEl.classList.add('active');
+      if (name === 'dashboard') refreshDashboard();
+      if (name === 'adventures') { resetFilter(); renderTable(); }
+    }
+
+    function showNewForm() {
+      document.getElementById('edit-id').value = '';
+      document.getElementById('f-name').value = '';
+      document.getElementById('f-guests').value = '';
+      document.getElementById('f-date-start').value = '';
+      document.getElementById('f-date-end').value = '';
+      document.getElementById('f-destinations').value = '';
+      document.getElementById('f-budget').value = '';
+      document.getElementById('f-status').value = 'Interested';
+      document.getElementById('f-comments').value = '';
+      document.getElementById('form-panel-title').textContent = 'New Adventure';
+      document.getElementById('form-card-title').textContent = 'Client Details';
+      document.getElementById('save-feedback').style.display = 'none';
+      showPanel('form', null);
+    }
+
+    function editAdventure(id) {
+      const adventures = getAdventures();
+      const a = adventures.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('edit-id').value = a.id;
+      document.getElementById('f-name').value = a.name || '';
+      document.getElementById('f-guests').value = a.guests || '';
+      document.getElementById('f-date-start').value = a.dateStart || '';
+      document.getElementById('f-date-end').value = a.dateEnd || '';
+      document.getElementById('f-destinations').value = a.destinations || '';
+      document.getElementById('f-budget').value = a.budget || '';
+      document.getElementById('f-status').value = a.status || 'Interested';
+      document.getElementById('f-comments').value = a.comments || '';
+      document.getElementById('form-panel-title').textContent = 'Edit Adventure';
+      document.getElementById('form-card-title').textContent = a.name;
+      document.getElementById('save-feedback').style.display = 'none';
+      showPanel('form', null);
+    }
+
+    function saveAdventure() {
+      const name = document.getElementById('f-name').value.trim();
+      if (!name) { alert('Client name is required.'); return; }
+
+      const adventures = getAdventures();
+      const editId = document.getElementById('edit-id').value;
+
+      const record = {
+        id: editId || genId(),
+        name,
+        guests: document.getElementById('f-guests').value,
+        dateStart: document.getElementById('f-date-start').value,
+        dateEnd: document.getElementById('f-date-end').value,
+        destinations: document.getElementById('f-destinations').value,
+        budget: document.getElementById('f-budget').value,
+        status: document.getElementById('f-status').value,
+        comments: document.getElementById('f-comments').value,
+        updatedAt: new Date().toISOString()
+      };
+
+      if (editId) {
+        const idx = adventures.findIndex(a => a.id === editId);
+        if (idx !== -1) adventures[idx] = record; else adventures.push(record);
+      } else {
+        record.createdAt = new Date().toISOString();
+        adventures.unshift(record);
+      }
+
+      saveAdventures(adventures);
+      const fb = document.getElementById('save-feedback');
+      fb.style.display = 'inline';
+      setTimeout(() => { fb.style.display = 'none'; }, 3000);
+    }
+
+    // ── DELETE ──
+    function askDelete(id) {
+      const a = getAdventures().find(x => x.id === id);
+      if (!a) return;
+      deleteTargetId = id;
+      document.getElementById('delete-name').textContent = a.name;
+      document.getElementById('delete-modal').classList.add('open');
+    }
+    function closeDeleteModal() {
+      document.getElementById('delete-modal').classList.remove('open');
+      deleteTargetId = null;
+    }
+    function confirmDelete() {
+      if (!deleteTargetId) return;
+      const adventures = getAdventures().filter(a => a.id !== deleteTargetId);
+      saveAdventures(adventures);
+      closeDeleteModal();
+      refreshAll();
+    }
+
+    // ── RENDER TABLE ──
+    function resetFilter() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('filter-status').value = '';
+    }
+
+    function filterAndShow(status) {
+      showPanel('adventures', null);
+      document.getElementById('filter-status').value = status;
+      document.getElementById('search-input').value = '';
+      renderTable();
+    }
+
+    function renderTable(limit) {
+      const adventures = getAdventures();
+      const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+      const statusFilter = document.getElementById('filter-status')?.value || '';
+
+      let filtered = adventures.filter(a => {
+        const matchSearch = !search ||
+          (a.name || '').toLowerCase().includes(search) ||
+          (a.destinations || '').toLowerCase().includes(search);
+        const matchStatus = !statusFilter || a.status === statusFilter;
+        return matchSearch && matchStatus;
+      });
+
+      if (limit) filtered = filtered.slice(0, limit);
+
+      const target = limit ? 'dash-table' : 'main-table';
+      const el = document.getElementById(target);
+
+      if (!filtered.length) {
+        el.innerHTML = '<div class="empty-state">No adventures found — add your first one.</div>';
+        return;
+      }
+
+      const rows = filtered.map(a => `
+        <tr>
+          <td><strong>${esc(a.name)}</strong></td>
+          <td>${formatDates(a.dateStart, a.dateEnd)}</td>
+          <td>${esc(a.destinations) || '—'}</td>
+          <td>${a.budget ? '$' + Number(a.budget).toLocaleString() : '—'}</td>
+          <td>${a.guests || '—'}</td>
+          <td><span class="status-badge status-${a.status}">${a.status}</span></td>
+          <td>
+            <button class="table-action edit" onclick="editAdventure('${a.id}')">Edit</button>
+            <button class="table-action delete" onclick="askDelete('${a.id}')">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+
+      el.innerHTML = `
+        <table>
+          <thead><tr>
+            <th>Client</th><th>Dates</th><th>Destinations</th>
+            <th>Budget</th><th>Guests</th><th>Status</th><th></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    // ── DASHBOARD ──
+    function refreshDashboard() {
+      const adventures = getAdventures();
+      const totalGuests = adventures.reduce((s, a) => s + (parseInt(a.guests) || 0), 0);
+      const totalBudget = adventures.reduce((s, a) => s + (parseFloat(a.budget) || 0), 0);
+      const completed = adventures.filter(a => a.status === 'Completed').length;
+
+      document.getElementById('kpi-total').textContent = adventures.length;
+      document.getElementById('kpi-guests').textContent = totalGuests;
+      document.getElementById('kpi-budget').textContent =
+        totalBudget >= 1000 ? '$' + (totalBudget / 1000).toFixed(1) + 'k' : '$' + totalBudget;
+      document.getElementById('kpi-completed').textContent = completed;
+
+      renderTable(5);
+    }
+
+    function refreshAll() {
+      refreshDashboard();
+    }
+
+    // ── UTILS ──
+    function esc(str) {
+      if (!str) return '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function formatDates(s, e) {
+      if (!s) return '—';
+      const fmt = d => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
+      return e ? fmt(s) + ' – ' + fmt(e) : fmt(s);
+    }
+
+    // ── BOOT ──
+    document.getElementById('login-pw').focus();
+  </script>
+</body>
+</html>
