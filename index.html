@@ -220,7 +220,7 @@
 
     /* ── SERVICES ── */
     #services { padding: 120px 0; background: var(--off-white); }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; }
     .service-card {
       background: var(--white);
       padding: 48px 40px;
@@ -229,6 +229,31 @@
       position: relative; overflow: hidden;
     }
     .service-card:hover { border-color: var(--tan); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .dest-popup-wrap { position: relative; display: inline-block; margin-top: 20px; }
+    .dest-popup-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--navy);
+      background: var(--cream); border: 1px solid var(--cream-dark);
+      padding: 8px 16px; cursor: pointer; transition: background 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .dest-popup-btn:hover { background: var(--cream-dark); border-color: #C0A888; }
+    .dest-popup-btn::after { content: '▾'; font-size: 10px; }
+    .dest-popup {
+      display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+      background: var(--white); border: 1px solid var(--cream-dark);
+      border-bottom: 3px solid var(--tan); padding: 16px 20px;
+      min-width: 200px; z-index: 10;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    }
+    .dest-popup.open { display: block; }
+    .dest-popup p {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9A8A7A; margin-bottom: 10px;
+    }
+    .dest-popup ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .dest-popup ul li { font-size: 13px; color: var(--dark); }
     .service-card-photo {
       width: 100%; aspect-ratio: 3/2;
       background: var(--cream);
@@ -518,7 +543,7 @@
   <section id="services">
     <div class="section-inner">
       <p class="section-eyebrow">Our Experiences</p>
-      <h2 class="section-title">Three Ways to<br>Discover Africa</h2>
+      <h2 class="section-title">Four Ways to<br>Discover Africa</h2>
       <div class="services-grid">
 
         <!-- 01 Tailor Made -->
@@ -526,8 +551,8 @@
           <div class="service-card-photo">
             <img id="img-tailormade" src="ngorongoro.jpg" alt="Tailor Made Safari" style="display:block;" />
           </div>
-          <div class="service-number">01 — Tailor Made</div>
-          <h3 class="service-title">Tailor Made Safaris</h3>
+          <div class="service-number">01 — Wildlife</div>
+          <h3 class="service-title">Wildlife Safaris</h3>
           <p class="service-sub">Total Immersion · Exclusive · Flexible</p>
           <p class="service-body">
             Designed for travellers who want complete disconnection and are willing to invest in the extraordinary. Every detail — from the lodge to the private guide — is curated to match your vision of the perfect journey.
@@ -536,6 +561,16 @@
             <span class="service-tag">Private Guides</span>
             <span class="service-tag">Luxury Lodges</span>
             <span class="service-tag">Flexible Pace</span>
+          </div>
+          <div class="dest-popup-wrap">
+            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+            <div class="dest-popup">
+              <p>Available in</p>
+              <ul>
+                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
+                <li>Uganda</li><li>Mozambique</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -556,6 +591,16 @@
             <span class="service-tag">Mountain Summits</span>
             <span class="service-tag">Trail Running</span>
           </div>
+          <div class="dest-popup-wrap">
+            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+            <div class="dest-popup">
+              <p>Available in</p>
+              <ul>
+                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
+                <li>Uganda</li><li>Mozambique</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- 03 Agro-Tourism -->
@@ -574,6 +619,45 @@
             <span class="service-tag">Tea Estates</span>
             <span class="service-tag">Cooperatives</span>
             <span class="service-tag">Macadamia Farms</span>
+          </div>
+          <div class="dest-popup-wrap">
+            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+            <div class="dest-popup">
+              <p>Available in</p>
+              <ul>
+                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
+                <li>Uganda</li><li>Mozambique</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 Photography -->
+        <div class="service-card">
+          <div class="service-card-photo">
+            <img src="tworhinos.jpg" alt="Photography Safari" style="display:block;" />
+          </div>
+          <div class="service-number">04 — Photography</div>
+          <h3 class="service-title">Photography Safaris</h3>
+          <p class="service-sub">Wildlife · Nature · Portraits</p>
+          <p class="service-body">
+            A lens trained on Africa since the age of 12. With an eye for detail and a passion for wildlife, nature and human stories, I pair clients with guides who have worked alongside professional photographers — ensuring you are always in the right place at the right light.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">Wildlife</span>
+            <span class="service-tag">Nature</span>
+            <span class="service-tag">Portraits</span>
+            <span class="service-tag">Expert Guides</span>
+          </div>
+          <div class="dest-popup-wrap">
+            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+            <div class="dest-popup">
+              <p>Available in</p>
+              <ul>
+                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
+                <li>Uganda</li><li>Mozambique</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -853,6 +937,19 @@
       document.getElementById('form-success').style.display = 'block';
       e.target.reset();
     }
+
+    // ── DESTINATIONS POPUP ──
+    function togglePopup(btn) {
+      const popup = btn.nextElementSibling;
+      const isOpen = popup.classList.contains('open');
+      document.querySelectorAll('.dest-popup.open').forEach(p => p.classList.remove('open'));
+      if (!isOpen) popup.classList.add('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dest-popup-wrap')) {
+        document.querySelectorAll('.dest-popup.open').forEach(p => p.classList.remove('open'));
+      }
+    });
 
     // ── INIT ──
     renderDashboard();
