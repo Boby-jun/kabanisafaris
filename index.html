@@ -454,9 +454,44 @@
     .footer-admin a:hover { color: var(--tan-light); }
 
     /* ── RESPONSIVE ── */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: rgba(26,51,68,0.98); backdrop-filter: blur(8px);
+      flex-direction: column; padding: 24px 24px 32px; gap: 0; z-index: 99;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+      text-decoration: none; padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .mobile-cta {
+      margin-top: 20px; text-align: center;
+      background: var(--tan); color: var(--white);
+      padding: 14px; border: none; border-bottom: none;
+    }
+    .mobile-menu .mobile-cta:hover { background: var(--tan-light); }
+
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
+      .hamburger { display: flex; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars, .services-grid { grid-template-columns: 1fr; }
@@ -477,10 +512,22 @@
       <a href="#about">About</a>
       <a href="#services">Experiences</a>
       <a href="#coffee">Coffee</a>
-<a href="#destinations">Destinations</a>
+      <a href="#destinations">Destinations</a>
       <a href="#contact" class="nav-cta">Plan Your Journey</a>
     </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#services" onclick="closeMenu()">Experiences</a>
+    <a href="#coffee" onclick="closeMenu()">Coffee</a>
+    <a href="#destinations" onclick="closeMenu()">Destinations</a>
+    <a href="#contact" class="mobile-cta" onclick="closeMenu()">Plan Your Journey</a>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -819,7 +866,7 @@
             <label>Experience Type</label>
             <select>
               <option value="">Select an experience…</option>
-              <option>Tailor Made Safari</option>
+              <option>Wildlife Safari</option>
               <option>Adventure Safari</option>
               <option>Agro-Tourism Safari</option>
               <option>Not sure yet</option>
@@ -936,6 +983,18 @@
       e.preventDefault();
       document.getElementById('form-success').style.display = 'block';
       e.target.reset();
+    }
+
+    // ── MOBILE MENU ──
+    function toggleMenu() {
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobile-menu');
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('mobile-menu').classList.remove('open');
     }
 
     // ── DESTINATIONS POPUP ──
