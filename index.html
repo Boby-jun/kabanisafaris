@@ -383,33 +383,6 @@
       color: #7A6A5A;
     }
 
-    /* ── ESIM ── */
-    #esim { padding: 100px 0; background: var(--off-white); }
-    #esim .section-eyebrow { color: var(--tan); }
-    #esim .section-eyebrow::before { background: var(--tan); }
-    #esim .section-title { color: var(--navy-dark); }
-    .esim-intro { max-width: 620px; margin: 0 auto 60px; text-align: center; color: #5A4A3A; font-size: 1.08rem; line-height: 1.8; }
-    .esim-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 56px; }
-    .esim-card { background: var(--white); border-radius: 12px; padding: 36px 28px; text-align: center; box-shadow: 0 2px 16px rgba(44,80,100,0.07); }
-    .esim-card-icon { font-size: 2rem; margin-bottom: 14px; }
-    .esim-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy-dark); margin-bottom: 10px; }
-    .esim-card p { font-size: 0.92rem; color: #7A6A5A; line-height: 1.7; }
-    .esim-steps { background: var(--cream); border-radius: 16px; padding: 48px 40px; margin-bottom: 56px; }
-    .esim-steps-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy-dark); text-align: center; margin-bottom: 32px; letter-spacing: 0.02em; }
-    .esim-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .esim-step { text-align: center; }
-    .esim-step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--tan); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-    .esim-step h5 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy-dark); margin-bottom: 8px; }
-    .esim-step p { font-size: 0.88rem; color: #7A6A5A; line-height: 1.6; }
-    .esim-cta-wrap { text-align: center; }
-    .esim-cta-wrap p { color: #7A6A5A; font-size: 0.92rem; margin-top: 14px; }
-    .btn-esim { display: inline-block; background: var(--tan); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 40px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
-    .btn-esim:hover { background: var(--tan-light); }
-    @media (max-width: 768px) {
-      .esim-cards, .esim-steps-grid { grid-template-columns: 1fr; }
-      .esim-steps { padding: 36px 24px; }
-    }
-
     /* ── CONTACT ── */
     #contact { padding: 120px 0; background: var(--navy-dark); }
     #contact .section-eyebrow { color: var(--tan-light); }
@@ -540,7 +513,6 @@
       <a href="#services">Experiences</a>
       <a href="#coffee">Coffee</a>
       <a href="#destinations">Destinations</a>
-      <a href="#esim">Travel eSIM</a>
       <a href="#contact" class="nav-cta">Plan Your Journey</a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -554,7 +526,6 @@
     <a href="#services" onclick="closeMenu()">Experiences</a>
     <a href="#coffee" onclick="closeMenu()">Coffee</a>
     <a href="#destinations" onclick="closeMenu()">Destinations</a>
-    <a href="#esim" onclick="closeMenu()">Travel eSIM</a>
     <a href="#contact" class="mobile-cta" onclick="closeMenu()">Plan Your Journey</a>
   </div>
 
@@ -836,61 +807,6 @@
             <span class="dest-tag">Lake Side</span>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRAVEL ESIM -->
-  <section id="esim">
-    <div class="section-inner">
-      <p class="section-eyebrow">Stay Connected</p>
-      <h2 class="section-title">Travel eSIM</h2>
-      <p class="esim-intro">
-        No roaming surprises. No SIM card hunting at the airport. Through our partner <strong>peydsim</strong>, you can get mobile data for 190+ countries — activated in minutes via QR code, directly on your phone.
-      </p>
-
-      <div class="esim-cards">
-        <div class="esim-card">
-          <div class="esim-card-icon">🌍</div>
-          <h4>190+ Countries</h4>
-          <p>Coverage across Africa, Europe, the Americas and Asia — wherever your journey takes you.</p>
-        </div>
-        <div class="esim-card">
-          <div class="esim-card-icon">⚡</div>
-          <h4>Activated in Minutes</h4>
-          <p>Receive your QR code instantly after payment. Scan and connect before you even board.</p>
-        </div>
-        <div class="esim-card">
-          <div class="esim-card-icon">💳</div>
-          <h4>No Hidden Fees</h4>
-          <p>Flexible data plans from 1 GB to 20 GB. Pay only for what you need, with secure Stripe payment.</p>
-        </div>
-      </div>
-
-      <div class="esim-steps">
-        <p class="esim-steps-title">How It Works</p>
-        <div class="esim-steps-grid">
-          <div class="esim-step">
-            <div class="esim-step-num">1</div>
-            <h5>Choose Your Destination</h5>
-            <p>Pick your country and the data plan that fits your trip length.</p>
-          </div>
-          <div class="esim-step">
-            <div class="esim-step-num">2</div>
-            <h5>Pay Securely</h5>
-            <p>Encrypted checkout via Stripe — fast, safe, and straightforward.</p>
-          </div>
-          <div class="esim-step">
-            <div class="esim-step-num">3</div>
-            <h5>Scan &amp; Go</h5>
-            <p>Install your eSIM by scanning the QR code. You're online in minutes.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="esim-cta-wrap">
-        <a href="https://peydsim.com/rafa" target="_blank" rel="noopener" class="btn-esim">Get Your Travel eSIM</a>
-        <p>Powered by peydsim · Available on iPhone &amp; Android · No physical SIM required</p>
       </div>
     </div>
   </section>
