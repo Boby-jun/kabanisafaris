@@ -365,6 +365,10 @@
     /* ── DESTINATIONS ── */
     #destinations { padding: 120px 0; background: var(--off-white); }
     .dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+    .dest-section-label { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan); margin-top: 48px; margin-bottom: 0; }
+    .dest-section-label.coming { color: #9A8A7A; margin-top: 40px; }
+    .dest-card.soon { opacity: 0.5; pointer-events: none; }
+    .dest-card.soon .dest-flag { filter: grayscale(1); }
     .dest-card {
       background: var(--white); padding: 36px 28px;
       border-top: 3px solid transparent;
@@ -740,6 +744,8 @@
     <div class="section-inner">
       <p class="section-eyebrow">Where We Operate</p>
       <h2 class="section-title">Our Expertise</h2>
+
+      <p class="dest-section-label">Our Expertise</p>
       <div class="dest-grid">
         <div class="dest-card">
           <div class="dest-flag">🇰🇪</div>
@@ -761,27 +767,8 @@
           </div>
         </div>
         <div class="dest-card">
-          <div class="dest-flag">🇿🇦</div>
-          <div class="dest-name">South Africa</div>
-          <div class="dest-tags">
-            <span class="dest-tag">Wildlife</span>
-            <span class="dest-tag">Surf</span>
-            <span class="dest-tag">Vineyards</span>
-          </div>
-        </div>
-        <div class="dest-card">
           <div class="dest-flag">🇺🇬</div>
           <div class="dest-name">Uganda</div>
-          <div class="dest-tags">
-            <span class="dest-tag">Wildlife</span>
-            <span class="dest-tag">Gorillas</span>
-            <span class="dest-tag">Coffee</span>
-            <span class="dest-tag">Lakes</span>
-          </div>
-        </div>
-        <div class="dest-card">
-          <div class="dest-flag">🇷🇼</div>
-          <div class="dest-name">Rwanda</div>
           <div class="dest-tags">
             <span class="dest-tag">Wildlife</span>
             <span class="dest-tag">Gorillas</span>
@@ -797,6 +784,16 @@
             <span class="dest-tag">Surf</span>
             <span class="dest-tag">Beach</span>
             <span class="dest-tag">Islands</span>
+          </div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-flag">🇷🇼</div>
+          <div class="dest-name">Rwanda</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Gorillas</span>
+            <span class="dest-tag">Coffee</span>
+            <span class="dest-tag">Lakes</span>
           </div>
         </div>
         <div class="dest-card">
@@ -816,13 +813,26 @@
             <span class="dest-tag">Dunes</span>
           </div>
         </div>
-        <div class="dest-card">
+      </div>
+
+      <p class="dest-section-label coming">Coming Soon</p>
+      <div class="dest-grid">
+        <div class="dest-card soon">
           <div class="dest-flag">🇧🇼</div>
           <div class="dest-name">Botswana</div>
           <div class="dest-tags">
             <span class="dest-tag">Wildlife</span>
             <span class="dest-tag">Delta</span>
             <span class="dest-tag">Safari</span>
+          </div>
+        </div>
+        <div class="dest-card soon">
+          <div class="dest-flag">🇿🇦</div>
+          <div class="dest-name">South Africa</div>
+          <div class="dest-tags">
+            <span class="dest-tag">Wildlife</span>
+            <span class="dest-tag">Surf</span>
+            <span class="dest-tag">Vineyards</span>
           </div>
         </div>
       </div>
