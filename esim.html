@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel eSIM — Kabani Safaris</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #2C5064;
+      --navy-dark: #1A3344;
+      --tan:       #A26730;
+      --tan-light: #C4915A;
+      --off-white: #FAF7F2;
+      --cream:     #EEE4D4;
+      --white:     #FFFFFF;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--navy-dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+    .back-link:hover { color: var(--tan-light); }
+
+    /* ── HERO WRAPPER ── */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* subtle background texture */
+    .page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(162,103,48,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(44,80,100,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tan-light);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--tan-light);
+      opacity: 0.6;
+    }
+
+    /* ── LOGO ── */
+    .logo-wrap {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 48px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.3);
+    }
+    .logo-wrap img, .logo-wrap svg {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── TAGLINE ── */
+    .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--off-white);
+      max-width: 640px;
+      margin-bottom: 16px;
+    }
+    .tagline span { color: var(--tan-light); font-style: normal; }
+
+    .sub {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      margin-bottom: 56px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, rgba(162,103,48,0.5), transparent);
+      margin: 0 auto 48px;
+    }
+
+    /* ── QR BLOCK ── */
+    .qr-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .qr-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .qr-frame {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 12px 56px rgba(0,0,0,0.35);
+      position: relative;
+    }
+    .qr-frame img {
+      width: 200px;
+      height: 200px;
+      display: block;
+      border-radius: 4px;
+    }
+    .qr-caption {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* ── CTA BUTTON ── */
+    .cta-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 38px;
+      background: var(--tan);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover { background: var(--tan-light); transform: translateY(-1px); }
+
+    /* ── FOOTER NOTE ── */
+    .footer-note {
+      margin-top: 48px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+    }
+    .footer-note a { color: rgba(255,255,255,0.3); text-decoration: none; }
+    .footer-note a:hover { color: var(--tan-light); }
+
+    @media (max-width: 480px) {
+      .logo-wrap { padding: 20px 28px; }
+      .logo-wrap img { height: 42px; }
+      .qr-frame img { width: 170px; height: 170px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="back-link" href="index.html">← Kabani Safaris</a>
+
+  <div class="page">
+    <p class="eyebrow">Partner Recommendation</p>
+
+    <div class="logo-wrap">
+      <img src="peydsim-logo.svg" alt="peydsim" />
+    </div>
+
+    <h1 class="tagline">
+      I use <span>peydsim</span> for your<br>next travel eSIM.
+    </h1>
+    <p class="sub">Stay connected across 190+ countries — no roaming, no SIM card, activated in minutes.</p>
+
+    <div class="divider"></div>
+
+    <div class="qr-block">
+      <p class="qr-label">Scan to get yours</p>
+      <div class="qr-frame">
+        <img src="peydsim-qr.jpg" alt="peydsim QR code" />
+      </div>
+      <p class="qr-caption">Or tap below</p>
+    </div>
+
+    <a href="https://peydsim.com/rafa" target="_blank" rel="noopener" class="cta-btn">Get Your Travel eSIM</a>
+
+    <p class="footer-note">
+      Powered by <a href="https://peydsim.com/en" target="_blank" rel="noopener">peydsim</a>
+      &nbsp;·&nbsp; Recommended by Kabani Safaris
+    </p>
+  </div>
+
+</body>
+</html>
