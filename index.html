@@ -387,6 +387,25 @@
       color: #7A6A5A;
     }
 
+    /* ── ESIM ── */
+    #esim { padding: 100px 0; background: var(--navy-dark); text-align: center; }
+    #esim .section-eyebrow { color: var(--tan-light); }
+    #esim .section-eyebrow::before { background: var(--tan-light); }
+    #esim .section-title { color: var(--white); margin-bottom: 48px; }
+    .esim-inner { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .esim-logo-wrap { background: var(--white); border-radius: 14px; padding: 24px 36px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 40px rgba(0,0,0,0.3); margin-bottom: 40px; }
+    .esim-logo-wrap img { height: 52px; width: auto; display: block; }
+    .esim-tagline { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2.2rem); font-style: italic; color: var(--off-white); line-height: 1.4; max-width: 560px; margin: 0 auto 12px; }
+    .esim-tagline span { color: var(--tan-light); font-style: normal; }
+    .esim-sub { font-size: 0.88rem; color: rgba(255,255,255,0.4); letter-spacing: 0.04em; margin-bottom: 48px; }
+    .esim-divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, rgba(196,145,90,0.5), transparent); margin: 0 auto 40px; }
+    .esim-qr-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+    .esim-qr-frame { background: var(--white); border-radius: 18px; padding: 18px; display: inline-block; box-shadow: 0 12px 48px rgba(0,0,0,0.35); margin-bottom: 32px; }
+    .esim-qr-frame img { width: 180px; height: 180px; display: block; border-radius: 4px; }
+    .btn-esim { display: inline-block; background: var(--tan); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 38px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .btn-esim:hover { background: var(--tan-light); }
+    .esim-footnote { margin-top: 20px; font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+
     /* ── CONTACT ── */
     #contact { padding: 120px 0; background: var(--navy-dark); }
     #contact .section-eyebrow { color: var(--tan-light); }
@@ -517,6 +536,7 @@
       <a href="#services">Experiences</a>
       <a href="#coffee">Coffee</a>
       <a href="#destinations">Destinations</a>
+      <a href="#esim">Travel eSIM</a>
       <a href="#contact" class="nav-cta">Plan Your Journey</a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -530,6 +550,7 @@
     <a href="#services" onclick="closeMenu()">Experiences</a>
     <a href="#coffee" onclick="closeMenu()">Coffee</a>
     <a href="#destinations" onclick="closeMenu()">Destinations</a>
+    <a href="#esim" onclick="closeMenu()">Travel eSIM</a>
     <a href="#contact" class="mobile-cta" onclick="closeMenu()">Plan Your Journey</a>
   </div>
 
@@ -835,6 +856,28 @@
             <span class="dest-tag">Vineyards</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVEL ESIM -->
+  <section id="esim">
+    <div class="section-inner">
+      <p class="section-eyebrow">Partner Recommendation</p>
+      <h2 class="section-title">Travel eSIM</h2>
+      <div class="esim-inner">
+        <div class="esim-logo-wrap">
+          <img src="peydsim-logo.svg" alt="peydsim" />
+        </div>
+        <p class="esim-tagline">I use <span>peydsim</span> for your next travel eSIM.</p>
+        <p class="esim-sub">Stay connected across 190+ countries — no roaming, no SIM card, activated in minutes.</p>
+        <div class="esim-divider"></div>
+        <p class="esim-qr-label">Scan to get yours</p>
+        <div class="esim-qr-frame">
+          <img src="peydsim-qr.jpg" alt="peydsim QR code" />
+        </div>
+        <a href="https://peydsim.com/rafa" target="_blank" rel="noopener" class="btn-esim">Get Your Travel eSIM</a>
+        <p class="esim-footnote">Powered by peydsim &nbsp;·&nbsp; Recommended by Kabani Safaris</p>
       </div>
     </div>
   </section>
