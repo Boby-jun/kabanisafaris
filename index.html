@@ -928,7 +928,7 @@
             </div>
           </div>
         </div>
-        <form class="contact-form" action="https://formspree.io/f/xaewjgdg" method="POST">
+        <form class="contact-form" id="contact-form">
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
@@ -1060,6 +1060,28 @@
     }
 
     // ── CONTACT FORM ──
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const res = await fetch('https://formspree.io/f/xaewjgdg', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          document.getElementById('form-success').style.display = 'block';
+          setTimeout(() => document.getElementById('form-success').style.display = 'none', 5000);
+        } else {
+          alert('Something went wrong. Please email us directly at reservations@kabanisafaris.com');
+        }
+      } catch {
+        alert('Something went wrong. Please email us directly at reservations@kabanisafaris.com');
+      }
+    });
+
     // ── MOBILE MENU ──
     function toggleMenu() {
       const btn = document.getElementById('hamburger');
