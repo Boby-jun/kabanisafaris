@@ -928,7 +928,7 @@
             </div>
           </div>
         </div>
-        <form class="contact-form" onsubmit="handleContactForm(event)">
+        <form class="contact-form" action="https://formspree.io/f/xaewjgdg" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
@@ -1060,12 +1060,6 @@
     }
 
     // ── CONTACT FORM ──
-    function handleContactForm(e) {
-      e.preventDefault();
-      document.getElementById('form-success').style.display = 'block';
-      e.target.reset();
-    }
-
     // ── MOBILE MENU ──
     function toggleMenu() {
       const btn = document.getElementById('hamburger');
