@@ -928,24 +928,30 @@
             </div>
           </div>
         </div>
+        <div data-fs-success style="display:none; font-size:13px; color:var(--tan-light); padding:12px 0;">
+          Thank you — I'll be in touch within 24 hours.
+        </div>
+        <div data-fs-error style="display:none; font-size:13px; color:#e07070; padding:8px 0;"></div>
+
         <form class="contact-form" id="contact-form">
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" name="first_name" placeholder="Marie" required />
+              <input type="text" name="first_name" placeholder="Marie" data-fs-field required />
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" name="last_name" placeholder="Dupont" required />
+              <input type="text" name="last_name" placeholder="Dupont" data-fs-field required />
             </div>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" name="email" placeholder="marie@example.com" required />
+            <input type="email" name="email" placeholder="marie@example.com" data-fs-field required />
+            <span data-fs-error="email" style="font-size:12px; color:#e07070;"></span>
           </div>
           <div class="form-group">
             <label>Experience Type</label>
-            <select name="experience_type">
+            <select name="experience_type" data-fs-field>
               <option value="">Select an experience…</option>
               <option>Wildlife Safari</option>
               <option>Adventure Safari</option>
@@ -955,13 +961,17 @@
           </div>
           <div class="form-group">
             <label>Tell me about your dream journey</label>
-            <textarea name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
+            <textarea name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…" data-fs-field></textarea>
+            <span data-fs-error="message" style="font-size:12px; color:#e07070;"></span>
           </div>
-          <button type="submit" class="form-submit">Send Message</button>
-          <div id="form-success" style="display:none; font-size:13px; color:var(--tan-light); padding-top:8px;">
-            Thank you — I'll be in touch within 24 hours.
-          </div>
+          <button type="submit" class="form-submit" data-fs-submit-btn>Send Message</button>
         </form>
+
+        <script>
+          window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+          formspree('initForm', { formElement: '#contact-form', formId: 'xaewjgdg' });
+        </script>
+        <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
       </div>
     </div>
   </section>
@@ -1058,29 +1068,6 @@
         }
       });
     }
-
-    // ── CONTACT FORM ──
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      try {
-        const res = await fetch('https://formspree.io/f/xaewjgdg', {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          document.getElementById('form-success').style.display = 'block';
-          setTimeout(() => document.getElementById('form-success').style.display = 'none', 5000);
-        } else {
-          alert('Something went wrong. Please email us directly at reservations@kabanisafaris.com');
-        }
-      } catch {
-        alert('Something went wrong. Please email us directly at reservations@kabanisafaris.com');
-      }
-    });
 
     // ── MOBILE MENU ──
     function toggleMenu() {
