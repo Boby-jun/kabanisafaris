@@ -932,20 +932,20 @@
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" placeholder="Marie" required />
+              <input type="text" name="first_name" placeholder="Marie" required />
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" placeholder="Dupont" required />
+              <input type="text" name="last_name" placeholder="Dupont" required />
             </div>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" placeholder="marie@example.com" required />
+            <input type="email" name="email" placeholder="marie@example.com" required />
           </div>
           <div class="form-group">
             <label>Experience Type</label>
-            <select>
+            <select name="experience_type">
               <option value="">Select an experience…</option>
               <option>Wildlife Safari</option>
               <option>Adventure Safari</option>
@@ -955,7 +955,7 @@
           </div>
           <div class="form-group">
             <label>Tell me about your dream journey</label>
-            <textarea placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
+            <textarea name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
           </div>
           <button type="submit" class="form-submit">Send Message</button>
           <div id="form-success" style="display:none; font-size:13px; color:var(--tan-light); padding-top:8px;">
