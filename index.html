@@ -412,6 +412,17 @@
       .esim-divider-v { width: 40px; height: 1px; background: linear-gradient(to right, transparent, rgba(196,145,90,0.4), transparent); }
     }
 
+    /* ── SUCCESS POPUP ── */
+    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; }
+    .success-overlay.visible { display: flex; }
+    .success-box { background: var(--off-white); border-radius: 16px; padding: 48px 40px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 24px 80px rgba(0,0,0,0.35); animation: popIn 0.3s ease; }
+    @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .success-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy-dark); margin-bottom: 10px; }
+    .success-box p { font-size: 0.9rem; color: #7A6A5A; line-height: 1.7; margin-bottom: 24px; }
+    .success-close { background: var(--tan); color: var(--white); border: none; border-radius: 4px; padding: 12px 32px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+    .success-close:hover { background: var(--tan-light); }
+
     /* ── CONTACT ── */
     #contact { padding: 120px 0; background: var(--navy-dark); }
     #contact .section-eyebrow { color: var(--tan-light); }
@@ -928,9 +939,7 @@
             </div>
           </div>
         </div>
-        <div data-fs-success style="display:none; font-size:13px; color:var(--tan-light); padding:12px 0;">
-          Application submitted — I'll be in touch within 24 hours.
-        </div>
+        <div data-fs-success style="display:none;"></div>
         <div data-fs-error style="display:none; font-size:13px; color:#e07070; padding:8px 0;"></div>
 
         <form class="contact-form" id="contact-form">
@@ -975,6 +984,16 @@
       </div>
     </div>
   </section>
+
+  <!-- SUCCESS POPUP -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-box">
+      <div class="success-icon">✦</div>
+      <h3>Application Submitted</h3>
+      <p>Thank you for reaching out. I'll review your request and be in touch within 24 hours.</p>
+      <button class="success-close" onclick="document.getElementById('success-overlay').classList.remove('visible')">Close</button>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -1068,6 +1087,24 @@
         }
       });
     }
+
+    // ── CONTACT FORM POPUP ──
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const res = await fetch('https://formspree.io/f/xaewjgdg', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          document.getElementById('success-overlay').classList.add('visible');
+        }
+      } catch {}
+    });
 
     // ── MOBILE MENU ──
     function toggleMenu() {
