@@ -295,6 +295,92 @@
       background: var(--cream); color: var(--tan);
     }
 
+    /* ── VIEW PHOTOS BUTTON ── */
+    .view-photos-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px; padding: 10px 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--navy); border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .view-photos-btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
+    .view-photos-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── GALLERY LIGHTBOX ── */
+    .gallery-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(10,18,24,0.97);
+      flex-direction: column; align-items: center; justify-content: center;
+    }
+    .gallery-overlay.open { display: flex; }
+    .gallery-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 28px;
+    }
+    .gallery-title {
+      font-family: 'Montserrat', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .gallery-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.5); font-size: 24px; line-height: 1;
+      transition: color 0.2s;
+    }
+    .gallery-close:hover { color: var(--white); }
+    .gallery-main {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; max-width: 960px;
+      padding: 80px 64px 20px;
+      gap: 0;
+      flex: 1;
+    }
+    .gallery-arrow {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.3); font-size: 32px;
+      padding: 16px; transition: color 0.2s; flex-shrink: 0;
+    }
+    .gallery-arrow:hover { color: var(--white); }
+    .gallery-img-wrap {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      max-height: 60vh;
+    }
+    .gallery-img-wrap img {
+      max-width: 100%; max-height: 60vh;
+      object-fit: contain;
+      border-radius: 2px;
+    }
+    .gallery-caption {
+      text-align: center; padding: 20px 28px 28px;
+    }
+    .gallery-caption-text {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+      font-style: italic; color: rgba(255,255,255,0.7);
+      margin-bottom: 6px;
+    }
+    .gallery-counter {
+      font-family: 'Montserrat', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .gallery-thumbs {
+      display: flex; gap: 6px; padding: 12px 28px 28px;
+      overflow-x: auto; max-width: 960px; width: 100%;
+      scrollbar-width: none;
+    }
+    .gallery-thumbs::-webkit-scrollbar { display: none; }
+    .gallery-thumb {
+      width: 56px; height: 40px; flex-shrink: 0;
+      object-fit: cover; cursor: pointer; opacity: 0.4;
+      border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s;
+      border-radius: 1px;
+    }
+    .gallery-thumb.active { opacity: 1; border-color: var(--tan); }
+    .gallery-thumb:hover { opacity: 0.8; }
+
     /* ── COFFEE FOCUS ── */
     #coffee {
       padding: 120px 0;
@@ -632,71 +718,50 @@
   <section id="services">
     <div class="section-inner">
       <p class="section-eyebrow">Our Experiences</p>
-      <h2 class="section-title">Four Ways to<br>Discover Africa</h2>
+      <h2 class="section-title">Three Ways to<br>Discover Africa</h2>
       <div class="services-grid">
 
-        <!-- 01 Tailor Made -->
+        <!-- 01 Wildlife & Photography -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img id="img-tailormade" src="ngorongoro.jpg" alt="Tailor Made Safari" style="display:block;" />
+            <img src="gallery-wildlife-zebras.jpg" alt="Wildlife and Photography Safari" style="display:block;" />
           </div>
-          <div class="service-number">01 — Wildlife</div>
-          <h3 class="service-title">Wildlife Safaris</h3>
-          <p class="service-sub">Total Immersion · Exclusive · Flexible</p>
+          <div class="service-number">01 — Wildlife &amp; Photography</div>
+          <h3 class="service-title">Wildlife &amp; Photography Safaris</h3>
+          <p class="service-sub">Immersion · Wilderness · Light</p>
           <p class="service-body">
-            Designed for travellers who want complete disconnection and are willing to invest in the extraordinary. Every detail — from the lodge to the private guide — is curated to match your vision of the perfect journey.
+            Designed for travellers who want complete disconnection and are willing to invest in the extraordinary. For those with a camera or simply a discerning eye — every destination, every guide, every hour of light is curated so that Africa reveals itself at its most honest.
           </p>
           <div class="service-tags">
             <span class="service-tag">Private Guides</span>
-            <span class="service-tag">Luxury Lodges</span>
+            <span class="service-tag">Expert Photographers</span>
+            <span class="service-tag">Golden Hour</span>
             <span class="service-tag">Flexible Pace</span>
           </div>
-          <div class="dest-popup-wrap">
-            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
-            <div class="dest-popup">
-              <p>Available in</p>
-              <ul>
-                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
-                <li>Uganda</li><li>Mozambique</li>
-              </ul>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
+            <div class="dest-popup-wrap" style="margin-top:0;">
+              <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+              <div class="dest-popup">
+                <p>Available in</p>
+                <ul>
+                  <li>Kenya</li><li>Tanzania</li><li>Uganda</li>
+                  <li>Rwanda</li><li>Mozambique</li>
+                </ul>
+              </div>
             </div>
+            <button class="view-photos-btn" onclick="openGallery('wildlife')">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              View Photos
+            </button>
           </div>
         </div>
 
-        <!-- 02 Adventure -->
-        <div class="service-card">
-          <div class="service-card-photo">
-            <img id="img-adventure" src="adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
-          </div>
-          <div class="service-number">02 — Adventure</div>
-          <h3 class="service-title">Adventure Safaris</h3>
-          <p class="service-sub">Camping · Trekking · Sports</p>
-          <p class="service-body">
-            For those who seek connection with nature through physical effort and willingly trade comfort for wilderness. Expect tented camps, summit attempts, trail runs through savannah, and early mornings that make everything worth it.
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">Trekking</span>
-            <span class="service-tag">Wild Camping</span>
-            <span class="service-tag">Mountain Summits</span>
-            <span class="service-tag">Trail Running</span>
-          </div>
-          <div class="dest-popup-wrap">
-            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
-            <div class="dest-popup">
-              <p>Available in</p>
-              <ul>
-                <li>Kenya</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- 03 Agro-Tourism -->
+        <!-- 02 Agro-Tourism -->
         <div class="service-card">
           <div class="service-card-photo">
             <img id="img-agro" src="agro-tourism-safaris.jpg" alt="Agro Tourism Safari" style="display:block;" />
           </div>
-          <div class="service-number">03 — Agro-Tourism</div>
+          <div class="service-number">02 — Agro-Tourism</div>
           <h3 class="service-title">Agro-Tourism Safaris</h3>
           <p class="service-sub">Coffee · Tea · Macadamia</p>
           <p class="service-body">
@@ -708,49 +773,81 @@
             <span class="service-tag">Cooperatives</span>
             <span class="service-tag">Macadamia Farms</span>
           </div>
-          <div class="dest-popup-wrap">
-            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
-            <div class="dest-popup">
-              <p>Available in</p>
-              <ul>
-                <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
-                <li>Burundi</li><li>Uganda</li>
-              </ul>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
+            <div class="dest-popup-wrap" style="margin-top:0;">
+              <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+              <div class="dest-popup">
+                <p>Available in</p>
+                <ul>
+                  <li>Kenya</li><li>Tanzania</li><li>Rwanda</li>
+                  <li>Burundi</li><li>Uganda</li>
+                </ul>
+              </div>
             </div>
+            <button class="view-photos-btn" onclick="openGallery('agro')">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              View Photos
+            </button>
           </div>
         </div>
 
-        <!-- 04 Photography -->
+        <!-- 03 Adventure -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img src="tworhinos.jpg" alt="Photography Safari" style="display:block;" />
+            <img id="img-adventure" src="adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
           </div>
-          <div class="service-number">04 — Photography</div>
-          <h3 class="service-title">Photography Safaris</h3>
-          <p class="service-sub">Wildlife · Nature · Portraits</p>
+          <div class="service-number">03 — Adventure</div>
+          <h3 class="service-title">Adventure Safaris</h3>
+          <p class="service-sub">Camping · Trekking · Sports</p>
           <p class="service-body">
-            A lens trained on Africa since the age of 12. With an eye for detail and a passion for wildlife, nature and human stories, I pair clients with guides who have worked alongside professional photographers — ensuring you are always in the right place at the right light.
+            For those who seek connection with nature through physical effort and willingly trade comfort for wilderness. Expect tented camps, summit attempts, trail runs through savannah, and early mornings that make everything worth it.
           </p>
           <div class="service-tags">
-            <span class="service-tag">Wildlife</span>
-            <span class="service-tag">Nature</span>
-            <span class="service-tag">Portraits</span>
-            <span class="service-tag">Expert Guides</span>
+            <span class="service-tag">Trekking</span>
+            <span class="service-tag">Wild Camping</span>
+            <span class="service-tag">Mountain Summits</span>
+            <span class="service-tag">Trail Running</span>
           </div>
-          <div class="dest-popup-wrap">
-            <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
-            <div class="dest-popup">
-              <p>Available in</p>
-              <ul>
-                <li>Kenya</li><li>Tanzania</li><li>Uganda</li>
-              </ul>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
+            <div class="dest-popup-wrap" style="margin-top:0;">
+              <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
+              <div class="dest-popup">
+                <p>Available in</p>
+                <ul>
+                  <li>Kenya</li>
+                </ul>
+              </div>
             </div>
+            <button class="view-photos-btn" onclick="openGallery('adventure')">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              View Photos
+            </button>
           </div>
         </div>
 
       </div>
     </div>
   </section>
+
+  <!-- GALLERY LIGHTBOX -->
+  <div class="gallery-overlay" id="gallery-overlay" onclick="handleOverlayClick(event)">
+    <div class="gallery-header">
+      <span class="gallery-title" id="gallery-title-label"></span>
+      <button class="gallery-close" onclick="closeGallery()">&#215;</button>
+    </div>
+    <div class="gallery-main">
+      <button class="gallery-arrow" onclick="galleryPrev()">&#8592;</button>
+      <div class="gallery-img-wrap">
+        <img id="gallery-img" src="" alt="" />
+      </div>
+      <button class="gallery-arrow" onclick="galleryNext()">&#8594;</button>
+    </div>
+    <div class="gallery-caption">
+      <p class="gallery-caption-text" id="gallery-caption"></p>
+      <p class="gallery-counter" id="gallery-counter"></p>
+    </div>
+    <div class="gallery-thumbs" id="gallery-thumbs"></div>
+  </div>
 
   <!-- COFFEE FOCUS -->
   <section id="coffee">
@@ -1141,6 +1238,103 @@
     // ── INIT ──
     renderDashboard();
     window.addEventListener('storage', renderDashboard);
+
+  </script>
+  <script>
+    // ── GALLERY ──
+    const GALLERIES = {
+      wildlife: {
+        label: 'Wildlife & Photography Safaris',
+        photos: [
+          { src: 'gallery-wildlife-zebras.jpg',         caption: 'Zebra herd on the move, Serengeti, Tanzania' },
+          { src: 'gallery-wildlife-elephants.jpg',      caption: 'A herd crossing the Serengeti plains, Tanzania' },
+          { src: 'gallery-wildlife-giraffes.jpg',       caption: 'Masai giraffes grazing at golden hour, Kenya' },
+          { src: 'gallery-wildlife-gorilla-female.jpg', caption: 'Female mountain gorilla in the forest undergrowth, Uganda' },
+          { src: 'gallery-wildlife-lioness.jpg',        caption: 'Two lionesses resting on a kopje, Tanzania' },
+          { src: 'gallery-wildlife-lion-roar.jpg',      caption: 'Male lion at midday, Serengeti' },
+          { src: 'gallery-wildlife-lion-stare.jpg',     caption: 'Close encounter — a lion looks skyward, East Africa' },
+          { src: 'gallery-photo-calm-storm.jpg',        caption: 'Calm before the storm — Serengeti at dusk' },
+          { src: 'gallery-photo-serengeti-sunrise.jpg', caption: 'First light over the Serengeti plains, Tanzania' },
+          { src: 'gallery-photo-close.jpg',             caption: 'Close yet so far — a wildlife moment, East Africa' },
+          { src: 'gallery-photo-quiet-proximity.jpg',   caption: 'Quiet proximity — gorilla family, Bwindi Forest, Uganda' },
+          { src: 'gallery-photo-sleeping-mother.jpg',   caption: 'A sleeping mother — gorilla at rest, Uganda' },
+          { src: 'gallery-photo-wandering-eyes.jpg',    caption: 'Wandering eyes — an encounter in the wild, East Africa' },
+        ]
+      },
+      agro: {
+        label: 'Agro-Tourism Safaris',
+        photos: [
+          { src: 'gallery-agro-coffee-farm.jpg',   caption: 'Kenyan coffee farm — smallholder cooperative, Kenya' },
+          { src: 'gallery-agro-tea-kenya.jpg',      caption: 'Tea estate in the highlands, Kenya' },
+          { src: 'gallery-agro-tea-tanzania.jpg',   caption: 'Tea plantation at the foot of the mountains, Tanzania' },
+        ]
+      },
+      adventure: {
+        label: 'Adventure Safaris',
+        photos: [
+          { src: 'gallery-adventure-forest.jpg', caption: 'Lost in the forest — rainforest trekking, East Africa' },
+          { src: 'gallery-adventure-walk.jpg',   caption: 'Walk the talk — on the trail, Kenya' },
+        ]
+      }
+    };
+
+    let gCurrent = null, gIndex = 0;
+
+    function openGallery(key) {
+      gCurrent = key;
+      gIndex = 0;
+      const g = GALLERIES[key];
+      document.getElementById('gallery-title-label').textContent = g.label;
+      buildThumbs();
+      showPhoto(0);
+      document.getElementById('gallery-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+      document.getElementById('gallery-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('gallery-overlay')) closeGallery();
+    }
+
+    function showPhoto(i) {
+      const photos = GALLERIES[gCurrent].photos;
+      gIndex = (i + photos.length) % photos.length;
+      const p = photos[gIndex];
+      const img = document.getElementById('gallery-img');
+      img.src = p.src;
+      img.alt = p.caption;
+      document.getElementById('gallery-caption').textContent = p.caption;
+      document.getElementById('gallery-counter').textContent = (gIndex + 1) + ' / ' + photos.length;
+      document.querySelectorAll('.gallery-thumb').forEach((t, idx) => {
+        t.classList.toggle('active', idx === gIndex);
+      });
+    }
+
+    function galleryPrev() { showPhoto(gIndex - 1); }
+    function galleryNext() { showPhoto(gIndex + 1); }
+
+    function buildThumbs() {
+      const wrap = document.getElementById('gallery-thumbs');
+      wrap.innerHTML = '';
+      GALLERIES[gCurrent].photos.forEach((p, i) => {
+        const img = document.createElement('img');
+        img.src = p.src; img.alt = ''; img.className = 'gallery-thumb';
+        img.onclick = () => showPhoto(i);
+        wrap.appendChild(img);
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      const overlay = document.getElementById('gallery-overlay');
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') galleryPrev();
+      else if (e.key === 'ArrowRight') galleryNext();
+      else if (e.key === 'Escape') closeGallery();
+    });
   </script>
 </body>
 </html>
