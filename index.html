@@ -220,13 +220,14 @@
 
     /* ── SERVICES ── */
     #services { padding: 120px 0; background: var(--off-white); }
-    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
     .service-card {
       background: var(--white);
-      padding: 48px 40px;
+      padding: 36px 28px;
       border-bottom: 3px solid transparent;
       transition: border-color 0.3s, box-shadow 0.3s;
       position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
     }
     .service-card:hover { border-color: var(--tan); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
     .dest-popup-wrap { position: relative; display: inline-block; margin-top: 20px; }
@@ -296,9 +297,14 @@
     }
 
     /* ── VIEW PHOTOS BUTTON ── */
+    .service-card-actions {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-top: auto; padding-top: 24px;
+    }
+    .service-card-actions .dest-popup-wrap { margin-top: 0; }
     .view-photos-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 20px; padding: 10px 20px;
+      padding: 9px 18px;
       font-family: 'Montserrat', sans-serif;
       font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--white);
@@ -493,6 +499,10 @@
     .btn-esim { display: inline-block; background: var(--tan); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 38px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
     .btn-esim:hover { background: var(--tan-light); }
     .esim-footnote { font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 600px) {
       .esim-row { flex-direction: column; gap: 32px; }
       .esim-divider-v { width: 40px; height: 1px; background: linear-gradient(to right, transparent, rgba(196,145,90,0.4), transparent); }
@@ -620,7 +630,8 @@
       .hamburger { display: flex; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .pillars, .services-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
       .dest-grid { grid-template-columns: 1fr 1fr; }
       .stats-row { grid-template-columns: 1fr; }
       .charts-grid { grid-template-columns: 1fr; }
@@ -738,8 +749,8 @@
             <span class="service-tag">Golden Hour</span>
             <span class="service-tag">Flexible Pace</span>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
-            <div class="dest-popup-wrap" style="margin-top:0;">
+          <div class="service-card-actions">
+            <div class="dest-popup-wrap">
               <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
               <div class="dest-popup">
                 <p>Available in</p>
@@ -773,8 +784,8 @@
             <span class="service-tag">Cooperatives</span>
             <span class="service-tag">Macadamia Farms</span>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
-            <div class="dest-popup-wrap" style="margin-top:0;">
+          <div class="service-card-actions">
+            <div class="dest-popup-wrap">
               <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
               <div class="dest-popup">
                 <p>Available in</p>
@@ -808,8 +819,8 @@
             <span class="service-tag">Mountain Summits</span>
             <span class="service-tag">Trail Running</span>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px;">
-            <div class="dest-popup-wrap" style="margin-top:0;">
+          <div class="service-card-actions">
+            <div class="dest-popup-wrap">
               <button class="dest-popup-btn" onclick="togglePopup(this)">Destinations</button>
               <div class="dest-popup">
                 <p>Available in</p>
