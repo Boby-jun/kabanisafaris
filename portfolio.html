@@ -235,8 +235,17 @@
       border-top: 1px solid var(--cream);
       font-size: 11px; color: #9A8A7A; letter-spacing: 0.06em;
     }
-    .portfolio-footer a { color: var(--tan); text-decoration: none; }
-    .portfolio-footer a:hover { color: var(--tan-light); }
+    .visit-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .visit-btn:hover { background: var(--tan); transform: translateY(-1px); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 680px) {
@@ -316,7 +325,8 @@
   </div>
 
   <footer class="portfolio-footer">
-    &copy; 2026 Rafael Barakat &nbsp;·&nbsp; <a href="index.html">Kabani Safaris</a>
+    <a href="index.html" class="visit-btn">Visit Kabani Safaris</a>
+    <p style="margin-top:24px;">&copy; 2026 Rafael Barakat</p>
   </footer>
 
   <!-- LIGHTBOX -->
