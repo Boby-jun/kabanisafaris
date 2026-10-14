@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Rafael Barakat</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #2C5064;
+      --navy-dark: #1A3344;
+      --tan:       #A26730;
+      --tan-light: #C4915A;
+      --off-white: #FAF7F2;
+      --cream:     #EEE4D4;
+      --cream-dark:#D4C4A8;
+      --white:     #FFFFFF;
+      --dark:      #1A1A1A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--off-white);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--cream);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--navy-dark); text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-back {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--tan);
+      text-decoration: none; transition: color 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-back:hover { color: var(--tan-light); }
+    .nav-back::before { content: '←'; font-size: 14px; }
+
+    /* ── HERO ── */
+    .portfolio-hero {
+      padding: 140px 48px 80px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .portfolio-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--tan);
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px;
+    }
+    .portfolio-eyebrow::after {
+      content: ''; flex: 1; max-width: 60px; height: 1px;
+      background: var(--tan); opacity: 0.4;
+    }
+    .portfolio-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400; line-height: 1.15;
+      color: var(--navy-dark); margin-bottom: 20px;
+    }
+    .portfolio-title em { font-style: italic; color: var(--tan); }
+    .portfolio-sub {
+      font-size: 0.9rem; color: #6A6A6A;
+      line-height: 1.8; max-width: 520px;
+    }
+
+    /* ── SECTIONS GRID ── */
+    .sections-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 48px 120px;
+    }
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+    .section-card {
+      background: var(--white);
+      position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+    }
+    .section-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+    .section-card-inner {
+      padding: 48px 40px 40px;
+      display: flex; flex-direction: column;
+      min-height: 280px;
+    }
+    .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 16px;
+    }
+    .section-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 400;
+      color: var(--navy-dark); margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .section-count {
+      font-size: 11px; color: #9A8A7A;
+      letter-spacing: 0.06em; margin-bottom: auto;
+    }
+    .section-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 28px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--navy);
+      transition: color 0.2s, gap 0.2s;
+    }
+    .section-card:hover .section-cta { color: var(--tan); gap: 12px; }
+    .section-cta::after { content: '→'; font-size: 14px; }
+    .section-card.coming-soon { opacity: 0.5; cursor: default; }
+    .section-card.coming-soon:hover { box-shadow: none; }
+    .coming-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9A8A7A;
+      background: var(--cream); padding: 4px 10px;
+      margin-top: 16px; align-self: flex-start;
+    }
+
+    /* thumbnail strip on gallery-work card */
+    .section-thumbs {
+      display: flex; gap: 3px; margin-top: 24px;
+      overflow: hidden;
+    }
+    .section-thumb {
+      flex: 1; aspect-ratio: 1;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+      max-width: 60px;
+    }
+    .section-card:hover .section-thumb { filter: grayscale(0%); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(8,14,18,0.97);
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+
+    .lb-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .lb-title {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+    }
+    .lb-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.4); font-size: 26px; line-height: 1;
+      padding: 4px 8px; transition: color 0.2s;
+    }
+    .lb-close:hover { color: #fff; }
+
+    .lb-stage {
+      flex: 1; display: flex; align-items: center;
+      min-height: 0;
+    }
+    .lb-arrow {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.25); font-size: 28px;
+      padding: 24px 20px; flex-shrink: 0;
+      transition: color 0.2s;
+      height: 100%; display: flex; align-items: center;
+    }
+    .lb-arrow:hover { color: #fff; }
+    .lb-img-wrap {
+      flex: 1; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 20px 0;
+    }
+    .lb-img-wrap img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+    }
+
+    .lb-footer {
+      flex-shrink: 0;
+      padding: 16px 28px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .lb-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-style: italic;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 14px;
+    }
+    .lb-thumbs {
+      display: flex; gap: 5px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .lb-thumbs::-webkit-scrollbar { display: none; }
+    .lb-thumb {
+      width: 52px; height: 38px; flex-shrink: 0;
+      object-fit: cover; cursor: pointer;
+      opacity: 0.35; border: 2px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+    .lb-thumb.active { opacity: 1; border-color: var(--tan); }
+    .lb-thumb:hover { opacity: 0.75; }
+    .lb-counter {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.2);
+      margin-top: 10px;
+    }
+
+    /* ── FOOTER ── */
+    .portfolio-footer {
+      text-align: center; padding: 32px 24px;
+      border-top: 1px solid var(--cream);
+      font-size: 11px; color: #9A8A7A; letter-spacing: 0.06em;
+    }
+    .portfolio-footer a { color: var(--tan); text-decoration: none; }
+    .portfolio-footer a:hover { color: var(--tan-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .portfolio-hero { padding: 100px 20px 60px; }
+      .sections-wrap { padding: 0 20px 80px; }
+      .sections-grid { grid-template-columns: 1fr; }
+      .section-card-inner { min-height: 200px; padding: 36px 28px 32px; }
+      .lb-arrow { padding: 16px 10px; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Rafael Barakat</a>
+    <a class="nav-back" href="index.html">Kabani Safaris</a>
+  </nav>
+
+  <div class="portfolio-hero">
+    <p class="portfolio-eyebrow">Visual Work</p>
+    <h1 class="portfolio-title">Portfolio</h1>
+    <p class="portfolio-sub">A personal archive of photographs — organised by theme. Click any collection to browse.</p>
+  </div>
+
+  <div class="sections-wrap">
+    <div class="sections-grid">
+
+      <!-- Gallery Work -->
+      <div class="section-card" onclick="openLightbox('gallery-work')">
+        <div class="section-card-inner">
+          <p class="section-label">Collection</p>
+          <h2 class="section-name">Gallery Work</h2>
+          <p class="section-count">Swiss Photo Club — 15 photographs</p>
+          <div class="section-thumbs">
+            <img class="section-thumb" src="spc-sitting-woman.jpg" alt="" />
+            <img class="section-thumb" src="spc-the-painter.jpg" alt="" />
+            <img class="section-thumb" src="spc-shiny-chaos.jpg" alt="" />
+            <img class="section-thumb" src="spc-unforeseen-encounter.jpg" alt="" />
+            <img class="section-thumb" src="spc-one-v-one.jpg" alt="" />
+          </div>
+          <span class="section-cta">View slideshow</span>
+        </div>
+      </div>
+
+      <!-- Creatures -->
+      <div class="section-card coming-soon">
+        <div class="section-card-inner">
+          <p class="section-label">Collection</p>
+          <h2 class="section-name">Creatures</h2>
+          <p class="section-count">Portraits of the wild</p>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+      </div>
+
+      <!-- Earth -->
+      <div class="section-card coming-soon">
+        <div class="section-card-inner">
+          <p class="section-label">Collection</p>
+          <h2 class="section-name">Earth</h2>
+          <p class="section-count">Landscapes &amp; terrain</p>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+      </div>
+
+      <!-- Humans -->
+      <div class="section-card coming-soon">
+        <div class="section-card-inner">
+          <p class="section-label">Collection</p>
+          <h2 class="section-name">Humans</h2>
+          <p class="section-count">Portraits &amp; people</p>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="portfolio-footer">
+    &copy; 2026 Rafael Barakat &nbsp;·&nbsp; <a href="index.html">Kabani Safaris</a>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="handleLbClick(event)">
+    <div class="lb-header">
+      <span class="lb-title" id="lb-title"></span>
+      <button class="lb-close" onclick="closeLightbox()">&#215;</button>
+    </div>
+    <div class="lb-stage">
+      <button class="lb-arrow" id="lb-prev" onclick="lbPrev()">&#8592;</button>
+      <div class="lb-img-wrap">
+        <img id="lb-img" src="" alt="" />
+      </div>
+      <button class="lb-arrow" id="lb-next" onclick="lbNext()">&#8594;</button>
+    </div>
+    <div class="lb-footer">
+      <p class="lb-caption" id="lb-caption"></p>
+      <div class="lb-thumbs" id="lb-thumbs"></div>
+      <p class="lb-counter" id="lb-counter"></p>
+    </div>
+  </div>
+
+  <script>
+    const COLLECTIONS = {
+      'gallery-work': {
+        title: 'Gallery Work — Swiss Photo Club',
+        photos: [
+          { src: 'spc-9to5.jpg',                 caption: '9 to 5' },
+          { src: 'spc-calm-before-storm.jpg',     caption: 'Calm Before the Storm' },
+          { src: 'spc-distinctly-hazy.jpg',       caption: 'Distinctly Hazy' },
+          { src: 'spc-jokes-on-you.jpg',          caption: "Joke's on You" },
+          { src: 'spc-kiss-or-slap.jpg',          caption: 'Kiss or Slap' },
+          { src: 'spc-one-v-one.jpg',             caption: 'One v One' },
+          { src: 'spc-resembling-truth.jpg',      caption: 'Resembling Truth' },
+          { src: 'spc-shiny-chaos.jpg',           caption: 'Shiny Chaos' },
+          { src: 'spc-sitting-woman.jpg',         caption: 'Sitting Woman' },
+          { src: 'spc-the-painter.jpg',           caption: 'The Painter' },
+          { src: 'spc-the-skipper.jpg',           caption: 'The Skipper' },
+          { src: 'spc-the-trace-of-us.jpg',       caption: 'The Trace of Us' },
+          { src: 'spc-under-scorching-sun.jpg',   caption: 'Under the Scorching Sun' },
+          { src: 'spc-unforeseen-encounter.jpg',  caption: 'Unforeseen Encounter' },
+          { src: 'spc-why-me.jpg',                caption: 'Why Me?' },
+        ]
+      }
+    };
+
+    let lbKey = null, lbIdx = 0;
+
+    function openLightbox(key) {
+      if (!COLLECTIONS[key]) return;
+      lbKey = key;
+      lbIdx = 0;
+      const col = COLLECTIONS[key];
+      document.getElementById('lb-title').textContent = col.title;
+      buildThumbs();
+      showPhoto(0);
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleLbClick(e) {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+
+    function showPhoto(i) {
+      const photos = COLLECTIONS[lbKey].photos;
+      lbIdx = (i + photos.length) % photos.length;
+      const p = photos[lbIdx];
+      const img = document.getElementById('lb-img');
+      img.src = p.src; img.alt = p.caption;
+      document.getElementById('lb-caption').textContent = p.caption;
+      document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + photos.length;
+      document.querySelectorAll('.lb-thumb').forEach((t, idx) => {
+        t.classList.toggle('active', idx === lbIdx);
+        if (idx === lbIdx) t.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
+      });
+    }
+
+    function lbPrev() { showPhoto(lbIdx - 1); }
+    function lbNext() { showPhoto(lbIdx + 1); }
+
+    function buildThumbs() {
+      const wrap = document.getElementById('lb-thumbs');
+      wrap.innerHTML = '';
+      COLLECTIONS[lbKey].photos.forEach((p, i) => {
+        const img = document.createElement('img');
+        img.src = p.src; img.alt = ''; img.className = 'lb-thumb';
+        img.onclick = (e) => { e.stopPropagation(); showPhoto(i); };
+        wrap.appendChild(img);
+      });
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowLeft')  lbPrev();
+      else if (e.key === 'ArrowRight') lbNext();
+      else if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
