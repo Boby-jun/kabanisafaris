@@ -182,7 +182,7 @@
     .hero-title em {
       font-family: 'Space Grotesk', sans-serif;
       font-style: normal; font-weight: 300;
-      color: var(--tan-pale);
+      color: var(--tan-light);
     }
     .hero-sub {
       font-family: 'Space Grotesk', sans-serif;
@@ -193,12 +193,12 @@
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .btn-primary {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--white);
-      background: var(--tan); border: none; padding: 16px 36px;
+      text-transform: uppercase; color: var(--navy-dark);
+      background: var(--tan-light); border: none; padding: 16px 36px;
       cursor: pointer; text-decoration: none;
       transition: background 0.3s, transform 0.2s;
     }
-    .btn-primary:hover { background: var(--tan-light); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--tan-pale); transform: translateY(-1px); }
     .btn-outline {
       font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
       text-transform: uppercase; color: rgba(255,255,255,0.8);
@@ -550,7 +550,7 @@
     canvas { max-width: 100%; }
 
     /* ── DESTINATIONS ── */
-    #destinations { padding: 120px 0; background: var(--off-white); }
+    #destinations { padding: 120px 0; background: var(--cream); }
     .dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
     .dest-section-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan); margin-top: 48px; margin-bottom: 0; }
     .dest-section-label.coming { color: #9A8A7A; margin-top: 40px; }
@@ -834,31 +834,6 @@
     <div class="gallery-thumbs" id="gallery-thumbs"></div>
   </div>
 
-  <!-- COFFEE FOCUS -->
-  <section id="coffee">
-    <div class="section-inner">
-      <div class="coffee-grid">
-        <div>
-          <p class="section-eyebrow">A Special Focus</p>
-          <h2 class="section-title" style="color:var(--white)">Coffee at the<br>Heart of It All</h2>
-          <p class="section-body">
-            African coffee is not just a product — it is a culture, an economy, and a community. Wherever an itinerary allows, I integrate coffee cooperative visits so travellers can witness firsthand the hands behind the harvest.
-          </p>
-          <ul class="coffee-list">
-            <li>Tour washing stations and dry mills with the farmers who run them</li>
-            <li>Visit cooperatives representing thousands of smallholder producers across Kenya, Tanzania, Rwanda, Burundi and Ethiopia</li>
-            <li>Participate in cuppings, roastings, and processing demonstrations</li>
-            <li>Understand how speciality coffee economics flow back to origin communities</li>
-            <li>Leave with relationships — and exceptional beans — that tell a real story</li>
-          </ul>
-        </div>
-        <div class="coffee-visual">
-          <img src="coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- DESTINATIONS -->
   <section id="destinations">
     <div class="section-inner">
@@ -955,6 +930,31 @@
             <span class="dest-tag">Surf</span>
             <span class="dest-tag">Vineyards</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COFFEE FOCUS -->
+  <section id="coffee">
+    <div class="section-inner">
+      <div class="coffee-grid">
+        <div>
+          <p class="section-eyebrow">A Special Focus</p>
+          <h2 class="section-title" style="color:var(--white)">Coffee at the<br>Heart of It All</h2>
+          <p class="section-body">
+            African coffee is not just a product — it is a culture, an economy, and a community. Wherever an itinerary allows, I integrate coffee cooperative visits so travellers can witness firsthand the hands behind the harvest.
+          </p>
+          <ul class="coffee-list">
+            <li>Tour washing stations and dry mills with the farmers who run them</li>
+            <li>Visit cooperatives representing thousands of smallholder producers across Kenya, Tanzania, Rwanda, Burundi and Ethiopia</li>
+            <li>Participate in cuppings, roastings, and processing demonstrations</li>
+            <li>Understand how speciality coffee economics flow back to origin communities</li>
+            <li>Leave with relationships — and exceptional beans — that tell a real story</li>
+          </ul>
+        </div>
+        <div class="coffee-visual">
+          <img src="coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
       </div>
     </div>
