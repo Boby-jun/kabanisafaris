@@ -27,9 +27,9 @@
     body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
 
     /* ── SIDEBAR ── */
-    body { padding-left: 220px; }
+    body { padding-left: 270px; }
     .sidebar {
-      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      position: fixed; top: 0; left: 0; bottom: 0; width: 270px;
       z-index: 100; background: var(--navy-dark);
       display: flex; flex-direction: column;
       padding: 44px 32px 40px;
@@ -41,7 +41,9 @@
       text-transform: uppercase; text-decoration: none;
       color: var(--white); margin-bottom: 56px; line-height: 1.5;
     }
-    .sidebar-logo span { color: var(--tan-light); display: block; }
+    .sidebar-logo span { color: var(--tan-light); }
+    .sidebar-nav a.nav-gold { color: var(--tan-light); }
+    .sidebar-nav a.nav-gold:hover { color: var(--tan-pale); }
     .sidebar-nav { display: flex; flex-direction: column; flex: 1; gap: 0; }
     .sidebar-nav a {
       font-family: 'Space Grotesk', sans-serif;
@@ -228,13 +230,13 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <a class="sidebar-logo" href="index.html">Kabani<span>Safaris</span></a>
+    <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
       <a href="index.html#coffee">Coffee</a>
-      <a href="about.html">About</a>
       <a href="index.html#destinations">Destinations</a>
-      <a href="travel-esim.html" class="active">Travel eSIM</a>
+      <a href="about.html">About</a>
+      <a href="travel-esim.html" class="nav-gold active">Travel eSIM</a>
     </nav>
     <a href="index.html#contact" class="sidebar-cta">Plan Your Journey →</a>
     <div class="sidebar-footer">
