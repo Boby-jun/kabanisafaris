@@ -3,31 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Kabani Safaris</title>
+  <title>About Us — Kabani Safaris</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --tan:        #A26730;
-      --tan-light:  #C4915A;
-      --tan-pale:   #E8D4BB;
-      --navy:       #2C5064;
-      --navy-dark:  #1A3344;
-      --cream:      #EEE4D4;
-      --cream-dark: #DDD0BA;
-      --dark:       #2D2D2D;
-      --off-white:  #FAF7F2;
-      --white:      #FFFFFF;
+      --tan: #A26730; --tan-light: #C4915A; --tan-pale: #E8D4BB;
+      --navy-dark: #1A3344; --green: #4D7338; --green-dark: #354F28;
+      --ochre: #E2B04A; --cream: #EEE4D4; --cream-dark: #DDD0BA;
+      --dark: #2D2D2D; --off-white: #FAF7F2; --white: #FFFFFF;
     }
-
     html { scroll-behavior: smooth; }
-    body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
+    body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; padding-left: 320px; }
 
-    /* ── SIDEBAR ── */
-    body { padding-left: 320px; }
     .sidebar {
       position: fixed; top: 0; left: 0; bottom: 0; width: 320px;
       z-index: 100; background: var(--navy-dark);
@@ -37,190 +27,145 @@
     }
     .sidebar-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
+      font-size: 18px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
       color: var(--white); margin-bottom: 56px; line-height: 1.5;
     }
     .sidebar-logo span { color: var(--tan-light); }
-    .sidebar-nav a.nav-gold { color: var(--tan-light); }
-    .sidebar-nav a.nav-gold:hover { color: var(--tan-pale); }
     .sidebar-nav { display: flex; flex-direction: column; flex: 1; gap: 0; }
     .sidebar-nav a {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 14px; font-weight: 500; letter-spacing: 0.1em;
       text-transform: uppercase; color: rgba(255,255,255,0.38);
-      text-decoration: none; padding:  15px 0;
+      text-decoration: none; padding: 15px 0;
       border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: color 0.2s;
     }
     .sidebar-nav a:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
     .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--white); }
-    .sidebar-cta {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--tan-light);
-      text-decoration: none; margin-top: 28px; display: block;
-      transition: color 0.2s;
+    .sidebar-nav a.nav-gold { color: var(--tan-light); }
+    .sidebar-nav a.nav-gold:hover { color: var(--tan-pale); }
+    .sidebar-nav a.nav-cta {
+      margin-top: 18px; text-align: center; color: var(--white);
+      background: var(--tan); border-bottom: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
     }
-    .sidebar-cta:hover { color: var(--tan-pale); }
+    .sidebar-nav a.nav-cta:hover, .sidebar-nav a.nav-cta.active { background: var(--tan-light); color: var(--white); transform: translateY(-1px); }
     .sidebar-footer {
-      margin-top: 28px;
-      font-size: 10px; color: rgba(255,255,255,0.18);
+      margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.18);
       letter-spacing: 0.06em; line-height: 1.9;
     }
 
-    /* ── SHARED SECTION ── */
-    section { position: relative; }
-    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
-    .section-eyebrow {
+    .eyebrow {
       font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--tan);
-      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
     }
-    .section-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
-      color: var(--dark); margin-bottom: 20px;
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
+    .page { min-height: 100vh; display: flex; align-items: center; padding: 4vh 56px; position: relative; overflow: hidden; }
+    @media (min-width: 769px) and (min-height: 640px) {
+      body { height: 100vh; overflow: hidden; }
+      .page { height: 100vh; }
     }
-    .section-body {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px; line-height: 1.7; color: #5A4A3A; max-width: 680px;
-    }
-
-    /* ── ABOUT ── */
-    #about { padding: 100px 0 120px; background: var(--off-white); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .about-visual {
-      position: relative; aspect-ratio: 4/5;
-      background: var(--cream); overflow: hidden;
-    }
-    .about-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .about-visual::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 4px; background: var(--tan);
-    }
-    .about-highlight {
-      margin-top: 36px; padding: 28px 32px;
-      border-left: 3px solid var(--tan-light); background: var(--cream);
-    }
-    .about-highlight p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px; font-style: italic; line-height: 1.65; color: #4A3A2A;
-    }
-
-    /* ── PHILOSOPHY ── */
-    #philosophy { padding: 90px 0 100px; background: var(--navy-dark); }
-    #philosophy .section-eyebrow { color: var(--tan-light); }
-    #philosophy .section-eyebrow::before { background: var(--tan-light); }
-    #philosophy .section-title { color: var(--white); }
-    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
-    .pillar {
-      background: rgba(255,255,255,0.04); padding: 44px 36px;
-      border-top: 2px solid transparent; transition: border-color 0.3s, background 0.3s;
-    }
-    .pillar:hover { border-color: var(--tan-light); background: rgba(255,255,255,0.07); }
-    .pillar-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 22px; font-weight: 500; color: var(--white); margin-bottom: 14px;
-    }
-    .pillar-body { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.6); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 48px 60px; background: #0E1F2A;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; font-weight: 500; color: var(--white);
-    }
-    .footer-logo span { color: var(--tan-light); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
-    .footer-back a {
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.3s;
-    }
-    .footer-back a:hover { color: var(--tan-light); }
-
     @media (max-width: 768px) {
       body { padding-left: 0; }
       .sidebar { display: none; }
-      .section-inner { padding: 0 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .pillars { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .page { padding: 40px 24px; }
     }
+
+    body { background: #F6EEDF; }
+    .about-wrap { position: relative; z-index: 1; width: 100%; max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 4vh; }
+    .blob { position: absolute; border-radius: 50%; z-index: 0; pointer-events: none; }
+    .blob.b1 { width: 420px; height: 420px; background: var(--tan-pale); opacity: 0.55; top: -140px; right: -120px; }
+    .blob.b2 { width: 300px; height: 300px; background: #C9D8B6; opacity: 0.5; bottom: -120px; left: -80px; }
+
+    .who { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: center; }
+    .portrait { position: relative; height: clamp(190px, 34vh, 330px); aspect-ratio: 4 / 5; }
+    .portrait::before {
+      content: ''; position: absolute; inset: 0; background: var(--tan);
+      border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%; transform: translate(12px, 12px) rotate(-3deg);
+    }
+    .portrait img {
+      position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
+      border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%; border: 3px solid var(--dark);
+    }
+    .who-text h1 {
+      font-size: clamp(26px, min(3.4vw, 5vh), 46px); font-weight: 500; line-height: 1.05;
+      letter-spacing: -0.025em; margin-bottom: 14px; color: var(--dark);
+    }
+    .who-text h1 em { font-style: normal; color: var(--tan); }
+    .who-text p.bio { font-size: clamp(13.5px, 1.9vh, 16px); line-height: 1.6; color: #4D4034; max-width: 620px; font-weight: 400; }
+    .quote {
+      margin-top: 16px; display: inline-block; max-width: 620px;
+      background: var(--ochre); border: 2px solid var(--dark); border-radius: 14px;
+      padding: 12px 18px; font-size: clamp(12.5px, 1.7vh, 15px); font-weight: 500; line-height: 1.45;
+      box-shadow: 4px 4px 0 var(--dark); transform: rotate(-0.8deg);
+    }
+
+    .principles-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 2.2vh; }
+    .principles-head h2 { font-size: clamp(20px, min(2.3vw, 3.6vh), 34px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+    .principles-head h2 span { color: var(--tan); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card {
+      position: relative; border: 2px solid var(--dark); border-radius: 22px;
+      padding: clamp(16px, 2.6vh, 26px) 22px clamp(16px, 2.6vh, 24px); box-shadow: 6px 6px 0 var(--dark);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:nth-child(1) { background: var(--tan); color: var(--white); transform: rotate(-1.6deg); }
+    .card:nth-child(2) { background: var(--green); color: var(--white); transform: rotate(1.2deg) translateY(6px); }
+    .card:nth-child(3) { background: var(--ochre); color: var(--dark); transform: rotate(-0.8deg); }
+    .card:hover { transform: rotate(0) translateY(-6px); box-shadow: 9px 9px 0 var(--dark); }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--off-white);
+      border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 12px;
+    }
+    .card h3 { font-size: clamp(16px, 2.3vh, 21px); font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.15; }
+    .card p { font-size: clamp(12.5px, 1.65vh, 14.5px); line-height: 1.5; font-weight: 400; opacity: 0.95; }
+    @media (max-width: 1100px) { .who { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="index.html#destinations">Destinations</a>
-      <a href="about.html" class="active">About</a>
+      <a href="about.html" class="active">About Us</a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM</a>
+      <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
-    <a href="index.html#contact" class="sidebar-cta">Plan Your Journey →</a>
     <div class="sidebar-footer">
       <p>Nairobi, Kenya</p>
       <p>Est. 2026</p>
     </div>
   </aside>
-
-  <!-- PHILOSOPHY -->
-  <section id="philosophy">
-    <div class="section-inner">
-      <p class="section-eyebrow">Our Philosophy</p>
-      <h1 class="section-title" style="color:var(--white)">Three Principles That<br>Guide Every Journey</h1>
-      <div class="pillars">
-        <div class="pillar">
-          <h3 class="pillar-title">Tailor-Made by Design</h3>
-          <p class="pillar-body">No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p>
+  <main class="page">
+    <span class="blob b1"></span><span class="blob b2"></span>
+    <div class="about-wrap">
+      <section class="who">
+        <div class="portrait"><img src="rafael-portrait.jpg" alt="Rafael Barakat" /></div>
+        <div class="who-text">
+          <p class="eyebrow">Who I Am</p>
+          <h1>A Consultant <em>Rooted in Africa</em></h1>
+          <p class="bio">After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.</p>
+          <p class="quote">"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
         </div>
-        <div class="pillar">
-          <h3 class="pillar-title">Local Professionals</h3>
-          <p class="pillar-body">We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p>
+      </section>
+      <section>
+        <div class="principles-head">
+          <p class="eyebrow" style="margin:0">Our Philosophy</p>
+          <h2>Three principles that <span>guide every journey</span></h2>
         </div>
-        <div class="pillar">
-          <h3 class="pillar-title">Impact-Led Travel</h3>
-          <p class="pillar-body">Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p>
+        <div class="cards">
+          <div class="card"><div class="card-icon">🧭</div><h3>Tailor-Made by Design</h3><p>No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p></div>
+          <div class="card"><div class="card-icon">🤝</div><h3>Local Professionals</h3><p>We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p></div>
+          <div class="card"><div class="card-icon">🌱</div><h3>Impact-Led Travel</h3><p>Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p></div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-visual">
-          <img src="rafael-portrait.jpg" alt="Rafael Barakat" />
-        </div>
-        <div>
-          <p class="section-eyebrow">Who I Am</p>
-          <h2 class="section-title">A Consultant<br>Rooted in Africa</h2>
-          <p class="section-body">
-            After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.
-          </p>
-          <div class="about-highlight">
-            <p>"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-logo">Kabani <span>Safaris</span></div>
-    <div class="footer-copy">© 2026 Kabani Safaris. All rights reserved.</div>
-    <div class="footer-back"><a href="index.html">← Back to home</a></div>
-  </footer>
+  </main>
 
 </body>
 </html>

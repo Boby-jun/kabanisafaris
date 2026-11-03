@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan Your Journey — Kabani Safaris</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --tan: #A26730; --tan-light: #C4915A; --tan-pale: #E8D4BB;
+      --navy-dark: #1A3344; --green: #4D7338; --green-dark: #354F28;
+      --ochre: #E2B04A; --cream: #EEE4D4; --cream-dark: #DDD0BA;
+      --dark: #2D2D2D; --off-white: #FAF7F2; --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; padding-left: 320px; }
+
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 320px;
+      z-index: 100; background: var(--navy-dark);
+      display: flex; flex-direction: column;
+      padding: 48px 40px 40px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--white); margin-bottom: 56px; line-height: 1.5;
+    }
+    .sidebar-logo span { color: var(--tan-light); }
+    .sidebar-nav { display: flex; flex-direction: column; flex: 1; gap: 0; }
+    .sidebar-nav a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38);
+      text-decoration: none; padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: color 0.2s;
+    }
+    .sidebar-nav a:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--white); }
+    .sidebar-nav a.nav-gold { color: var(--tan-light); }
+    .sidebar-nav a.nav-gold:hover { color: var(--tan-pale); }
+    .sidebar-nav a.nav-cta {
+      margin-top: 18px; text-align: center; color: var(--white);
+      background: var(--tan); border-bottom: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .sidebar-nav a.nav-cta:hover, .sidebar-nav a.nav-cta.active { background: var(--tan-light); color: var(--white); transform: translateY(-1px); }
+    .sidebar-footer {
+      margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.18);
+      letter-spacing: 0.06em; line-height: 1.9;
+    }
+
+    .eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
+    .page { min-height: 100vh; display: flex; align-items: center; padding: 4vh 56px; position: relative; overflow: hidden; }
+    @media (min-width: 769px) and (min-height: 640px) {
+      body { height: 100vh; overflow: hidden; }
+      .page { height: 100vh; }
+    }
+    @media (max-width: 768px) {
+      body { padding-left: 0; }
+      .sidebar { display: none; }
+      .page { padding: 40px 24px; }
+    }
+
+    body { background: #F6EEDF; }
+    .blob { position: absolute; border-radius: 50%; z-index: 0; pointer-events: none; }
+    .blob.b1 { width: 380px; height: 380px; background: var(--tan-pale); opacity: 0.55; top: -120px; left: -60px; }
+    .blob.b2 { width: 300px; height: 300px; background: #C9D8B6; opacity: 0.5; bottom: -120px; right: -80px; }
+    .plan-wrap { position: relative; z-index: 1; width: 100%; max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+    .plan-left h1 { font-size: clamp(28px, min(3.8vw, 6vh), 54px); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 16px; }
+    .plan-left h1 em { font-style: normal; color: var(--tan); }
+    .intro { font-size: clamp(13.5px, 1.85vh, 15.5px); line-height: 1.6; color: #4D4034; margin-bottom: 3vh; max-width: 440px; }
+    .details { display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 16px); }
+    .detail { display: flex; align-items: center; gap: 14px; }
+    .detail-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--white); border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .detail-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan); }
+    .detail-value { font-size: 14px; font-weight: 500; }
+    .detail-value a { color: inherit; text-decoration: none; }
+    .plan-form {
+      background: var(--white); border: 2px solid var(--dark); border-radius: 24px; box-shadow: 8px 8px 0 var(--dark);
+      padding: clamp(18px, 3.2vh, 32px) 30px; display: flex; flex-direction: column; gap: clamp(8px, 1.6vh, 14px);
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .field label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7A6A5A; }
+    .field input, .field select, .field textarea {
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: var(--dark);
+      background: var(--off-white); border: 1.5px solid var(--cream-dark); border-radius: 8px;
+      padding: 11px 14px; outline: none; transition: border-color 0.2s; width: 100%;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--tan); }
+    .field textarea { resize: none; height: clamp(64px, 11vh, 110px); }
+    .submit {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--white); background: var(--tan); border: 2px solid var(--dark); border-radius: 999px;
+      padding: 14px 30px; cursor: pointer; box-shadow: 4px 4px 0 var(--dark); transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .submit:hover { background: var(--tan-light); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dark); }
+    .form-error { display: none; font-size: 12px; color: #B04040; }
+    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; }
+    .success-overlay.visible { display: flex; }
+    .success-box { background: var(--off-white); border: 2px solid var(--dark); border-radius: 20px; padding: 44px 40px; text-align: center; max-width: 420px; width: 90%; box-shadow: 8px 8px 0 var(--dark); }
+    .success-icon { font-size: 2.2rem; margin-bottom: 14px; color: var(--tan); }
+    .success-box h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
+    .success-box p { font-size: 0.92rem; color: #6A5A4A; line-height: 1.65; margin-bottom: 22px; }
+    .success-close { background: var(--tan); color: var(--white); border: 2px solid var(--dark); border-radius: 999px; padding: 12px 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
+    @media (max-width: 1100px) { .plan-wrap { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
+    <nav class="sidebar-nav">
+      <a href="index.html#services">Experiences</a>
+      <a href="index.html#coffee">Coffee</a>
+      <a href="index.html#destinations">Destinations</a>
+      <a href="about.html">About Us</a>
+      <a href="travel-esim.html" class="nav-gold">Travel eSIM</a>
+      <a href="plan-your-journey.html" class="nav-cta active">Plan Your Journey</a>
+    </nav>
+    <div class="sidebar-footer">
+      <p>Nairobi, Kenya</p>
+      <p>Est. 2026</p>
+    </div>
+  </aside>
+  <main class="page">
+    <span class="blob b1"></span><span class="blob b2"></span>
+    <div class="plan-wrap">
+      <div class="plan-left">
+        <p class="eyebrow">Get in Touch</p>
+        <h1>Let's Plan <em>Your Journey</em></h1>
+        <p class="intro">Whether you have a vague idea or a detailed wish list, I start with a conversation. Tell me what excites you and I'll take it from there — connecting you with the right people in the right places.</p>
+        <div class="details">
+          <div class="detail"><span class="detail-icon">📍</span><div><div class="detail-label">Base</div><div class="detail-value">Nairobi, Kenya</div></div></div>
+          <div class="detail"><span class="detail-icon">✉️</span><div><div class="detail-label">Email</div><div class="detail-value">reservations@kabanisafaris.com</div></div></div>
+          <div class="detail"><span class="detail-icon">💬</span><div><div class="detail-label">WhatsApp</div><div class="detail-value">+254 79 275 66 50</div></div></div>
+          <div class="detail"><span class="detail-icon">📸</span><div><div class="detail-label">Instagram</div><div class="detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener">@barakatrafael</a></div></div></div>
+        </div>
+      </div>
+      <form class="plan-form" id="contact-form">
+        <div class="row">
+          <div class="field"><label for="first_name">First Name</label><input id="first_name" type="text" name="first_name" placeholder="Marie" required /></div>
+          <div class="field"><label for="last_name">Last Name</label><input id="last_name" type="text" name="last_name" placeholder="Dupont" required /></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" placeholder="marie@example.com" required /></div>
+          <div class="field"><label for="experience_type">Experience Type</label>
+            <select id="experience_type" name="experience_type">
+              <option value="">Select an experience…</option>
+              <option>Wildlife Safari</option>
+              <option>Adventure Safari</option>
+              <option>Agro-Tourism Safari</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="message">Tell me about your dream journey</label>
+          <textarea id="message" name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
+        </div>
+        <p class="form-error" id="form-error">Something went wrong. Please try again or email reservations@kabanisafaris.com.</p>
+        <button type="submit" class="submit">Send Message →</button>
+      </form>
+    </div>
+  </main>
+
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-box">
+      <div class="success-icon">✦</div>
+      <h3>Application Submitted</h3>
+      <p>Thank you for reaching out. I'll review your request and be in touch within 24 hours.</p>
+      <button class="success-close" onclick="document.getElementById('success-overlay').classList.remove('visible')">Close</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target, err = document.getElementById('form-error');
+      err.style.display = 'none';
+      try {
+        const res = await fetch('https://formspree.io/f/xaewjgdg', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        if (res.ok) { form.reset(); document.getElementById('success-overlay').classList.add('visible'); }
+        else err.style.display = 'block';
+      } catch { err.style.display = 'block'; }
+    });
+  </script>
+</body>
+</html>

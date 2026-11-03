@@ -46,7 +46,7 @@
     }
     .sidebar-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
+      font-size: 18px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
       color: var(--white); margin-bottom: 56px; line-height: 1.5;
     }
@@ -66,14 +66,12 @@
     }
     .sidebar-nav a:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
     .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--white); }
-    .sidebar-cta {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--tan-light);
-      text-decoration: none; margin-top: 28px;
-      transition: color 0.2s; display: block;
+    .sidebar-nav a.nav-cta {
+      margin-top: 18px; text-align: center; color: var(--white);
+      background: var(--tan); border-bottom: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
     }
-    .sidebar-cta:hover { color: var(--tan-pale); }
+    .sidebar-nav a.nav-cta:hover, .sidebar-nav a.nav-cta.active { background: var(--tan-light); color: var(--white); transform: translateY(-1px); }
     .sidebar-footer {
       margin-top: 28px;
       font-size: 10px; color: rgba(255,255,255,0.18);
@@ -117,10 +115,22 @@
       text-transform: uppercase; color: var(--tan-light);
       margin-bottom: 22px;
     }
+    .hero-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 7vw, 108px);
+      font-weight: 500; line-height: 1; letter-spacing: -0.03em;
+      color: var(--white); margin-bottom: 18px;
+    }
+    .hero-brand span { color: var(--tan-light); }
+    .hero-ball {
+      position: absolute; top: 0; left: 0; width: 84px; height: 84px;
+      z-index: 1; pointer-events: none; user-select: none;
+      will-change: transform; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+    }
     .hero-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(38px, 5vw, 72px);
-      font-weight: 300; line-height: 1.08; letter-spacing: -0.02em;
+      font-size: clamp(26px, 3.2vw, 46px);
+      font-weight: 300; line-height: 1.15; letter-spacing: -0.02em;
       color: var(--white); margin-bottom: 22px;
     }
     .hero-title em {
@@ -547,67 +557,6 @@
       .esim-divider-v { width: 40px; height: 1px; background: linear-gradient(to right, transparent, rgba(196,145,90,0.4), transparent); }
     }
 
-    /* ── SUCCESS POPUP ── */
-    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; }
-    .success-overlay.visible { display: flex; }
-    .success-box { background: var(--off-white); border-radius: 16px; padding: 48px 40px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 24px 80px rgba(0,0,0,0.35); animation: popIn 0.3s ease; }
-    @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .success-icon { font-size: 2.4rem; margin-bottom: 16px; }
-    .success-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--navy-dark); margin-bottom: 10px; }
-    .success-box p { font-size: 0.9rem; color: #7A6A5A; line-height: 1.7; margin-bottom: 24px; }
-    .success-close { background: var(--tan); color: var(--white); border: none; border-radius: 4px; padding: 12px 32px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-    .success-close:hover { background: var(--tan-light); }
-
-    /* ── CONTACT ── */
-    #contact { padding: 120px 0; background: var(--navy-dark); }
-    #contact .section-eyebrow { color: var(--tan-light); }
-    #contact .section-eyebrow::before { background: var(--tan-light); }
-    #contact .section-title { color: var(--white); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
-    .contact-intro {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px; line-height: 1.7; color: rgba(255,255,255,0.68);
-      margin-bottom: 36px;
-    }
-    .contact-details { display: flex; flex-direction: column; gap: 20px; }
-    .contact-detail {
-      display: flex; gap: 16px; align-items: flex-start;
-    }
-    .contact-detail-icon { font-size: 20px; flex-shrink: 0; }
-    .contact-detail-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--tan-light); margin-bottom: 4px;
-    }
-    .contact-detail-value {
-      font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.5;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 8px; }
-    .form-group label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(255,255,255,0.5);
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      font-family: 'Space Grotesk', sans-serif; font-size: 14px;
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
-      color: var(--white); padding: 14px 16px; outline: none;
-      transition: border-color 0.3s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--tan-light);
-    }
-    .form-group select option { background: var(--navy-dark); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-submit {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--white);
-      background: var(--tan); border: none; padding: 16px 36px;
-      cursor: pointer; transition: background 0.3s; align-self: flex-start;
-    }
-    .form-submit:hover { background: var(--tan-light); }
-
     /* ── FOOTER ── */
     footer {
       padding: 48px 60px; background: #0E1F2A;
@@ -629,11 +578,9 @@
     .footer-admin a:hover { color: var(--tan-light); }
 
     /* ── RESPONSIVE ── */
-    .contact-grid > *, .coffee-grid > *, .form-row > * { min-width: 0; }
-    .contact-form input, .contact-form select, .contact-form textarea { max-width: 100%; }
+    .coffee-grid > * { min-width: 0; }
     @media (max-width: 1250px) {
-      .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .form-row { grid-template-columns: 1fr; }
+      .coffee-grid { grid-template-columns: 1fr; gap: 48px; }
     }
     @media (max-width: 768px) {
       body { padding-left: 0; }
@@ -660,10 +607,10 @@
       <a href="#services">Experiences</a>
       <a href="#coffee">Coffee</a>
       <a href="#destinations">Destinations</a>
-      <a href="about.html">About</a>
+      <a href="about.html">About Us</a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM</a>
+      <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
-    <a href="#contact" class="sidebar-cta">Plan Your Journey →</a>
     <div class="sidebar-footer">
       <p>Nairobi, Kenya</p>
       <p>Est. 2026</p>
@@ -674,13 +621,15 @@
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-ghost" id="hero-greeting">Karibu</div>
+    <img class="hero-ball" id="hero-ball" src="android-chrome-512x512.png" alt="" aria-hidden="true" />
     <div class="hero-content">
       <p class="hero-eyebrow">Nairobi, Kenya — Est. 2026</p>
-      <h1 class="hero-title">Where the World <em>Meets</em><br>East Africa</h1>
+      <h1 class="hero-brand">Kabani <span>Safaris</span></h1>
+      <p class="hero-title">Where the World <em>Meets</em> Africa</p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
       <div class="hero-actions">
         <a href="#services" class="btn-primary">Explore Experiences</a>
-        <a href="#contact" class="btn-outline">Start Planning</a>
+        <a href="plan-your-journey.html" class="btn-outline">Start Planning</a>
       </div>
     </div>
     <div class="hero-scroll">Scroll</div>
@@ -947,103 +896,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-inner">
-      <p class="section-eyebrow">Get in Touch</p>
-      <h2 class="section-title">Let's Plan<br>Your Journey</h2>
-      <div class="contact-grid">
-        <div>
-          <p class="contact-intro">
-            Whether you have a vague idea or a detailed wish list, I start with a conversation. Tell me what excites you and I'll take it from there — connecting you with the right people in the right places.
-          </p>
-          <div class="contact-details">
-            <div class="contact-detail">
-              <span class="contact-detail-icon">📍</span>
-              <div>
-                <div class="contact-detail-label">Base</div>
-                <div class="contact-detail-value">Nairobi, Kenya</div>
-              </div>
-            </div>
-            <div class="contact-detail">
-              <span class="contact-detail-icon">✉️</span>
-              <div>
-                <div class="contact-detail-label">Email</div>
-                <div class="contact-detail-value">reservations@kabanisafaris.com</div>
-              </div>
-            </div>
-            <div class="contact-detail">
-              <span class="contact-detail-icon">💬</span>
-              <div>
-                <div class="contact-detail-label">WhatsApp</div>
-                <div class="contact-detail-value">+254 79 275 66 50</div>
-              </div>
-            </div>
-            <div class="contact-detail">
-              <span class="contact-detail-icon">📸</span>
-              <div>
-                <div class="contact-detail-label">Instagram</div>
-                <div class="contact-detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">@barakatrafael</a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div data-fs-success style="display:none;"></div>
-        <div data-fs-error style="display:none; font-size:13px; color:#e07070; padding:8px 0;"></div>
-
-        <form class="contact-form" id="contact-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" name="first_name" placeholder="Marie" data-fs-field required />
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" name="last_name" placeholder="Dupont" data-fs-field required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="marie@example.com" data-fs-field required />
-            <span data-fs-error="email" style="font-size:12px; color:#e07070;"></span>
-          </div>
-          <div class="form-group">
-            <label>Experience Type</label>
-            <select name="experience_type" data-fs-field>
-              <option value="">Select an experience…</option>
-              <option>Wildlife Safari</option>
-              <option>Adventure Safari</option>
-              <option>Agro-Tourism Safari</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Tell me about your dream journey</label>
-            <textarea name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…" data-fs-field></textarea>
-            <span data-fs-error="message" style="font-size:12px; color:#e07070;"></span>
-          </div>
-          <button type="submit" class="form-submit" data-fs-submit-btn>Send Message</button>
-        </form>
-
-        <script>
-          window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-          formspree('initForm', { formElement: '#contact-form', formId: 'xaewjgdg' });
-        </script>
-        <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-      </div>
-    </div>
-  </section>
-
-  <!-- SUCCESS POPUP -->
-  <div class="success-overlay" id="success-overlay">
-    <div class="success-box">
-      <div class="success-icon">✦</div>
-      <h3>Application Submitted</h3>
-      <p>Thank you for reaching out. I'll review your request and be in touch within 24 hours.</p>
-      <button class="success-close" onclick="document.getElementById('success-overlay').classList.remove('visible')">Close</button>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Kabani <span>Safaris</span></div>
@@ -1137,23 +989,35 @@
       });
     }
 
-    // ── CONTACT FORM POPUP ──
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      try {
-        const res = await fetch('https://formspree.io/f/xaewjgdg', {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          document.getElementById('success-overlay').classList.add('visible');
+    // ── HERO BOUNCING LOGO ──
+    (function() {
+      const ball = document.getElementById('hero-ball');
+      const hero = document.getElementById('hero');
+      if (!ball || !hero) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const size = 84, g = 0.45, bounce = 0.86;
+      let x = 80, y = 40, vx = 2.2, vy = 0, rot = 0, visible = true, last = performance.now();
+      if (reduce) { ball.style.transform = 'translate(' + (hero.clientWidth - 140) + 'px,' + (hero.clientHeight - 140) + 'px)'; return; }
+      new IntersectionObserver(function(e) { visible = e[0].isIntersecting; }).observe(hero);
+      function tick(now) {
+        const dt = Math.min((now - last) / 16.67, 3); last = now;
+        if (visible) {
+          const W = hero.clientWidth, H = hero.clientHeight;
+          vy += g * dt; x += vx * dt; y += vy * dt;
+          if (x < 0) { x = 0; vx = Math.abs(vx); }
+          if (x > W - size) { x = W - size; vx = -Math.abs(vx); }
+          if (y > H - size) {
+            y = H - size; vy = -Math.abs(vy) * bounce;
+            if (Math.abs(vy) < 4) vy = -(14 + Math.random() * 6);
+            if (Math.abs(vx) < 1.2) vx = (Math.random() < 0.5 ? -1 : 1) * 2;
+          }
+          rot += vx * 2 * dt;
+          ball.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg)';
         }
-      } catch {}
-    });
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
 
     // ── HERO GREETING ──
     (function() {
