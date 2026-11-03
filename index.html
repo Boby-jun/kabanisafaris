@@ -39,34 +39,72 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 60px; height: 72px;
+      padding: 32px 60px;
       background: transparent;
-      transition: background 0.4s, backdrop-filter 0.4s;
-    }
-    nav.scrolled {
-      background: rgba(26,51,68,0.96);
-      backdrop-filter: blur(8px);
     }
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px; font-weight: 400; color: var(--white);
-      letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase;
+      font-size: 18px; font-weight: 400; color: var(--white);
+      letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
     }
     .nav-logo span { color: var(--tan-light); }
-    .nav-links { display: flex; align-items: center; gap: 36px; }
-    .nav-links a {
-      font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.8);
-      text-decoration: none; transition: color 0.3s;
+    .nav-burger {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      display: flex; flex-direction: column; gap: 7px; z-index: 101;
     }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--white);
-      border: 1px solid var(--tan-light); padding: 9px 22px;
-      text-decoration: none; transition: background 0.3s, border-color 0.3s;
+    .nav-burger span {
+      display: block; width: 28px; height: 1px;
+      background: rgba(255,255,255,0.75);
+      transition: transform 0.35s, opacity 0.35s;
     }
-    .nav-cta:hover { background: var(--tan); border-color: var(--tan); }
+
+    /* ── FULLSCREEN MENU OVERLAY ── */
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: #060f16;
+      display: flex; align-items: center;
+      padding: 0 72px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.45s ease, visibility 0.45s;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+    .menu-overlay-top {
+      position: absolute; top: 32px; left: 60px; right: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .menu-overlay-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none;
+    }
+    .menu-overlay-logo span { color: var(--tan-light); }
+    .menu-overlay-close {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); transition: color 0.2s;
+    }
+    .menu-overlay-close:hover { color: rgba(255,255,255,0.7); }
+    .menu-nav { display: flex; flex-direction: column; gap: 0; }
+    .menu-nav a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 6.5vw, 80px);
+      font-weight: 300; color: rgba(255,255,255,0.65);
+      text-decoration: none; letter-spacing: -0.025em; line-height: 1.12;
+      transition: color 0.2s;
+    }
+    .menu-nav a:hover { color: #fff; }
+    .menu-nav a.menu-cta {
+      font-size: 13px; font-weight: 500;
+      color: var(--tan-light); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-top: 40px;
+      line-height: 1;
+    }
+    .menu-overlay-footer {
+      position: absolute; bottom: 40px; left: 72px;
+      font-size: 11px; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em; line-height: 2;
+    }
 
     /* ── HERO ── */
     #hero {
@@ -620,44 +658,11 @@
     .footer-admin a:hover { color: var(--tan-light); }
 
     /* ── RESPONSIVE ── */
-    .hamburger {
-      display: none; flex-direction: column; justify-content: center;
-      gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--white); transition: all 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none; position: fixed; top: 72px; left: 0; right: 0;
-      background: rgba(26,51,68,0.98); backdrop-filter: blur(8px);
-      flex-direction: column; padding: 24px 24px 32px; gap: 0; z-index: 99;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.8);
-      text-decoration: none; padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--white); }
-    .mobile-menu .mobile-cta {
-      margin-top: 20px; text-align: center;
-      background: var(--tan); color: var(--white);
-      padding: 14px; border: none; border-bottom: none;
-    }
-    .mobile-menu .mobile-cta:hover { background: var(--tan-light); }
-
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
+      nav { padding: 24px 24px; }
+      .menu-overlay { padding: 0 32px; }
+      .menu-overlay-top { left: 24px; right: 24px; }
+      .menu-overlay-footer { left: 32px; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -675,27 +680,29 @@
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="#hero">Kabani <span>Safaris</span></a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Experiences</a>
-      <a href="#coffee">Coffee</a>
-      <a href="#destinations">Destinations</a>
-      <a href="#esim">Travel eSIM</a>
-      <a href="#contact" class="nav-cta">Plan Your Journey</a>
-    </div>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
+    <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+      <span></span><span></span>
     </button>
   </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#services" onclick="closeMenu()">Experiences</a>
-    <a href="#coffee" onclick="closeMenu()">Coffee</a>
-    <a href="#destinations" onclick="closeMenu()">Destinations</a>
-    <a href="#esim" onclick="closeMenu()">Travel eSIM</a>
-    <a href="#contact" class="mobile-cta" onclick="closeMenu()">Plan Your Journey</a>
+  <!-- FULLSCREEN MENU OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-overlay-top">
+      <a class="menu-overlay-logo" href="#hero" onclick="closeMenu()">Kabani <span>Safaris</span></a>
+      <button class="menu-overlay-close" id="menu-close">✕ Close</button>
+    </div>
+    <nav class="menu-nav">
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="#services" onclick="closeMenu()">Experiences</a>
+      <a href="#coffee" onclick="closeMenu()">Coffee</a>
+      <a href="#destinations" onclick="closeMenu()">Destinations</a>
+      <a href="#esim" onclick="closeMenu()">Travel eSIM</a>
+      <a href="#contact" class="menu-cta" onclick="closeMenu()">Plan Your Journey →</a>
+    </nav>
+    <div class="menu-overlay-footer">
+      <p>Nairobi, Kenya · Est. 2026</p>
+      <p>reservations@kabanisafaris.com</p>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -1254,17 +1261,21 @@
       } catch {}
     });
 
-    // ── MOBILE MENU ──
-    function toggleMenu() {
-      const btn = document.getElementById('hamburger');
-      const menu = document.getElementById('mobile-menu');
-      btn.classList.toggle('open');
-      menu.classList.toggle('open');
+    // ── FULLSCREEN MENU ──
+    function openMenu() {
+      document.getElementById('menu-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (typeof gsap !== 'undefined') {
+        gsap.from('.menu-nav a', { y: 50, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 0.1 });
+      }
     }
     function closeMenu() {
-      document.getElementById('hamburger').classList.remove('open');
-      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('menu-overlay').classList.remove('open');
+      document.body.style.overflow = '';
     }
+    document.getElementById('nav-burger').addEventListener('click', openMenu);
+    document.getElementById('menu-close').addEventListener('click', closeMenu);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
 
     // ── DESTINATIONS POPUP ──
     function togglePopup(btn) {
@@ -1399,14 +1410,6 @@
       }
     });
 
-    // Nav: transparent over hero, solid when scrolled
-    const nav = document.querySelector('nav');
-    ScrollTrigger.create({
-      trigger: '#hero',
-      start: 'bottom 80px',
-      onEnter: () => nav.classList.add('scrolled'),
-      onLeaveBack: () => nav.classList.remove('scrolled')
-    });
   </script>
 </body>
 </html>
