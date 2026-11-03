@@ -594,14 +594,137 @@
     .btn-esim { display: inline-block; background: var(--tan); color: var(--white); font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 38px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
     .btn-esim:hover { background: var(--tan-light); }
     .esim-footnote { font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
-    @media (max-width: 640px) {
-      .services-grid { grid-template-columns: 1fr; }
-    }
-
     @media (max-width: 600px) {
       .esim-row { flex-direction: column; gap: 32px; }
       .esim-divider-v { width: 40px; height: 1px; background: linear-gradient(to right, transparent, rgba(196,145,90,0.4), transparent); }
     }
+
+    /* ── PLAYFUL SECTIONS ── */
+    #services, #destinations, #coffee { position: relative; overflow: hidden; padding: 110px 0; }
+    #services::before, #services::after, #destinations::before, #destinations::after, #coffee::before, #coffee::after {
+      content: ''; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+    }
+    #services { background: #F6EEDF; }
+    #services::before { width: 420px; height: 420px; background: var(--tan-pale); opacity: 0.55; top: -150px; right: -120px; }
+    #services::after { width: 300px; height: 300px; background: #C9D8B6; opacity: 0.5; bottom: -110px; left: -90px; }
+    #destinations { background: #E8EEDA; }
+    #destinations::before { width: 380px; height: 380px; background: #F3D9A4; opacity: 0.55; top: -140px; left: -100px; }
+    #destinations::after { width: 320px; height: 320px; background: var(--tan-pale); opacity: 0.6; bottom: -120px; right: -100px; }
+    #coffee { background: #F1DDC1; }
+    #coffee::before { width: 400px; height: 400px; background: var(--ochre); opacity: 0.3; top: -150px; left: 38%; }
+    #coffee::after { width: 320px; height: 320px; background: #C9D8B6; opacity: 0.6; bottom: -130px; right: -80px; }
+    #services .section-inner, #destinations .section-inner, #coffee .section-inner { position: relative; z-index: 1; }
+    #services .section-title, #destinations .section-title, #coffee .section-title { font-weight: 500; color: var(--dark); }
+    .section-title em { font-style: normal; color: var(--tan); }
+    #coffee .section-eyebrow { color: var(--tan); }
+    #coffee .section-eyebrow::before { background: var(--tan); }
+    #coffee .section-body {
+      font-family: 'Space Grotesk', sans-serif; font-size: 16px; line-height: 1.65;
+      color: #4D4034; max-width: 520px; margin-bottom: 8px;
+    }
+
+    /* experiences */
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 32px; margin-top: 56px; }
+    .service-card {
+      background: var(--white); border: 2px solid var(--dark); border-radius: 24px;
+      box-shadow: 7px 7px 0 var(--dark); padding: 24px 24px 26px; overflow: visible;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .service-card:nth-child(3n+1) { transform: rotate(-1.4deg); }
+    .service-card:nth-child(3n+2) { transform: rotate(1deg) translateY(8px); }
+    .service-card:nth-child(3n+3) { transform: rotate(-0.7deg); }
+    .service-card:hover { border-color: var(--dark); transform: rotate(0) translateY(-6px); box-shadow: 10px 10px 0 var(--dark); }
+    .service-card-photo { border: 2px solid var(--dark); border-radius: 16px; margin-bottom: 22px; }
+    .service-number {
+      align-self: flex-start; padding: 6px 14px; border: 2px solid var(--dark); border-radius: 999px;
+      margin-bottom: 14px; background: var(--tan); color: var(--white);
+    }
+    .service-card:nth-child(3n+2) .service-number { background: var(--green); }
+    .service-card:nth-child(3n+3) .service-number { background: var(--ochre); color: var(--dark); }
+    .service-title { font-size: 24px; letter-spacing: -0.01em; line-height: 1.15; }
+    .service-sub { color: var(--tan); }
+    .service-body { color: #4D4034; line-height: 1.65; }
+    .service-tag { background: var(--off-white); color: var(--dark); border: 1.5px solid var(--dark); border-radius: 999px; padding: 5px 12px; }
+    .dest-popup-btn {
+      background: var(--white); color: var(--dark); border: 2px solid var(--dark); border-radius: 999px;
+      padding: 9px 16px; box-shadow: 3px 3px 0 var(--dark); transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .dest-popup-btn:hover { background: var(--off-white); border-color: var(--dark); transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--dark); }
+    .view-photos-btn {
+      background: var(--tan); color: var(--white); border: 2px solid var(--dark); border-radius: 999px;
+      padding: 9px 18px; box-shadow: 3px 3px 0 var(--dark); transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+    }
+    .view-photos-btn:hover { background: var(--tan-light); transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--dark); }
+    .dest-popup { border: 2px solid var(--dark); border-radius: 14px; box-shadow: 4px 4px 0 var(--dark); }
+
+    /* destinations */
+    .dest-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 26px; margin-top: 30px; }
+    .dest-section-label {
+      display: inline-block; margin-top: 40px; padding: 7px 18px; border: 2px solid var(--dark); border-radius: 999px;
+      background: var(--ochre); color: var(--dark); box-shadow: 3px 3px 0 var(--dark); transform: rotate(-1.5deg); font-size: 11px;
+    }
+    .dest-section-label.coming { background: var(--white); color: #7A6A5A; margin-top: 52px; }
+    .dest-card {
+      background: var(--white); border: 2px solid var(--dark); border-radius: 22px; box-shadow: 5px 5px 0 var(--dark);
+      padding: 22px 22px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .dest-card:nth-child(odd) { transform: rotate(-1deg); }
+    .dest-card:nth-child(even) { transform: rotate(1deg); }
+    .dest-card:hover { border-color: var(--dark); transform: rotate(0) translateY(-5px); box-shadow: 8px 8px 0 var(--dark); }
+    .dest-card.soon { opacity: 0.7; border-style: dashed; box-shadow: none; transform: none; }
+    .dest-flag {
+      width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--dark); background: var(--tan-pale);
+      display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 14px;
+    }
+    .dest-card:nth-child(3n+2) .dest-flag { background: #C9D8B6; }
+    .dest-card:nth-child(3n+3) .dest-flag { background: #F3D9A4; }
+    .dest-name { font-size: 22px; letter-spacing: -0.01em; }
+    .dest-tags { flex-direction: row; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .dest-tag {
+      font-weight: 600; padding: 4px 10px; border: 1.5px solid var(--dark); border-radius: 999px;
+      background: var(--off-white); color: var(--dark); letter-spacing: 0.08em;
+    }
+
+    /* coffee */
+    .coffee-grid { gap: 72px; }
+    .coffee-visual {
+      background: var(--ochre); border: 3px solid var(--dark); border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%;
+      overflow: hidden; box-shadow: 12px 12px 0 var(--tan); transform: rotate(2deg);
+    }
+    .coffee-list { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+    .coffee-list li {
+      align-items: center; background: var(--white); color: #4D4034; font-size: 14px;
+      border: 2px solid var(--dark); border-radius: 16px; padding: 12px 16px; box-shadow: 3px 3px 0 var(--dark);
+      transition: transform 0.2s;
+    }
+    .coffee-list li:nth-child(odd) { transform: rotate(-0.5deg); }
+    .coffee-list li:nth-child(even) { transform: rotate(0.5deg); }
+    .coffee-list li:hover { transform: rotate(0) translateX(4px); }
+    .coffee-list li::before {
+      content: '✦'; width: 28px; height: 28px; border-radius: 50%; background: var(--ochre); border: 2px solid var(--dark);
+      display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--dark); margin-top: 0;
+    }
+
+    /* hero: playful touches */
+    .hero-eyebrow {
+      display: inline-block; padding: 7px 16px; border: 1.5px solid var(--tan-light); border-radius: 999px;
+      background: rgba(10,20,28,0.35); transform: rotate(-2deg);
+    }
+    .hero-brand span { display: inline-block; transform: rotate(-2.5deg); }
+    .hero-title .wiggle { text-decoration: underline wavy var(--tan-light); text-decoration-thickness: 3px; text-underline-offset: 9px; }
+    .hero-actions { gap: 22px; }
+    .btn-primary {
+      border: 2px solid var(--navy-dark); border-radius: 999px; padding: 16px 34px;
+      box-shadow: 5px 5px 0 var(--white); transform: rotate(-2deg);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    }
+    .btn-primary:hover { background: var(--tan-pale); transform: rotate(0) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--white); }
+    .btn-outline {
+      border: 2px solid var(--white); border-radius: 999px; padding: 16px 34px; color: var(--white);
+      box-shadow: 5px 5px 0 rgba(255,255,255,0.35); transform: rotate(1.5deg);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: var(--white); transform: rotate(0) translate(-2px, -2px); box-shadow: 8px 8px 0 rgba(255,255,255,0.5); }
 
     /* ── FOOTER ── */
     footer {
@@ -635,7 +758,6 @@
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: repeat(3, 1fr); }
       .dest-grid { grid-template-columns: 1fr 1fr; }
       .stats-row { grid-template-columns: 1fr; }
       .charts-grid { grid-template-columns: 1fr; }
@@ -689,11 +811,11 @@
     <div class="hero-content">
       <p class="hero-eyebrow">Geneva, Switzerland — Est. 2026</p>
       <h1 class="hero-brand">Kabani <span>Safaris</span></h1>
-      <p class="hero-title">Where the World <em>Meets</em> Africa</p>
+      <p class="hero-title">Where the World <em>Meets</em> <span class="wiggle">Africa</span></p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
       <div class="hero-actions">
-        <a href="#services" class="btn-primary">Explore Experiences</a>
-        <a href="plan-your-journey.html" class="btn-outline">Start Planning</a>
+        <a href="#services" class="btn-primary">Explore Experiences ↓</a>
+        <a href="plan-your-journey.html" class="btn-outline">Start Planning →</a>
       </div>
     </div>
     <div class="hero-scroll">Scroll</div>
@@ -703,7 +825,7 @@
   <section id="services">
     <div class="section-inner">
       <p class="section-eyebrow">Our Experiences</p>
-      <h2 class="section-title">Three Ways to<br>Discover Africa</h2>
+      <h2 class="section-title">Three Ways to<br><em>Discover Africa</em></h2>
       <div class="services-grid">
 
         <!-- 01 Wildlife & Photography -->
@@ -838,9 +960,9 @@
   <section id="destinations">
     <div class="section-inner">
       <p class="section-eyebrow">Where We Operate</p>
-      <h2 class="section-title">Our Expertise</h2>
+      <h2 class="section-title">Our <em>Expertise</em></h2>
 
-      <p class="dest-section-label">Our Expertise</p>
+      <p class="dest-section-label">Open for journeys</p>
       <div class="dest-grid">
         <div class="dest-card">
           <div class="dest-flag">🇰🇪</div>
@@ -941,7 +1063,7 @@
       <div class="coffee-grid">
         <div>
           <p class="section-eyebrow">A Special Focus</p>
-          <h2 class="section-title" style="color:var(--white)">Coffee at the<br>Heart of It All</h2>
+          <h2 class="section-title">Coffee at the<br><em>Heart of It All</em></h2>
           <p class="section-body">
             African coffee is not just a product — it is a culture, an economy, and a community. Wherever an itinerary allows, I integrate coffee cooperative visits so travellers can witness firsthand the hands behind the harvest.
           </p>
