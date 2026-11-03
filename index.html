@@ -129,6 +129,7 @@
       transition: filter 0.25s;
     }
     #hero:not(.playing) .hero-ball:hover { filter: drop-shadow(0 10px 22px rgba(196,145,90,0.7)); }
+    .hero-ball.extra { pointer-events: none; }
     .hero-ball:focus-visible { outline: 2px solid var(--tan-light); outline-offset: 4px; border-radius: 50%; }
     .hero-ball-hint {
       position: absolute; right: 148px; bottom: 62px; z-index: 3;
@@ -670,9 +671,9 @@
     <span class="hero-ball-hint" id="hero-ball-hint">Click the ball to play</span>
     <div class="game-paddle" id="game-paddle" hidden></div>
     <div class="game-hud" id="game-hud" hidden>
-      <div class="hud-count" id="hud-sec">10</div>
+      <div class="hud-count" id="hud-sec">5</div>
       <div class="hud-label">Seconds to speed-up</div>
-      <div class="hud-meta">Level <b id="hud-level">1</b> · Catches <b id="hud-score">0</b> · Best <b id="hud-best">0</b></div>
+      <div class="hud-meta">Level <b id="hud-level">1</b> · Balls <b id="hud-balls">1</b> · Catches <b id="hud-score">0</b> · Best <b id="hud-best">0</b></div>
     </div>
     <div class="game-over" id="game-over" hidden>
       <div class="game-over-box">
@@ -1059,41 +1060,54 @@
       if (!hero || !ball) return;
       const $ = function(id) { return document.getElementById(id); };
       const paddle = $('game-paddle'), hud = $('game-hud'), over = $('game-over'), hint = $('hero-ball-hint');
-      const IDLE = 84, PLAY = 56, PW = 130, PH = 14, PB = 32, BOOST_EVERY = 10, BOOST = 1.22;
+      const SIZE = 84, PH = 14, PB = 32, BOOST_EVERY = 5, BOOST = 1.15;
       let state = 'idle', raf = 0, last = 0, visible = true;
-      let x, y, vx, vy, speed, rot, elapsed, nextBoost, level, catches, paddleX, W, H;
+      let balls = [], speed, elapsed, nextBoost, level, catches, paddleX, PW = 130, W, H;
       let best = 0;
       try { best = +localStorage.getItem('kabani_ball_best') || 0; } catch (e) {}
 
       new IntersectionObserver(function(e) { visible = e[0].isIntersecting; last = performance.now(); }).observe(hero);
 
       function placeIdle() {
-        ball.style.width = ball.style.height = IDLE + 'px';
-        ball.style.transform = 'translate(' + (hero.clientWidth - IDLE - 48) + 'px,' + (hero.clientHeight - IDLE - 36) + 'px)';
+        ball.style.width = ball.style.height = SIZE + 'px';
+        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - 48) + 'px,' + (hero.clientHeight - SIZE - 36) + 'px)';
       }
       placeIdle();
       window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
 
       function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-      function setVel(angle) { vx = speed * Math.sin(angle); vy = speed * Math.cos(angle); }
+      function setVel(b, angle) { const sp = speed * b.mult; b.vx = sp * Math.sin(angle); b.vy = sp * Math.cos(angle); }
+      function rescale(b) { const m = Math.hypot(b.vx, b.vy) || 1, sp = speed * b.mult; b.vx = b.vx / m * sp; b.vy = b.vy / m * sp; }
+      function newBall(el, mult, x, y) { const b = { el: el, mult: mult, x: x, y: y, vx: 0, vy: 0, rot: 0 }; setVel(b, (Math.random() * 50 - 25) * Math.PI / 180); return b; }
+
+      function spawnExtra(mult) {
+        const el = ball.cloneNode(false);
+        el.removeAttribute('id'); el.removeAttribute('role'); el.removeAttribute('tabindex');
+        el.alt = ''; el.setAttribute('aria-hidden', 'true'); el.className = 'hero-ball extra';
+        el.style.width = el.style.height = SIZE + 'px';
+        hero.appendChild(el);
+        balls.push(newBall(el, mult, W * (0.2 + Math.random() * 0.6) - SIZE / 2, 0));
+      }
+      function clearExtras() { balls.forEach(function(b) { if (b.el !== ball) b.el.remove(); }); balls = []; }
+      function setPaddleWidth() { PW = level >= 5 ? 190 : level >= 4 ? 170 : 130; paddle.style.width = PW + 'px'; }
 
       function start() {
-        cancelAnimationFrame(raf);
+        cancelAnimationFrame(raf); clearExtras();
         W = hero.clientWidth; H = hero.clientHeight;
         state = 'playing'; hero.classList.add('playing');
         hint.hidden = true; over.hidden = true; hud.hidden = false; paddle.hidden = false;
-        ball.style.width = ball.style.height = PLAY + 'px';
-        x = W / 2 - PLAY / 2; y = H * 0.28; rot = 0;
+        ball.style.width = ball.style.height = SIZE + 'px';
         speed = 5.5; level = 1; catches = 0; elapsed = 0; nextBoost = BOOST_EVERY;
-        setVel((Math.random() * 50 - 25) * Math.PI / 180);
-        paddleX = W / 2;
-        $('hud-best').textContent = best; $('hud-level').textContent = 1; $('hud-score').textContent = 0; $('hud-sec').textContent = BOOST_EVERY;
+        balls = [newBall(ball, 1, W / 2 - SIZE / 2, H * 0.25)];
+        setPaddleWidth(); paddleX = W / 2;
+        $('hud-best').textContent = best; $('hud-level').textContent = 1; $('hud-balls').textContent = 1;
+        $('hud-score').textContent = 0; $('hud-sec').textContent = BOOST_EVERY;
         last = performance.now();
         raf = requestAnimationFrame(tick);
       }
 
       function stopToIdle() {
-        cancelAnimationFrame(raf);
+        cancelAnimationFrame(raf); clearExtras();
         state = 'idle'; hero.classList.remove('playing');
         hud.hidden = true; paddle.hidden = true; over.hidden = true; hint.hidden = false;
         placeIdle();
@@ -1107,35 +1121,44 @@
         over.hidden = false;
       }
 
+      function levelUp() {
+        nextBoost += BOOST_EVERY; level++; speed *= BOOST;
+        balls.forEach(rescale);
+        if (level === 4) spawnExtra(0.8);
+        if (level === 5) spawnExtra(1.3);
+        setPaddleWidth();
+        $('hud-level').textContent = level; $('hud-balls').textContent = balls.length;
+        const c = $('hud-sec'); c.classList.add('flash'); setTimeout(function() { c.classList.remove('flash'); }, 350);
+      }
+
       function tick(now) {
         if (state !== 'playing') return;
         const dt = Math.min((now - last) / 16.67, 3); last = now;
         if (visible) {
           W = hero.clientWidth; H = hero.clientHeight;
           elapsed += dt * 16.67 / 1000;
-          if (elapsed >= nextBoost) {
-            nextBoost += BOOST_EVERY; level++; speed *= BOOST;
-            const m = Math.hypot(vx, vy); vx = vx / m * speed; vy = vy / m * speed;
-            $('hud-level').textContent = level;
-            const c = $('hud-sec'); c.classList.add('flash'); setTimeout(function() { c.classList.remove('flash'); }, 350);
-          }
+          if (elapsed >= nextBoost) levelUp();
           $('hud-sec').textContent = Math.max(1, Math.ceil(nextBoost - elapsed));
-          x += vx * dt; y += vy * dt;
-          if (x < 0) { x = 0; vx = Math.abs(vx); }
-          if (x > W - PLAY) { x = W - PLAY; vx = -Math.abs(vx); }
-          if (y < 0) { y = 0; vy = Math.abs(vy); }
-          const pTop = H - PB - PH, cx = x + PLAY / 2;
           paddleX = clamp(paddleX, PW / 2, W - PW / 2);
-          if (vy > 0 && y + PLAY >= pTop && y < pTop + PH && cx >= paddleX - PW / 2 - PLAY / 3 && cx <= paddleX + PW / 2 + PLAY / 3) {
-            y = pTop - PLAY;
-            const off = clamp((cx - paddleX) / (PW / 2), -1, 1);
-            let a = off * 60 * Math.PI / 180 + (Math.random() - 0.5) * 0.4;
-            if (Math.abs(a) < 0.22) a = (Math.random() < 0.5 ? -1 : 1) * (0.22 + Math.random() * 0.2);
-            vx = speed * Math.sin(a); vy = -speed * Math.cos(a);
-            catches++; $('hud-score').textContent = catches;
-          } else if (y > H) { gameOver(); return; }
-          rot += vx * 3 * dt;
-          ball.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg)';
+          const pTop = H - PB - PH;
+          for (let i = 0; i < balls.length; i++) {
+            const b = balls[i], sp = speed * b.mult;
+            b.x += b.vx * dt; b.y += b.vy * dt;
+            if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx); }
+            if (b.x > W - SIZE) { b.x = W - SIZE; b.vx = -Math.abs(b.vx); }
+            if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy); }
+            const cx = b.x + SIZE / 2;
+            if (b.vy > 0 && b.y + SIZE >= pTop && b.y < pTop + PH && cx >= paddleX - PW / 2 - SIZE / 3 && cx <= paddleX + PW / 2 + SIZE / 3) {
+              b.y = pTop - SIZE;
+              const off = clamp((cx - paddleX) / (PW / 2), -1, 1);
+              let a = off * 60 * Math.PI / 180 + (Math.random() - 0.5) * 0.4;
+              if (Math.abs(a) < 0.22) a = (Math.random() < 0.5 ? -1 : 1) * (0.22 + Math.random() * 0.2);
+              b.vx = sp * Math.sin(a); b.vy = -sp * Math.cos(a);
+              catches++; $('hud-score').textContent = catches;
+            } else if (b.y > H) { gameOver(); return; }
+            b.rot += b.vx * 3 * dt;
+            b.el.style.transform = 'translate(' + b.x + 'px,' + b.y + 'px) rotate(' + b.rot + 'deg)';
+          }
           paddle.style.transform = 'translate(' + (paddleX - PW / 2) + 'px,' + pTop + 'px)';
         }
         raf = requestAnimationFrame(tick);
@@ -1156,6 +1179,7 @@
         paddleX = e.touches[0].clientX - hero.getBoundingClientRect().left;
       }, { passive: false });
       document.addEventListener('keydown', function(e) {
+        if (state === 'over' && e.key === 'Escape') { stopToIdle(); return; }
         if (state !== 'playing') return;
         if (e.key === 'ArrowLeft' || e.key === 'a') { paddleX -= 45; e.preventDefault(); }
         else if (e.key === 'ArrowRight' || e.key === 'd') { paddleX += 45; e.preventDefault(); }
