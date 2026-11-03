@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Kabani Safaris</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tan:        #A26730;
+      --tan-light:  #C4915A;
+      --tan-pale:   #E8D4BB;
+      --navy:       #2C5064;
+      --navy-dark:  #1A3344;
+      --cream:      #EEE4D4;
+      --cream-dark: #DDD0BA;
+      --dark:       #2D2D2D;
+      --off-white:  #FAF7F2;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 60px;
+      background: var(--navy-dark);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 400; color: var(--white);
+      letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--tan-light); }
+    .nav-burger {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .nav-burger span {
+      display: block; width: 28px; height: 1px;
+      background: rgba(255,255,255,0.75);
+    }
+
+    /* ── MENU OVERLAY ── */
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: #060f16;
+      display: flex; align-items: center;
+      padding: 0 72px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.45s ease, visibility 0.45s;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+    .menu-overlay-top {
+      position: absolute; top: 32px; left: 60px; right: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .menu-overlay-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none;
+    }
+    .menu-overlay-logo span { color: var(--tan-light); }
+    .menu-overlay-close {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); transition: color 0.2s;
+    }
+    .menu-overlay-close:hover { color: rgba(255,255,255,0.7); }
+    .menu-nav { display: flex; flex-direction: column; gap: 0; }
+    .menu-nav a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 6.5vw, 80px);
+      font-weight: 300; color: rgba(255,255,255,0.65);
+      text-decoration: none; letter-spacing: -0.025em; line-height: 1.12;
+      transition: color 0.2s;
+    }
+    .menu-nav a:hover { color: #fff; }
+    .menu-nav a.menu-cta {
+      font-size: 13px; font-weight: 500;
+      color: var(--tan-light); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-top: 40px; line-height: 1;
+    }
+    .menu-overlay-footer {
+      position: absolute; bottom: 40px; left: 72px;
+      font-size: 11px; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em; line-height: 2;
+    }
+
+    /* ── SHARED SECTION ── */
+    section { position: relative; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--dark); margin-bottom: 20px;
+    }
+    .section-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; line-height: 1.7; color: #5A4A3A; max-width: 680px;
+    }
+
+    /* ── ABOUT ── */
+    #about { padding: 160px 0 120px; background: var(--off-white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      position: relative; aspect-ratio: 4/5;
+      background: var(--cream); overflow: hidden;
+    }
+    .about-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-visual::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 4px; background: var(--tan);
+    }
+    .about-highlight {
+      margin-top: 36px; padding: 28px 32px;
+      border-left: 3px solid var(--tan-light); background: var(--cream);
+    }
+    .about-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-style: italic; line-height: 1.65; color: #4A3A2A;
+    }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy { padding: 100px 0; background: var(--navy-dark); }
+    #philosophy .section-eyebrow { color: var(--tan-light); }
+    #philosophy .section-eyebrow::before { background: var(--tan-light); }
+    #philosophy .section-title { color: var(--white); }
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .pillar {
+      background: rgba(255,255,255,0.04); padding: 44px 36px;
+      border-top: 2px solid transparent; transition: border-color 0.3s, background 0.3s;
+    }
+    .pillar:hover { border-color: var(--tan-light); background: rgba(255,255,255,0.07); }
+    .pillar-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px; font-weight: 500; color: var(--white); margin-bottom: 14px;
+    }
+    .pillar-body { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.6); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 60px; background: #0E1F2A;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 500; color: var(--white);
+    }
+    .footer-logo span { color: var(--tan-light); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
+    .footer-back a {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.3s;
+    }
+    .footer-back a:hover { color: var(--tan-light); }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px; }
+      .section-inner { padding: 0 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pillars { grid-template-columns: 1fr; }
+      .menu-overlay { padding: 0 32px; }
+      .menu-overlay-top { left: 24px; right: 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Kabani <span>Safaris</span></a>
+    <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-overlay-top">
+      <a class="menu-overlay-logo" href="index.html">Kabani <span>Safaris</span></a>
+      <button class="menu-overlay-close" id="menu-close" onclick="closeMenu()">✕ Close</button>
+    </div>
+    <nav class="menu-nav">
+      <a href="index.html#services">Experiences</a>
+      <a href="index.html#coffee">Coffee</a>
+      <a href="about.html">About</a>
+      <a href="index.html#destinations">Destinations</a>
+      <a href="travel-esim.html">Travel eSIM</a>
+      <a href="index.html#contact" class="menu-cta">Plan Your Journey →</a>
+    </nav>
+    <div class="menu-overlay-footer">
+      <p>Nairobi, Kenya · Est. 2026</p>
+      <p>reservations@kabanisafaris.com</p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <img src="rafael-portrait.jpg" alt="Rafael Barakat" />
+        </div>
+        <div>
+          <p class="section-eyebrow">About Kabani Safaris</p>
+          <h1 class="section-title">A Consultant<br>Rooted in Africa</h1>
+          <p class="section-body">
+            After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.
+          </p>
+          <div class="about-highlight">
+            <p>"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="section-inner">
+      <p class="section-eyebrow">Our Philosophy</p>
+      <h2 class="section-title" style="color:var(--white)">Three Principles That<br>Guide Every Journey</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3 class="pillar-title">Tailor-Made by Design</h3>
+          <p class="pillar-body">No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-title">Local Professionals</h3>
+          <p class="pillar-body">We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-title">Impact-Led Travel</h3>
+          <p class="pillar-body">Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Kabani <span>Safaris</span></div>
+    <div class="footer-copy">© 2026 Kabani Safaris. All rights reserved.</div>
+    <div class="footer-back"><a href="index.html">← Back to home</a></div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    function openMenu() {
+      document.getElementById('menu-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (typeof gsap !== 'undefined') {
+        gsap.from('.menu-nav a', { y: 50, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 0.1 });
+      }
+    }
+    function closeMenu() {
+      document.getElementById('menu-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('nav-burger').addEventListener('click', openMenu);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+  </script>
+</body>
+</html>

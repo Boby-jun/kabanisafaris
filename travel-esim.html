@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel eSIM — Kabani Safaris</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tan:        #A26730;
+      --tan-light:  #C4915A;
+      --tan-pale:   #E8D4BB;
+      --navy:       #2C5064;
+      --navy-dark:  #1A3344;
+      --cream:      #EEE4D4;
+      --cream-dark: #DDD0BA;
+      --dark:       #2D2D2D;
+      --off-white:  #FAF7F2;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 60px;
+      background: var(--navy-dark);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 400; color: var(--white);
+      letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--tan-light); }
+    .nav-burger {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .nav-burger span {
+      display: block; width: 28px; height: 1px;
+      background: rgba(255,255,255,0.75);
+    }
+
+    /* ── MENU OVERLAY ── */
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: #060f16;
+      display: flex; align-items: center;
+      padding: 0 72px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.45s ease, visibility 0.45s;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+    .menu-overlay-top {
+      position: absolute; top: 32px; left: 60px; right: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .menu-overlay-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none;
+    }
+    .menu-overlay-logo span { color: var(--tan-light); }
+    .menu-overlay-close {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); transition: color 0.2s;
+    }
+    .menu-overlay-close:hover { color: rgba(255,255,255,0.7); }
+    .menu-nav { display: flex; flex-direction: column; gap: 0; }
+    .menu-nav a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 6.5vw, 80px);
+      font-weight: 300; color: rgba(255,255,255,0.65);
+      text-decoration: none; letter-spacing: -0.025em; line-height: 1.12;
+      transition: color 0.2s;
+    }
+    .menu-nav a:hover { color: #fff; }
+    .menu-nav a.menu-cta {
+      font-size: 13px; font-weight: 500;
+      color: var(--tan-light); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-top: 40px; line-height: 1;
+    }
+    .menu-overlay-footer {
+      position: absolute; bottom: 40px; left: 72px;
+      font-size: 11px; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em; line-height: 2;
+    }
+
+    /* ── HERO BAND ── */
+    #esim-hero {
+      padding: 180px 0 100px;
+      background: var(--navy-dark);
+      position: relative; overflow: hidden;
+    }
+    #esim-hero::before {
+      content: 'eSIM';
+      position: absolute; right: -0.04em; bottom: -0.1em;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(100px, 18vw, 240px); font-weight: 300;
+      color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.05);
+      pointer-events: none; letter-spacing: -0.04em; line-height: 1;
+    }
+    .esim-hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--tan-light);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan-light); }
+    #esim-hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 5vw, 68px); font-weight: 300; line-height: 1.08;
+      letter-spacing: -0.02em; color: var(--white); max-width: 700px;
+    }
+    #esim-hero p.lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; line-height: 1.7; color: rgba(255,255,255,0.55);
+      max-width: 560px; margin-top: 24px;
+    }
+
+    /* ── ESIM CONTENT ── */
+    #esim-content { padding: 100px 0 120px; background: var(--off-white); }
+    .esim-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .esim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+    .esim-logo-wrap {
+      margin-bottom: 40px;
+    }
+    .esim-logo-wrap img { height: 40px; width: auto; display: block; }
+    .esim-logo-placeholder {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px; font-weight: 500; color: var(--dark);
+      letter-spacing: 0.05em;
+    }
+
+    .esim-desc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px); font-weight: 300;
+      line-height: 1.1; letter-spacing: -0.02em; color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .esim-desc-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; line-height: 1.72; color: #5A4A3A;
+      margin-bottom: 32px;
+    }
+    .esim-features { list-style: none; margin-bottom: 40px; display: flex; flex-direction: column; gap: 12px; }
+    .esim-features li {
+      font-size: 14px; font-weight: 400; color: var(--dark);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .esim-features li::before {
+      content: ''; width: 18px; height: 1px;
+      background: var(--tan); flex-shrink: 0;
+    }
+
+    .btn-esim {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 32px; background: var(--tan); color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.25s;
+    }
+    .btn-esim:hover { background: var(--tan-light); }
+    .btn-esim-note {
+      display: block; margin-top: 12px;
+      font-size: 11px; color: rgba(0,0,0,0.3); letter-spacing: 0.04em;
+    }
+
+    /* QR panel */
+    .esim-qr-panel {
+      background: var(--cream); padding: 48px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .esim-qr-panel img {
+      width: 200px; height: 200px; object-fit: contain;
+      display: block; margin-bottom: 24px;
+    }
+    .esim-qr-placeholder {
+      width: 200px; height: 200px; background: var(--cream-dark);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      font-size: 11px; color: rgba(0,0,0,0.3); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .esim-qr-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--tan); margin-bottom: 8px;
+    }
+    .esim-qr-sub {
+      font-size: 13px; color: rgba(0,0,0,0.45); line-height: 1.6; max-width: 200px;
+    }
+
+    /* coverage band */
+    #esim-coverage {
+      padding: 80px 0;
+      background: var(--navy-dark);
+      text-align: center;
+    }
+    .esim-coverage-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .coverage-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(64px, 10vw, 120px); font-weight: 300;
+      line-height: 1; color: var(--white); letter-spacing: -0.03em;
+    }
+    .coverage-number span { color: var(--tan-light); }
+    .coverage-label {
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-top: 12px;
+    }
+    .coverage-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 60px;
+    }
+    .coverage-item {
+      background: rgba(255,255,255,0.04); padding: 32px 24px;
+    }
+    .coverage-item-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; }
+    .coverage-item-body { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 60px; background: #0E1F2A;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500; color: var(--white); }
+    .footer-logo span { color: var(--tan-light); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
+    .footer-back a {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.3s;
+    }
+    .footer-back a:hover { color: var(--tan-light); }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px; }
+      .esim-hero-inner, .esim-inner, .esim-coverage-inner { padding: 0 24px; }
+      .esim-grid { grid-template-columns: 1fr; gap: 48px; }
+      .coverage-grid { grid-template-columns: 1fr; }
+      .menu-overlay { padding: 0 32px; }
+      .menu-overlay-top { left: 24px; right: 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Kabani <span>Safaris</span></a>
+    <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-overlay-top">
+      <a class="menu-overlay-logo" href="index.html">Kabani <span>Safaris</span></a>
+      <button class="menu-overlay-close" id="menu-close" onclick="closeMenu()">✕ Close</button>
+    </div>
+    <nav class="menu-nav">
+      <a href="index.html#services">Experiences</a>
+      <a href="index.html#coffee">Coffee</a>
+      <a href="about.html">About</a>
+      <a href="index.html#destinations">Destinations</a>
+      <a href="travel-esim.html">Travel eSIM</a>
+      <a href="index.html#contact" class="menu-cta">Plan Your Journey →</a>
+    </nav>
+    <div class="menu-overlay-footer">
+      <p>Nairobi, Kenya · Est. 2026</p>
+      <p>reservations@kabanisafaris.com</p>
+    </div>
+  </div>
+
+  <!-- HERO BAND -->
+  <section id="esim-hero">
+    <div class="esim-hero-inner">
+      <p class="section-eyebrow">Partner Service</p>
+      <h1>Stay Connected<br>Everywhere You Go</h1>
+      <p class="lead">From the Serengeti to the streets of Nairobi — travel with reliable data in over 190 countries, no SIM swap required.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section id="esim-content">
+    <div class="esim-inner">
+      <div class="esim-grid">
+
+        <div>
+          <div class="esim-logo-wrap">
+            <img src="peydsim-logo.svg" alt="Peydsim" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <span class="esim-logo-placeholder" style="display:none;">peydsim</span>
+          </div>
+          <h2 class="esim-desc-title">Your Journey's<br>Digital Companion</h2>
+          <p class="esim-desc-body">
+            We've partnered with Peydsim so that every Kabani Safaris traveller can stay connected from the moment they land. Install your eSIM before you leave home — no roaming fees, no hunting for a local SIM at the airport.
+          </p>
+          <ul class="esim-features">
+            <li>Coverage in 190+ countries</li>
+            <li>Instant digital delivery — no plastic SIM</li>
+            <li>Keep your existing number for calls</li>
+            <li>Flexible data plans, easy top-up</li>
+            <li>Compatible with all eSIM-ready devices</li>
+          </ul>
+          <a href="https://peydsim.com/?affiliateCode=kabanisafaris" target="_blank" rel="noopener" class="btn-esim">
+            Get Your eSIM →
+          </a>
+          <span class="btn-esim-note">Opens peydsim.com with Kabani Safaris affiliate link</span>
+        </div>
+
+        <div class="esim-qr-panel">
+          <img src="peydsim-qr.jpg" alt="Scan to get your eSIM" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="esim-qr-placeholder" style="display:none;">QR Code</div>
+          <p class="esim-qr-label">Scan to activate</p>
+          <p class="esim-qr-sub">Point your camera at the QR code to go directly to your eSIM plan</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE BAND -->
+  <section id="esim-coverage">
+    <div class="esim-coverage-inner">
+      <div class="coverage-number">190<span>+</span></div>
+      <p class="coverage-label">Countries covered</p>
+      <div class="coverage-grid">
+        <div class="coverage-item">
+          <p class="coverage-item-title">East Africa</p>
+          <p class="coverage-item-body">Kenya, Tanzania, Uganda, Rwanda, Ethiopia — full coverage across the region Kabani Safaris knows best.</p>
+        </div>
+        <div class="coverage-item">
+          <p class="coverage-item-title">Europe & Americas</p>
+          <p class="coverage-item-body">Stay connected from your home country through your layover and all the way to your safari destination.</p>
+        </div>
+        <div class="coverage-item">
+          <p class="coverage-item-title">Asia & Beyond</p>
+          <p class="coverage-item-body">Planning a stop in Dubai or Southeast Asia? One eSIM, one app, global data coverage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Kabani <span>Safaris</span></div>
+    <div class="footer-copy">© 2026 Kabani Safaris. All rights reserved.</div>
+    <div class="footer-back"><a href="index.html">← Back to home</a></div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    function openMenu() {
+      document.getElementById('menu-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (typeof gsap !== 'undefined') {
+        gsap.from('.menu-nav a', { y: 50, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 0.1 });
+      }
+    }
+    function closeMenu() {
+      document.getElementById('menu-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('nav-burger').addEventListener('click', openMenu);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+  </script>
+</body>
+</html>
