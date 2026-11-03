@@ -124,9 +124,54 @@
     .hero-brand span { color: var(--tan-light); }
     .hero-ball {
       position: absolute; top: 0; left: 0; width: 84px; height: 84px;
-      z-index: 1; pointer-events: none; user-select: none;
+      z-index: 3; cursor: pointer; user-select: none; -webkit-user-drag: none;
       will-change: transform; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+      transition: filter 0.25s;
     }
+    #hero:not(.playing) .hero-ball:hover { filter: drop-shadow(0 10px 22px rgba(196,145,90,0.7)); }
+    .hero-ball:focus-visible { outline: 2px solid var(--tan-light); outline-offset: 4px; border-radius: 50%; }
+    .hero-ball-hint {
+      position: absolute; right: 148px; bottom: 62px; z-index: 3;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); pointer-events: none;
+    }
+    [hidden] { display: none !important; }
+    #hero.playing { cursor: none; touch-action: none; }
+    #hero.playing .hero-content, #hero.playing .hero-scroll, #hero.playing .hero-ball-hint { opacity: 0.12; pointer-events: none; transition: opacity 0.4s; }
+    #hero.playing .hero-ghost { opacity: 0 !important; }
+    .game-paddle {
+      position: absolute; top: 0; left: 0; width: 130px; height: 14px; z-index: 3;
+      background: var(--tan-light); border: 2px solid var(--white); border-radius: 999px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4); will-change: transform; pointer-events: none;
+    }
+    .game-hud {
+      position: absolute; top: 28px; right: 36px; z-index: 4; text-align: right; color: var(--white);
+      font-family: 'Space Grotesk', sans-serif; pointer-events: none;
+    }
+    .hud-count { font-size: clamp(44px, 5vw, 72px); font-weight: 300; line-height: 1; letter-spacing: -0.03em; transition: color 0.2s, transform 0.2s; }
+    .hud-count.flash { color: var(--tan-light); transform: scale(1.12); }
+    .hud-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 6px; }
+    .hud-meta { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 14px; }
+    .hud-meta b { color: var(--tan-light); font-weight: 600; }
+    .game-over {
+      position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center;
+      background: rgba(10,20,28,0.55); cursor: default;
+    }
+    .game-over-box {
+      background: var(--off-white); color: var(--dark); border: 2px solid var(--dark); border-radius: 22px;
+      box-shadow: 8px 8px 0 var(--dark); padding: 36px 44px; text-align: center; min-width: 300px;
+    }
+    .game-over-box h3 { font-size: 30px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .game-over-box p { font-size: 14px; color: #5A4A3A; margin-bottom: 4px; }
+    .game-over-box p b { color: var(--tan); }
+    .game-over-actions { display: flex; gap: 12px; justify-content: center; margin-top: 22px; }
+    .game-btn {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 13px 26px; border: 2px solid var(--dark); border-radius: 999px; cursor: pointer;
+      background: var(--tan); color: var(--white); box-shadow: 3px 3px 0 var(--dark); transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .game-btn.ghost { background: transparent; color: var(--dark); }
+    .game-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--dark); }
     .hero-title {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(26px, 3.2vw, 46px);
@@ -621,7 +666,25 @@
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-ghost" id="hero-greeting">Karibu</div>
-    <img class="hero-ball" id="hero-ball" src="android-chrome-512x512.png" alt="" aria-hidden="true" />
+    <img class="hero-ball" id="hero-ball" src="android-chrome-512x512.png" alt="Play the Kabani ball game" role="button" tabindex="0" draggable="false" />
+    <span class="hero-ball-hint" id="hero-ball-hint">Click the ball to play</span>
+    <div class="game-paddle" id="game-paddle" hidden></div>
+    <div class="game-hud" id="game-hud" hidden>
+      <div class="hud-count" id="hud-sec">10</div>
+      <div class="hud-label">Seconds to speed-up</div>
+      <div class="hud-meta">Level <b id="hud-level">1</b> · Catches <b id="hud-score">0</b> · Best <b id="hud-best">0</b></div>
+    </div>
+    <div class="game-over" id="game-over" hidden>
+      <div class="game-over-box">
+        <h3>Game over</h3>
+        <p>You caught the ball <b id="over-score">0</b> times · Level <b id="over-level">1</b></p>
+        <p>Best: <b id="over-best">0</b></p>
+        <div class="game-over-actions">
+          <button class="game-btn" id="game-again" type="button">Play again</button>
+          <button class="game-btn ghost" id="game-close" type="button">Close</button>
+        </div>
+      </div>
+    </div>
     <div class="hero-content">
       <p class="hero-eyebrow">Geneva, Switzerland — Est. 2026</p>
       <h1 class="hero-brand">Kabani <span>Safaris</span></h1>
@@ -989,34 +1052,115 @@
       });
     }
 
-    // ── HERO BOUNCING LOGO ──
+    // ── HERO BALL GAME ──
     (function() {
-      const ball = document.getElementById('hero-ball');
       const hero = document.getElementById('hero');
-      if (!ball || !hero) return;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const size = 84, g = 0.45, bounce = 0.86;
-      let x = 80, y = 40, vx = 2.2, vy = 0, rot = 0, visible = true, last = performance.now();
-      if (reduce) { ball.style.transform = 'translate(' + (hero.clientWidth - 140) + 'px,' + (hero.clientHeight - 140) + 'px)'; return; }
-      new IntersectionObserver(function(e) { visible = e[0].isIntersecting; }).observe(hero);
+      const ball = document.getElementById('hero-ball');
+      if (!hero || !ball) return;
+      const $ = function(id) { return document.getElementById(id); };
+      const paddle = $('game-paddle'), hud = $('game-hud'), over = $('game-over'), hint = $('hero-ball-hint');
+      const IDLE = 84, PLAY = 56, PW = 130, PH = 14, PB = 32, BOOST_EVERY = 10, BOOST = 1.22;
+      let state = 'idle', raf = 0, last = 0, visible = true;
+      let x, y, vx, vy, speed, rot, elapsed, nextBoost, level, catches, paddleX, W, H;
+      let best = 0;
+      try { best = +localStorage.getItem('kabani_ball_best') || 0; } catch (e) {}
+
+      new IntersectionObserver(function(e) { visible = e[0].isIntersecting; last = performance.now(); }).observe(hero);
+
+      function placeIdle() {
+        ball.style.width = ball.style.height = IDLE + 'px';
+        ball.style.transform = 'translate(' + (hero.clientWidth - IDLE - 48) + 'px,' + (hero.clientHeight - IDLE - 36) + 'px)';
+      }
+      placeIdle();
+      window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
+
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+      function setVel(angle) { vx = speed * Math.sin(angle); vy = speed * Math.cos(angle); }
+
+      function start() {
+        cancelAnimationFrame(raf);
+        W = hero.clientWidth; H = hero.clientHeight;
+        state = 'playing'; hero.classList.add('playing');
+        hint.hidden = true; over.hidden = true; hud.hidden = false; paddle.hidden = false;
+        ball.style.width = ball.style.height = PLAY + 'px';
+        x = W / 2 - PLAY / 2; y = H * 0.28; rot = 0;
+        speed = 5.5; level = 1; catches = 0; elapsed = 0; nextBoost = BOOST_EVERY;
+        setVel((Math.random() * 50 - 25) * Math.PI / 180);
+        paddleX = W / 2;
+        $('hud-best').textContent = best; $('hud-level').textContent = 1; $('hud-score').textContent = 0; $('hud-sec').textContent = BOOST_EVERY;
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      }
+
+      function stopToIdle() {
+        cancelAnimationFrame(raf);
+        state = 'idle'; hero.classList.remove('playing');
+        hud.hidden = true; paddle.hidden = true; over.hidden = true; hint.hidden = false;
+        placeIdle();
+      }
+
+      function gameOver() {
+        state = 'over'; cancelAnimationFrame(raf);
+        if (catches > best) { best = catches; try { localStorage.setItem('kabani_ball_best', best); } catch (e) {} }
+        $('over-score').textContent = catches; $('over-level').textContent = level; $('over-best').textContent = best;
+        $('hud-best').textContent = best;
+        over.hidden = false;
+      }
+
       function tick(now) {
+        if (state !== 'playing') return;
         const dt = Math.min((now - last) / 16.67, 3); last = now;
         if (visible) {
-          const W = hero.clientWidth, H = hero.clientHeight;
-          vy += g * dt; x += vx * dt; y += vy * dt;
-          if (x < 0) { x = 0; vx = Math.abs(vx); }
-          if (x > W - size) { x = W - size; vx = -Math.abs(vx); }
-          if (y > H - size) {
-            y = H - size; vy = -Math.abs(vy) * bounce;
-            if (Math.abs(vy) < 4) vy = -(14 + Math.random() * 6);
-            if (Math.abs(vx) < 1.2) vx = (Math.random() < 0.5 ? -1 : 1) * 2;
+          W = hero.clientWidth; H = hero.clientHeight;
+          elapsed += dt * 16.67 / 1000;
+          if (elapsed >= nextBoost) {
+            nextBoost += BOOST_EVERY; level++; speed *= BOOST;
+            const m = Math.hypot(vx, vy); vx = vx / m * speed; vy = vy / m * speed;
+            $('hud-level').textContent = level;
+            const c = $('hud-sec'); c.classList.add('flash'); setTimeout(function() { c.classList.remove('flash'); }, 350);
           }
-          rot += vx * 2 * dt;
+          $('hud-sec').textContent = Math.max(1, Math.ceil(nextBoost - elapsed));
+          x += vx * dt; y += vy * dt;
+          if (x < 0) { x = 0; vx = Math.abs(vx); }
+          if (x > W - PLAY) { x = W - PLAY; vx = -Math.abs(vx); }
+          if (y < 0) { y = 0; vy = Math.abs(vy); }
+          const pTop = H - PB - PH, cx = x + PLAY / 2;
+          paddleX = clamp(paddleX, PW / 2, W - PW / 2);
+          if (vy > 0 && y + PLAY >= pTop && y < pTop + PH && cx >= paddleX - PW / 2 - PLAY / 3 && cx <= paddleX + PW / 2 + PLAY / 3) {
+            y = pTop - PLAY;
+            const off = clamp((cx - paddleX) / (PW / 2), -1, 1);
+            let a = off * 60 * Math.PI / 180 + (Math.random() - 0.5) * 0.4;
+            if (Math.abs(a) < 0.22) a = (Math.random() < 0.5 ? -1 : 1) * (0.22 + Math.random() * 0.2);
+            vx = speed * Math.sin(a); vy = -speed * Math.cos(a);
+            catches++; $('hud-score').textContent = catches;
+          } else if (y > H) { gameOver(); return; }
+          rot += vx * 3 * dt;
           ball.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg)';
+          paddle.style.transform = 'translate(' + (paddleX - PW / 2) + 'px,' + pTop + 'px)';
         }
-        requestAnimationFrame(tick);
+        raf = requestAnimationFrame(tick);
       }
-      requestAnimationFrame(tick);
+
+      ball.addEventListener('click', function() { if (state === 'idle') start(); });
+      ball.addEventListener('keydown', function(e) { if ((e.key === 'Enter' || e.key === ' ') && state === 'idle') { e.preventDefault(); start(); } });
+      $('game-again').addEventListener('click', start);
+      $('game-close').addEventListener('click', stopToIdle);
+
+      hero.addEventListener('mousemove', function(e) {
+        if (state !== 'playing') return;
+        paddleX = e.clientX - hero.getBoundingClientRect().left;
+      });
+      hero.addEventListener('touchmove', function(e) {
+        if (state !== 'playing') return;
+        e.preventDefault();
+        paddleX = e.touches[0].clientX - hero.getBoundingClientRect().left;
+      }, { passive: false });
+      document.addEventListener('keydown', function(e) {
+        if (state !== 'playing') return;
+        if (e.key === 'ArrowLeft' || e.key === 'a') { paddleX -= 45; e.preventDefault(); }
+        else if (e.key === 'ArrowRight' || e.key === 'd') { paddleX += 45; e.preventDefault(); }
+        else if (e.key === 'Escape') stopToIdle();
+      });
     })();
 
     // ── HERO GREETING ──
