@@ -41,7 +41,9 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 32px 60px;
       background: transparent;
+      transition: background 0.4s ease;
     }
+    nav.scrolled { background: var(--navy-dark); }
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 18px; font-weight: 400; color: var(--white);
@@ -110,8 +112,7 @@
     #hero {
       min-height: 100vh;
       position: relative; overflow: hidden;
-      display: flex; align-items: flex-end;
-      padding: 0 72px 80px;
+      display: flex; align-items: stretch;
     }
     .hero-bg {
       position: absolute;
@@ -122,10 +123,17 @@
     .hero-bg::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to top,
-        rgba(10,20,28,0.92) 0%,
-        rgba(10,20,28,0.55) 38%,
-        rgba(10,20,28,0.18) 100%
+        rgba(10,20,28,0.6) 0%,
+        rgba(10,20,28,0.2) 40%,
+        rgba(10,20,28,0.05) 100%
       );
+    }
+    .hero-band {
+      position: relative; z-index: 2;
+      width: clamp(400px, 44vw, 600px); flex-shrink: 0;
+      background: linear-gradient(to right, rgba(6,15,22,0.96) 55%, transparent 100%);
+      display: flex; align-items: center;
+      padding: 120px 80px 80px 72px;
     }
     .hero-ghost {
       position: absolute; right: -0.04em; bottom: 60px;
@@ -138,9 +146,7 @@
       letter-spacing: -0.04em; white-space: nowrap;
       z-index: 1;
     }
-    .hero-content {
-      position: relative; z-index: 2; max-width: 620px;
-    }
+    .hero-content { max-width: 420px; }
     .hero-eyebrow {
       font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--tan-light);
@@ -663,6 +669,12 @@
       .menu-overlay { padding: 0 32px; }
       .menu-overlay-top { left: 24px; right: 24px; }
       .menu-overlay-footer { left: 32px; }
+      .hero-band {
+        width: 100%;
+        background: linear-gradient(to top, rgba(6,15,22,0.92) 0%, rgba(6,15,22,0.5) 60%, transparent 100%);
+        align-items: flex-end;
+        padding: 80px 24px 60px;
+      }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -709,13 +721,15 @@
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-ghost">Karibu</div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Nairobi, Kenya — Est. 2026</p>
-      <h1 class="hero-title">Where the World <em>Meets</em><br>East Africa</h1>
-      <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
-      <div class="hero-actions">
-        <a href="#services" class="btn-primary">Explore Experiences</a>
-        <a href="#contact" class="btn-outline">Start Planning</a>
+    <div class="hero-band">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Nairobi, Kenya — Est. 2026</p>
+        <h1 class="hero-title">Where the World <em>Meets</em><br>East Africa</h1>
+        <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-primary">Explore Experiences</a>
+          <a href="#contact" class="btn-outline">Start Planning</a>
+        </div>
       </div>
     </div>
     <div class="hero-scroll">Scroll</div>
@@ -1205,6 +1219,11 @@
     document.getElementById('nav-burger').addEventListener('click', openMenu);
     document.getElementById('menu-close').addEventListener('click', closeMenu);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+
+    // ── NAV SCROLL ──
+    window.addEventListener('scroll', function() {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.85);
+    });
 
     // ── DESTINATIONS POPUP ──
     function togglePopup(btn) {

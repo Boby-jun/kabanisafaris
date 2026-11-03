@@ -116,7 +116,7 @@
     }
 
     /* ── ABOUT ── */
-    #about { padding: 160px 0 120px; background: var(--off-white); }
+    #about { padding: 100px 0 120px; background: var(--off-white); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .about-visual {
       position: relative; aspect-ratio: 4/5;
@@ -137,7 +137,7 @@
     }
 
     /* ── PHILOSOPHY ── */
-    #philosophy { padding: 100px 0; background: var(--navy-dark); }
+    #philosophy { padding: 160px 0 100px; background: var(--navy-dark); }
     #philosophy .section-eyebrow { color: var(--tan-light); }
     #philosophy .section-eyebrow::before { background: var(--tan-light); }
     #philosophy .section-title { color: var(--white); }
@@ -209,32 +209,11 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-visual">
-          <img src="rafael-portrait.jpg" alt="Rafael Barakat" />
-        </div>
-        <div>
-          <p class="section-eyebrow">About Kabani Safaris</p>
-          <h1 class="section-title">A Consultant<br>Rooted in Africa</h1>
-          <p class="section-body">
-            After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.
-          </p>
-          <div class="about-highlight">
-            <p>"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- PHILOSOPHY -->
   <section id="philosophy">
     <div class="section-inner">
       <p class="section-eyebrow">Our Philosophy</p>
-      <h2 class="section-title" style="color:var(--white)">Three Principles That<br>Guide Every Journey</h2>
+      <h1 class="section-title" style="color:var(--white)">Three Principles That<br>Guide Every Journey</h1>
       <div class="pillars">
         <div class="pillar">
           <h3 class="pillar-title">Tailor-Made by Design</h3>
@@ -247,6 +226,27 @@
         <div class="pillar">
           <h3 class="pillar-title">Impact-Led Travel</h3>
           <p class="pillar-body">Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <img src="rafael-portrait.jpg" alt="Rafael Barakat" />
+        </div>
+        <div>
+          <p class="section-eyebrow">Who I Am</p>
+          <h2 class="section-title">A Consultant<br>Rooted in Africa</h2>
+          <p class="section-body">
+            After four years living in East Africa and based in Nairobi, Kenya, I built a deep network of local guides, operators, and farmers who know their terrain like the back of their hand. Kabani Safaris is not a booking platform — it is a consultancy that matches your curiosity with the right people on the ground.
+          </p>
+          <div class="about-highlight">
+            <p>"Every itinerary is built from scratch. The goal is always the same: a memory that outlasts the journey."</p>
+          </div>
         </div>
       </div>
     </div>
@@ -272,6 +272,7 @@
       document.body.style.overflow = '';
     }
     document.getElementById('nav-burger').addEventListener('click', openMenu);
+    document.getElementById('menu-close').addEventListener('click', closeMenu);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
   </script>
 </body>
