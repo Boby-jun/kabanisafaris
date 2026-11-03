@@ -26,78 +26,50 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Space Grotesk', sans-serif; color: var(--dark); background: var(--off-white); overflow-x: hidden; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 32px 60px;
-      background: var(--navy-dark);
+    /* ── SIDEBAR ── */
+    body { padding-left: 220px; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+      z-index: 100; background: var(--navy-dark);
+      display: flex; flex-direction: column;
+      padding: 44px 32px 40px;
+      border-right: 1px solid rgba(255,255,255,0.06);
     }
-    .nav-logo {
+    .sidebar-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; font-weight: 400; color: var(--white);
-      letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--white); margin-bottom: 56px; line-height: 1.5;
     }
-    .nav-logo span { color: var(--tan-light); }
-    .nav-burger {
-      background: none; border: none; cursor: pointer; padding: 6px;
-      display: flex; flex-direction: column; gap: 7px;
-    }
-    .nav-burger span {
-      display: block; width: 28px; height: 1px;
-      background: rgba(255,255,255,0.75);
-    }
-
-    /* ── MENU OVERLAY ── */
-    .menu-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: #060f16;
-      display: flex; align-items: center;
-      padding: 0 72px;
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.45s ease, visibility 0.45s;
-    }
-    .menu-overlay.open { opacity: 1; visibility: visible; }
-    .menu-overlay-top {
-      position: absolute; top: 32px; left: 60px; right: 60px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .menu-overlay-logo {
+    .sidebar-logo span { color: var(--tan-light); display: block; }
+    .sidebar-nav { display: flex; flex-direction: column; flex: 1; gap: 0; }
+    .sidebar-nav a {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; font-weight: 400; letter-spacing: 0.1em;
-      text-transform: uppercase; color: rgba(255,255,255,0.9); text-decoration: none;
-    }
-    .menu-overlay-logo span { color: var(--tan-light); }
-    .menu-overlay-close {
-      background: none; border: none; cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); transition: color 0.2s;
-    }
-    .menu-overlay-close:hover { color: rgba(255,255,255,0.7); }
-    .menu-nav { display: flex; flex-direction: column; gap: 0; }
-    .menu-nav a {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(40px, 6.5vw, 80px);
-      font-weight: 300; color: rgba(255,255,255,0.65);
-      text-decoration: none; letter-spacing: -0.025em; line-height: 1.12;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38);
+      text-decoration: none; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: color 0.2s;
     }
-    .menu-nav a:hover { color: #fff; }
-    .menu-nav a.menu-cta {
-      font-size: 13px; font-weight: 500;
-      color: var(--tan-light); letter-spacing: 0.12em;
-      text-transform: uppercase; margin-top: 40px; line-height: 1;
+    .sidebar-nav a:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--white); }
+    .sidebar-cta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tan-light);
+      text-decoration: none; margin-top: 28px; display: block;
+      transition: color 0.2s;
     }
-    .menu-overlay-footer {
-      position: absolute; bottom: 40px; left: 72px;
-      font-size: 11px; color: rgba(255,255,255,0.2);
-      letter-spacing: 0.06em; line-height: 2;
+    .sidebar-cta:hover { color: var(--tan-pale); }
+    .sidebar-footer {
+      margin-top: 28px;
+      font-size: 10px; color: rgba(255,255,255,0.18);
+      letter-spacing: 0.06em; line-height: 1.9;
     }
 
     /* ── HERO BAND ── */
     #esim-hero {
-      padding: 180px 0 100px;
+      padding: 110px 0 100px;
       background: var(--navy-dark);
       position: relative; overflow: hidden;
     }
@@ -242,44 +214,34 @@
     }
     .footer-back a:hover { color: var(--tan-light); }
 
-    @media (max-width: 900px) {
-      nav { padding: 24px; }
+    @media (max-width: 768px) {
+      body { padding-left: 0; }
+      .sidebar { display: none; }
       .esim-hero-inner, .esim-inner, .esim-coverage-inner { padding: 0 24px; }
       .esim-grid { grid-template-columns: 1fr; gap: 48px; }
       .coverage-grid { grid-template-columns: 1fr; }
-      .menu-overlay { padding: 0 32px; }
-      .menu-overlay-top { left: 24px; right: 24px; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="nav-logo" href="index.html">Kabani <span>Safaris</span></a>
-    <button class="nav-burger" id="nav-burger" aria-label="Open menu">
-      <span></span><span></span>
-    </button>
-  </nav>
-
-  <div class="menu-overlay" id="menu-overlay">
-    <div class="menu-overlay-top">
-      <a class="menu-overlay-logo" href="index.html">Kabani <span>Safaris</span></a>
-      <button class="menu-overlay-close" id="menu-close" onclick="closeMenu()">✕ Close</button>
-    </div>
-    <nav class="menu-nav">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a class="sidebar-logo" href="index.html">Kabani<span>Safaris</span></a>
+    <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="about.html">About</a>
       <a href="index.html#destinations">Destinations</a>
-      <a href="travel-esim.html">Travel eSIM</a>
-      <a href="index.html#contact" class="menu-cta">Plan Your Journey →</a>
+      <a href="travel-esim.html" class="active">Travel eSIM</a>
     </nav>
-    <div class="menu-overlay-footer">
-      <p>Nairobi, Kenya · Est. 2026</p>
-      <p>reservations@kabanisafaris.com</p>
+    <a href="index.html#contact" class="sidebar-cta">Plan Your Journey →</a>
+    <div class="sidebar-footer">
+      <p>Nairobi, Kenya</p>
+      <p>Est. 2026</p>
     </div>
-  </div>
+  </aside>
 
   <!-- HERO BAND -->
   <section id="esim-hero">
@@ -356,22 +318,5 @@
     <div class="footer-back"><a href="index.html">← Back to home</a></div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script>
-    function openMenu() {
-      document.getElementById('menu-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      if (typeof gsap !== 'undefined') {
-        gsap.from('.menu-nav a', { y: 50, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 0.1 });
-      }
-    }
-    function closeMenu() {
-      document.getElementById('menu-overlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    document.getElementById('nav-burger').addEventListener('click', openMenu);
-    document.getElementById('menu-close').addEventListener('click', closeMenu);
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
-  </script>
 </body>
 </html>
