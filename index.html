@@ -24,6 +24,7 @@
       --navy-dark:  #1A3344;
       --green:      #4D7338;
       --green-dark: #354F28;
+      --ochre:      #E2B04A;
       --cream:      #EEE4D4;
       --cream-dark: #DDD0BA;
       --dark:       #2D2D2D;
@@ -107,12 +108,12 @@
       background: rgba(10,20,28,0.5);
     }
     .hero-ghost {
-      position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%);
+      position: absolute; left: 50%; bottom: calc(var(--wave-h) + 120px); transform: translateX(-50%);
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(32px, 3.6vw, 52px);
+      font-size: clamp(44px, min(6.2vw, 10vh), 104px);
       font-weight: 300; line-height: 1;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.55);
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.7);
       pointer-events: none; user-select: none;
       letter-spacing: 0.02em; white-space: nowrap;
       z-index: 2;
@@ -120,11 +121,6 @@
     }
     .hero-ghost.swap { opacity: 0; transform: translateX(-50%) translateY(10px); }
     .hero-content { position: relative; z-index: 2; max-width: 760px; }
-    .hero-eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--tan-light);
-      margin-bottom: 22px;
-    }
     .hero-brand {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(48px, 7vw, 108px);
@@ -142,7 +138,7 @@
     .hero-ball.extra { pointer-events: none; }
     .hero-ball:focus-visible { outline: 2px solid var(--tan-light); outline-offset: 4px; border-radius: 50%; }
     .hero-ball-hint {
-      position: absolute; right: 148px; bottom: 62px; z-index: 3;
+      position: absolute; right: 148px; bottom: calc(var(--wave-h) + 62px); z-index: 3;
       font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
       color: rgba(255,255,255,0.55); pointer-events: none;
     }
@@ -218,8 +214,8 @@
     }
     .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
     .hero-scroll {
-      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-      font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.32);
+      position: absolute; bottom: calc(var(--wave-h) + 24px); left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.45);
       text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 10px;
       z-index: 2;
     }
@@ -613,14 +609,21 @@
       content: ''; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
     }
     #services { background: #F6EEDF; }
-    #services::before { width: 420px; height: 420px; background: var(--tan-pale); opacity: 0.55; top: -150px; right: -120px; }
-    #services::after { width: 300px; height: 300px; background: #C9D8B6; opacity: 0.5; bottom: -110px; left: -90px; }
-    #destinations { background: #E8EEDA; }
-    #destinations::before { width: 380px; height: 380px; background: #F3D9A4; opacity: 0.55; top: -140px; left: -100px; }
-    #destinations::after { width: 320px; height: 320px; background: var(--tan-pale); opacity: 0.6; bottom: -120px; right: -100px; }
-    #coffee { background: #F1DDC1; }
-    #coffee::before { width: 400px; height: 400px; background: var(--ochre); opacity: 0.3; top: -150px; left: 38%; }
-    #coffee::after { width: 320px; height: 320px; background: #C9D8B6; opacity: 0.6; bottom: -130px; right: -80px; }
+    #services { --wave: #F6EEDF; } #destinations { --wave: #E8EEDA; } #coffee { --wave: #F1DDC1; }
+    #services::before, #destinations::before, #coffee::before { width: 300px; height: 300px; top: 150px; right: -150px; }
+    #services::after, #destinations::after, #coffee::after { width: 300px; height: 300px; bottom: 150px; left: -150px; }
+    #services { background: #F6EEDF; } #destinations { background: #E8EEDA; } #coffee { background: #F1DDC1; }
+    #services::before { background: var(--tan-pale); opacity: 0.55; }
+    #services::after { background: #C9D8B6; opacity: 0.5; }
+    #destinations::before { background: #F3D9A4; opacity: 0.55; }
+    #destinations::after { background: var(--tan-pale); opacity: 0.6; }
+    #coffee::before { background: var(--ochre); opacity: 0.3; }
+    #coffee::after { background: #C9D8B6; opacity: 0.6; }
+    /* soft wave dividers between sections */
+    :root { --wave-h: clamp(44px, 5.5vw, 84px); }
+    .wave { position: absolute; left: 0; width: 100%; height: var(--wave-h); display: block; z-index: 1; pointer-events: none; }
+    .wave.top { top: -1px; }
+    .wave.bottom { bottom: -1px; }
     #services .section-inner, #destinations .section-inner, #coffee .section-inner { position: relative; z-index: 1; }
     #services .section-title, #destinations .section-title, #coffee .section-title { font-weight: 500; color: var(--dark); }
     .section-title em { font-style: normal; color: var(--tan); }
@@ -676,9 +679,7 @@
       background: var(--white); border: 2px solid var(--dark); border-radius: 22px; box-shadow: 5px 5px 0 var(--dark);
       padding: 22px 22px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .dest-card:nth-child(odd) { transform: rotate(-1deg); }
-    .dest-card:nth-child(even) { transform: rotate(1deg); }
-    .dest-card:hover { border-color: var(--dark); transform: rotate(0) translateY(-5px); box-shadow: 8px 8px 0 var(--dark); }
+    .dest-card:hover { border-color: var(--dark); transform: translateY(-5px); box-shadow: 8px 8px 0 var(--dark); }
     .dest-card.soon { opacity: 0.7; border-style: dashed; box-shadow: none; transform: none; }
     .dest-name { font-size: 22px; letter-spacing: -0.01em; }
     .dest-tags { flex-direction: row; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
@@ -714,10 +715,6 @@
     }
 
     /* hero: playful touches */
-    .hero-eyebrow {
-      display: inline-block; padding: 7px 16px; border: 1.5px solid var(--tan-light); border-radius: 999px;
-      background: rgba(10,20,28,0.35);
-    }
     .hero-brand span { display: inline-block; transform: rotate(-2.5deg); }
     .hero-title .wiggle {
       display: inline-block; padding-bottom: 0.14em;
@@ -823,7 +820,6 @@
       </div>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Geneva, Switzerland — Est. 2026</p>
       <h1 class="hero-brand">Kabani <span>Safaris</span></h1>
       <p class="hero-title">Where the World <em>Meets</em> <span class="wiggle">Africa</span></p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
@@ -833,6 +829,7 @@
       </div>
     </div>
     <div class="hero-scroll">Scroll</div>
+    <svg class="wave bottom" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#F6EEDF"><path d="M0 100V46C160 84 320 78 480 50C640 22 790 32 960 62C1130 92 1290 88 1440 38V100Z"/></svg>
   </section>
 
   <!-- SERVICES -->
@@ -971,9 +968,10 @@
 
   <!-- DESTINATIONS -->
   <section id="destinations">
+    <svg class="wave top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#F6EEDF"><path d="M0 0H1440V38C1290 88 1130 92 960 62C790 32 640 22 480 50C320 78 160 84 0 46Z"/></svg>
     <div class="section-inner">
       <p class="section-eyebrow">Where We Operate</p>
-      <h2 class="section-title">Our <em>Expertise</em></h2>
+      <h2 class="section-title"><em>Destinations</em></h2>
 
       <p class="dest-section-label">Open for journeys</p>
       <div class="dest-grid">
@@ -1072,6 +1070,7 @@
 
   <!-- COFFEE FOCUS -->
   <section id="coffee">
+    <svg class="wave top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#E8EEDA"><path d="M0 0H1440V38C1290 88 1130 92 960 62C790 32 640 22 480 50C320 78 160 84 0 46Z"/></svg>
     <div class="section-inner">
       <div class="coffee-grid">
         <div>
@@ -1093,6 +1092,7 @@
         </div>
       </div>
     </div>
+    <svg class="wave bottom" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#0E1F2A"><path d="M0 100V46C160 84 320 78 480 50C640 22 790 32 960 62C1130 92 1290 88 1440 38V100Z"/></svg>
   </section>
 
   <!-- FOOTER -->
@@ -1195,7 +1195,9 @@
       if (!hero || !ball) return;
       const $ = function(id) { return document.getElementById(id); };
       const paddle = $('game-paddle'), hud = $('game-hud'), over = $('game-over'), hint = $('hero-ball-hint');
-      const SIZE = 84, PH = 14, PB = 32, BOOST_EVERY = 5, BOOST = 1.15;
+      const SIZE = 84, PH = 14, PB0 = 32, BOOST_EVERY = 5, BOOST = 1.15;
+      const waveEl = hero.querySelector('.wave');
+      function PBnow() { return PB0 + (waveEl ? waveEl.getBoundingClientRect().height : 0); }
       let state = 'idle', raf = 0, last = 0, visible = true;
       let balls = [], speed, elapsed, nextBoost, level, catches, paddleX, PW = 130, W, H;
       let best = 0;
@@ -1205,7 +1207,7 @@
 
       function placeIdle() {
         ball.style.width = ball.style.height = SIZE + 'px';
-        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - 48) + 'px,' + (hero.clientHeight - SIZE - 36) + 'px)';
+        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - 48) + 'px,' + (hero.clientHeight - SIZE - 36 - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
       }
       placeIdle();
       window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
@@ -1275,7 +1277,7 @@
           if (elapsed >= nextBoost) levelUp();
           $('hud-sec').textContent = Math.max(1, Math.ceil(nextBoost - elapsed));
           paddleX = clamp(paddleX, PW / 2, W - PW / 2);
-          const pTop = H - PB - PH;
+          const pTop = H - PBnow() - PH;
           for (let i = 0; i < balls.length; i++) {
             const b = balls[i], sp = speed * b.mult;
             b.x += b.vx * dt; b.y += b.vy * dt;
