@@ -47,8 +47,8 @@
     }
     .sidebar-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; white-space: nowrap; font-weight: 500; letter-spacing: 0.1em;
-      text-transform: uppercase; text-decoration: none;
+      font-size: 22px; white-space: nowrap; font-weight: 600; letter-spacing: -0.01em;
+      text-decoration: none;
       color: var(--white); margin-bottom: 56px; line-height: 1.5;
     }
     .sidebar-logo span { color: var(--tan-light); }
@@ -94,7 +94,7 @@
       min-height: 100vh;
       position: relative; overflow: hidden;
       display: flex; align-items: flex-start; justify-content: center;
-      padding: 144px 72px 0;
+      padding: clamp(130px, 21vh, 230px) 72px 0;
       text-align: center;
     }
     .hero-bg {
@@ -127,7 +127,7 @@
       font-weight: 500; line-height: 1; letter-spacing: -0.03em;
       color: var(--white); margin-bottom: 18px;
     }
-    .hero-brand span { color: var(--tan-light); }
+    .hero-brand > span { color: var(--tan-light); }
     .hero-ball {
       position: absolute; top: 0; left: 0; width: 84px; height: 84px;
       z-index: 3; cursor: pointer; user-select: none; -webkit-user-drag: none;
@@ -715,7 +715,30 @@
     }
 
     /* hero: playful touches */
-    .hero-brand span { display: inline-block; transform: rotate(-2.5deg); }
+    .hero-brand > span { display: inline-block; transform: rotate(-2.5deg); }
+
+    /* safari track under the wordmark: a Land Cruiser drives past acacias */
+    .hero-brand { position: relative; display: inline-block; padding-bottom: 0.46em; }
+    .road { position: absolute; left: 0; right: 0; bottom: 0; height: 0.55em; display: block; pointer-events: none; }
+    .road::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0.03em; border-top: 2px dashed rgba(226,176,74,0.6); }
+    .lc { position: absolute; bottom: 0.05em; left: -12%; width: 0.92em; display: block; opacity: 0; animation: lc-drive 11s linear infinite; }
+    .lc svg { display: block; width: 100%; height: auto; animation: lc-bob 0.45s ease-in-out infinite alternate; }
+    .lc .wheel { animation: lc-spin 0.6s linear infinite; }
+    .lc .dust { fill: rgba(232,220,196,0.55); transform-box: fill-box; transform-origin: center; animation: lc-dust 1s ease-out infinite; }
+    .lc .dust.d2 { animation-delay: 0.33s; } .lc .dust.d3 { animation-delay: 0.66s; }
+    .tree { position: absolute; bottom: 0.05em; width: 0.56em; display: block; transform-origin: 50% 100%; animation: tree-sway 11s ease-in-out infinite; }
+    .tree svg { display: block; width: 100%; height: auto; }
+    .tree.t1 { left: 18%; animation-delay: 1.7s; } .tree.t2 { left: 47%; animation-delay: 3.9s; } .tree.t3 { left: 76%; animation-delay: 6.1s; }
+    @keyframes lc-drive { 0% { left: -12%; opacity: 0; } 3% { opacity: 1; } 79% { left: 104%; opacity: 1; } 80%, 100% { left: 104%; opacity: 0; } }
+    @keyframes lc-bob { from { transform: translateY(0); } to { transform: translateY(-1.5%); } }
+    @keyframes lc-spin { to { transform: rotate(360deg); } }
+    @keyframes lc-dust { 0% { opacity: 0.6; transform: translateX(0) scale(0.5); } 100% { opacity: 0; transform: translateX(-26px) scale(1.8); } }
+    @keyframes tree-sway { 0%, 12%, 100% { transform: rotate(0); } 3% { transform: rotate(-8deg); } 6% { transform: rotate(6deg); } 9% { transform: rotate(-3deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .lc { animation: none; opacity: 1; left: 66%; } .lc svg, .lc .wheel, .lc .dust, .tree { animation: none; }
+      .lc .dust { display: none; }
+    }
+    @media (max-height: 760px) { .hero-ghost { bottom: calc(var(--wave-h) + 56px); } }
     .hero-title .wiggle {
       display: inline-block; padding-bottom: 0.14em;
       background: linear-gradient(90deg, rgba(196,145,90,0), var(--tan-light) 18%, var(--tan-light)) left bottom / 100% 2px no-repeat;
@@ -765,7 +788,7 @@
     @media (max-width: 768px) {
       body { padding-left: 0; }
       .sidebar { display: none; }
-      #hero { padding: 0 24px 60px; }
+      #hero { padding: 120px 24px 60px; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -820,7 +843,7 @@
       </div>
     </div>
     <div class="hero-content">
-      <h1 class="hero-brand">Kabani <span>Safaris</span></h1>
+      <h1 class="hero-brand">Kabani <span>Safaris</span><i class="road" aria-hidden="true"><i class="tree t1"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t2"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t3"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="lc"><svg viewBox="0 0 130 64" style="overflow:visible"><circle class="dust" cx="-4" cy="54" r="5"/><circle class="dust d2" cx="-4" cy="54" r="5"/><circle class="dust d3" cx="-4" cy="54" r="5"/><path d="M34 6H88M38 6V10M56 6V10M72 6V10M86 6V10" stroke="#EBD9B0" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M26 28L32 11Q33 9 36 9H84Q87 9 89 11L103 28Z" fill="#E9DFC8"/><path d="M36 13H56V27H31ZM59 13H80V27H59ZM83 13L97 27H83Z" fill="#24343E"/><rect x="8" y="27" width="116" height="19" rx="5" fill="#D8B56E"/><rect x="8" y="38" width="116" height="3" fill="#B8924D"/><rect x="122" y="24" width="4" height="22" rx="2" fill="#3A2A1A"/><circle cx="120" cy="33" r="2.6" fill="#FFF3B0"/><circle cx="6" cy="37" r="9" fill="#2a2118"/><circle cx="6" cy="37" r="4" fill="#8f8f8f"/><circle cx="34" cy="48" r="13.5" fill="#2a2118"/><circle cx="100" cy="48" r="13.5" fill="#2a2118"/><g class="wheel" style="transform-origin:34px 50px"><circle cx="34" cy="50" r="11" fill="#151515"/><circle cx="34" cy="50" r="5" fill="#C9C9C9"/><path d="M34 45V55M29 50H39" stroke="#555" stroke-width="1.5"/></g><g class="wheel" style="transform-origin:100px 50px"><circle cx="100" cy="50" r="11" fill="#151515"/><circle cx="100" cy="50" r="5" fill="#C9C9C9"/><path d="M100 45V55M95 50H105" stroke="#555" stroke-width="1.5"/></g></svg></i></i></h1>
       <p class="hero-title">Where the World <em>Meets</em> <span class="wiggle">Africa</span></p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
       <div class="hero-actions">
