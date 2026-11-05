@@ -127,7 +127,6 @@
       font-weight: 500; line-height: 1; letter-spacing: -0.03em;
       color: var(--white); margin-bottom: 18px;
     }
-    .hero-brand > span { color: var(--tan-light); }
     .hero-ball {
       position: absolute; top: 0; left: 0; width: 84px; height: 84px;
       z-index: 3; cursor: pointer; user-select: none; -webkit-user-drag: none;
@@ -715,29 +714,12 @@
     }
 
     /* hero: playful touches */
-    .hero-brand > span { display: inline-block; transform: rotate(-2.5deg); }
 
-    /* safari track under the wordmark: a Land Cruiser drives past acacias */
-    .hero-brand { position: relative; display: inline-block; padding-bottom: 0.46em; }
-    .road { position: absolute; left: 0; right: 0; bottom: 0; height: 0.55em; display: block; pointer-events: none; }
-    .road::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0.03em; border-top: 2px dashed rgba(226,176,74,0.6); }
-    .lc { position: absolute; bottom: 0.05em; left: -12%; width: 0.92em; display: block; opacity: 0; animation: lc-drive 11s linear infinite; }
-    .lc svg { display: block; width: 100%; height: auto; animation: lc-bob 0.45s ease-in-out infinite alternate; }
-    .lc .wheel { animation: lc-spin 0.6s linear infinite; }
-    .lc .dust { fill: rgba(232,220,196,0.55); transform-box: fill-box; transform-origin: center; animation: lc-dust 1s ease-out infinite; }
-    .lc .dust.d2 { animation-delay: 0.33s; } .lc .dust.d3 { animation-delay: 0.66s; }
-    .tree { position: absolute; bottom: 0.05em; width: 0.56em; display: block; transform-origin: 50% 100%; animation: tree-sway 11s ease-in-out infinite; }
-    .tree svg { display: block; width: 100%; height: auto; }
-    .tree.t1 { left: 18%; animation-delay: 1.7s; } .tree.t2 { left: 47%; animation-delay: 3.9s; } .tree.t3 { left: 76%; animation-delay: 6.1s; }
-    @keyframes lc-drive { 0% { left: -12%; opacity: 0; } 3% { opacity: 1; } 79% { left: 104%; opacity: 1; } 80%, 100% { left: 104%; opacity: 0; } }
-    @keyframes lc-bob { from { transform: translateY(0); } to { transform: translateY(-1.5%); } }
-    @keyframes lc-spin { to { transform: rotate(360deg); } }
-    @keyframes lc-dust { 0% { opacity: 0.6; transform: translateX(0) scale(0.5); } 100% { opacity: 0; transform: translateX(-26px) scale(1.8); } }
-    @keyframes tree-sway { 0%, 12%, 100% { transform: rotate(0); } 3% { transform: rotate(-8deg); } 6% { transform: rotate(6deg); } 9% { transform: rotate(-3deg); } }
-    @media (prefers-reduced-motion: reduce) {
-      .lc { animation: none; opacity: 1; left: 66%; } .lc svg, .lc .wheel, .lc .dust, .tree { animation: none; }
-      .lc .dust { display: none; }
-    }
+    /* wordmark drawn as a road network; a Land Rover drives through the letters */
+    .hero-brand { line-height: 0; width: clamp(300px, 52vw, 780px); max-width: 100%; margin: 0 auto 22px; }
+    @media (max-width: 768px) { .hero-brand { width: 100%; } }
+    .brand-svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     @media (max-height: 760px) { .hero-ghost { bottom: calc(var(--wave-h) + 56px); } }
     .hero-title .wiggle {
       display: inline-block; padding-bottom: 0.14em;
@@ -843,7 +825,7 @@
       </div>
     </div>
     <div class="hero-content">
-      <h1 class="hero-brand">Kabani <span>Safaris</span><i class="road" aria-hidden="true"><i class="tree t1"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t2"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t3"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="lc"><svg viewBox="0 0 130 64" style="overflow:visible"><circle class="dust" cx="-4" cy="54" r="5"/><circle class="dust d2" cx="-4" cy="54" r="5"/><circle class="dust d3" cx="-4" cy="54" r="5"/><path d="M34 6H88M38 6V10M56 6V10M72 6V10M86 6V10" stroke="#EBD9B0" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M26 28L32 11Q33 9 36 9H84Q87 9 89 11L103 28Z" fill="#E9DFC8"/><path d="M36 13H56V27H31ZM59 13H80V27H59ZM83 13L97 27H83Z" fill="#24343E"/><rect x="8" y="27" width="116" height="19" rx="5" fill="#D8B56E"/><rect x="8" y="38" width="116" height="3" fill="#B8924D"/><rect x="122" y="24" width="4" height="22" rx="2" fill="#3A2A1A"/><circle cx="120" cy="33" r="2.6" fill="#FFF3B0"/><circle cx="6" cy="37" r="9" fill="#2a2118"/><circle cx="6" cy="37" r="4" fill="#8f8f8f"/><circle cx="34" cy="48" r="13.5" fill="#2a2118"/><circle cx="100" cy="48" r="13.5" fill="#2a2118"/><g class="wheel" style="transform-origin:34px 50px"><circle cx="34" cy="50" r="11" fill="#151515"/><circle cx="34" cy="50" r="5" fill="#C9C9C9"/><path d="M34 45V55M29 50H39" stroke="#555" stroke-width="1.5"/></g><g class="wheel" style="transform-origin:100px 50px"><circle cx="100" cy="50" r="11" fill="#151515"/><circle cx="100" cy="50" r="5" fill="#C9C9C9"/><path d="M100 45V55M95 50H105" stroke="#555" stroke-width="1.5"/></g></svg></i></i></h1>
+      <h1 class="hero-brand"><span class="sr-only">Kabani Safaris</span><svg class="brand-svg" viewBox="-20 -22 1134 150" aria-hidden="true" focusable="false"><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M0 0L0 100 M46 0L4 54L50 100 M146 70C146 86.6 134.8 100 121 100C107.2 100 96 86.6 96 70C96 53.4 107.2 40 121 40C134.8 40 146 53.4 146 70 M146 40L146 100 M192 0L192 100 M192 70C192 53.4 203.2 40 217 40C230.8 40 242 53.4 242 70C242 86.6 230.8 100 217 100C203.2 100 192 86.6 192 70 M338 70C338 86.6 326.8 100 313 100C299.2 100 288 86.6 288 70C288 53.4 299.2 40 313 40C326.8 40 338 53.4 338 70 M338 40L338 100 M384 40L384 100 M384 66C384 48 394 40 408 40C424 40 432 48 432 64L432 100 M478 40L478 100M478.0 6.0h.01" stroke="#FFFFFF" stroke-width="30"/><path d="M614 22C614 6 600 0 592 0C578 0 572 12 572 24C572 40 584 46 594 50C608 56 616 62 616 76C616 90 606 100 592 100C578 100 570 90 570 78 M712 70C712 86.6 700.8 100 687 100C673.2 100 662 86.6 662 70C662 53.4 673.2 40 687 40C700.8 40 712 53.4 712 70 M712 40L712 100 M772 100L772 24C772 8 780 0 796 0 M758 40L792 40 M892 70C892 86.6 880.8 100 867 100C853.2 100 842 86.6 842 70C842 53.4 853.2 40 867 40C880.8 40 892 53.4 892 70 M892 40L892 100 M938 40L938 100 M938 66C938 48 948 40 968 40 M1014 40L1014 100 M1092.6 53.2C1092.6 43.6 1082.2 40 1076.3 40C1065.9 40 1061.5 47.2 1061.5 54.4C1061.5 64 1070.4 67.6 1077.8 70C1088.1 73.6 1094 77.2 1094 85.6C1094 94 1086.6 100 1076.3 100C1065.9 100 1060 94 1060 86.8M1014.0 6.0h.01" stroke="#C4915A" stroke-width="30"/><path d="M0 0L0 100 M46 0L4 54L50 100 M146 70C146 86.6 134.8 100 121 100C107.2 100 96 86.6 96 70C96 53.4 107.2 40 121 40C134.8 40 146 53.4 146 70 M146 40L146 100 M192 0L192 100 M192 70C192 53.4 203.2 40 217 40C230.8 40 242 53.4 242 70C242 86.6 230.8 100 217 100C203.2 100 192 86.6 192 70 M338 70C338 86.6 326.8 100 313 100C299.2 100 288 86.6 288 70C288 53.4 299.2 40 313 40C326.8 40 338 53.4 338 70 M338 40L338 100 M384 40L384 100 M384 66C384 48 394 40 408 40C424 40 432 48 432 64L432 100 M478 40L478 100 M614 22C614 6 600 0 592 0C578 0 572 12 572 24C572 40 584 46 594 50C608 56 616 62 616 76C616 90 606 100 592 100C578 100 570 90 570 78 M712 70C712 86.6 700.8 100 687 100C673.2 100 662 86.6 662 70C662 53.4 673.2 40 687 40C700.8 40 712 53.4 712 70 M712 40L712 100 M772 100L772 24C772 8 780 0 796 0 M758 40L792 40 M892 70C892 86.6 880.8 100 867 100C853.2 100 842 86.6 842 70C842 53.4 853.2 40 867 40C880.8 40 892 53.4 892 70 M892 40L892 100 M938 40L938 100 M938 66C938 48 948 40 968 40 M1014 40L1014 100 M1092.6 53.2C1092.6 43.6 1082.2 40 1076.3 40C1065.9 40 1061.5 47.2 1061.5 54.4C1061.5 64 1070.4 67.6 1077.8 70C1088.1 73.6 1094 77.2 1094 85.6C1094 94 1086.6 100 1076.3 100C1065.9 100 1060 94 1060 86.8M478.0 6.0h.01M1014.0 6.0h.01" stroke="#1B2A33" stroke-width="21.5"/><path d="M0 0L0 100 M46 0L4 54L50 100 M146 70C146 86.6 134.8 100 121 100C107.2 100 96 86.6 96 70C96 53.4 107.2 40 121 40C134.8 40 146 53.4 146 70 M146 40L146 100 M192 0L192 100 M192 70C192 53.4 203.2 40 217 40C230.8 40 242 53.4 242 70C242 86.6 230.8 100 217 100C203.2 100 192 86.6 192 70 M338 70C338 86.6 326.8 100 313 100C299.2 100 288 86.6 288 70C288 53.4 299.2 40 313 40C326.8 40 338 53.4 338 70 M338 40L338 100 M384 40L384 100 M384 66C384 48 394 40 408 40C424 40 432 48 432 64L432 100 M478 40L478 100" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-dasharray="1 7"/><path d="M614 22C614 6 600 0 592 0C578 0 572 12 572 24C572 40 584 46 594 50C608 56 616 62 616 76C616 90 606 100 592 100C578 100 570 90 570 78 M712 70C712 86.6 700.8 100 687 100C673.2 100 662 86.6 662 70C662 53.4 673.2 40 687 40C700.8 40 712 53.4 712 70 M712 40L712 100 M772 100L772 24C772 8 780 0 796 0 M758 40L792 40 M892 70C892 86.6 880.8 100 867 100C853.2 100 842 86.6 842 70C842 53.4 853.2 40 867 40C880.8 40 892 53.4 892 70 M892 40L892 100 M938 40L938 100 M938 66C938 48 948 40 968 40 M1014 40L1014 100 M1092.6 53.2C1092.6 43.6 1082.2 40 1076.3 40C1065.9 40 1061.5 47.2 1061.5 54.4C1061.5 64 1070.4 67.6 1077.8 70C1088.1 73.6 1094 77.2 1094 85.6C1094 94 1086.6 100 1076.3 100C1065.9 100 1060 94 1060 86.8" stroke="rgba(226,176,74,0.8)" stroke-width="2" stroke-dasharray="1 7"/></g><g class="drive" fill="none" stroke="none"><path d="M0 0L0 100"/><path d="M46 0L4 54L50 100"/><path d="M146 40L146 70C146 86.6 134.8 100 121 100C107.2 100 96 86.6 96 70C96 53.4 107.2 40 121 40C134.8 40 146 53.4 146 70L146 100"/><path d="M192 0L192 70C192 53.4 203.2 40 217 40C230.8 40 242 53.4 242 70C242 86.6 230.8 100 217 100C203.2 100 192 86.6 192 70L192 100"/><path d="M338 40L338 70C338 86.6 326.8 100 313 100C299.2 100 288 86.6 288 70C288 53.4 299.2 40 313 40C326.8 40 338 53.4 338 70L338 100"/><path d="M384 40L384 100"/><path d="M384 66C384 48 394 40 408 40C424 40 432 48 432 64L432 100"/><path d="M478 40L478 100"/><path d="M614 22C614 6 600 0 592 0C578 0 572 12 572 24C572 40 584 46 594 50C608 56 616 62 616 76C616 90 606 100 592 100C578 100 570 90 570 78"/><path d="M712 40L712 70C712 86.6 700.8 100 687 100C673.2 100 662 86.6 662 70C662 53.4 673.2 40 687 40C700.8 40 712 53.4 712 70L712 100"/><path d="M772 100L772 24C772 8 780 0 796 0"/><path d="M758 40L792 40"/><path d="M892 40L892 70C892 86.6 880.8 100 867 100C853.2 100 842 86.6 842 70C842 53.4 853.2 40 867 40C880.8 40 892 53.4 892 70L892 100"/><path d="M938 40L938 100"/><path d="M938 66C938 48 948 40 968 40"/><path d="M1014 40L1014 100"/><path d="M1092.6 53.2C1092.6 43.6 1082.2 40 1076.3 40C1065.9 40 1061.5 47.2 1061.5 54.4C1061.5 64 1070.4 67.6 1077.8 70C1088.1 73.6 1094 77.2 1094 85.6C1094 94 1086.6 100 1076.3 100C1065.9 100 1060 94 1060 86.8"/></g><g class="rover"><g class="rv" transform="scale(1.22)"><path d="M-29 -4H-22V-14H16V-4H29V10H-29Z" fill="none"/><circle cx="-31" cy="-1" r="6.5" fill="#1b1e20"/><circle cx="-31" cy="-1" r="2.6" fill="#8a8f93"/><path d="M-20 -16H15M-16 -16V-14M12 -16V-14" stroke="#1d2226" stroke-width="1.4" stroke-linecap="round" fill="none"/><rect x="-30" y="-4" width="60" height="14" rx="2" fill="#E7CF94" stroke="#3a2f1f" stroke-width="1.1"/><rect x="-22" y="-15" width="38" height="12" rx="1.6" fill="#F4EFE3" stroke="#3a2f1f" stroke-width="1.1"/><rect x="-19" y="-13" width="15" height="8" fill="#26333b"/><rect x="-1.5" y="-13" width="14" height="8" fill="#26333b"/><rect x="28" y="-2" width="3.2" height="10" rx="1" fill="#2b2b2b"/><circle cx="26" cy="2" r="2.3" fill="#FFF1A8"/><rect x="-30" y="5" width="60" height="2.6" fill="#B78F4A"/><circle cx="-17" cy="10" r="9" fill="#2a2118"/><circle cx="19" cy="10" r="9" fill="#2a2118"/><g class="wh" data-c="-17 10"><circle cx="-17" cy="10" r="7.2" fill="#14181b"/><circle cx="-17" cy="10" r="3" fill="#c4c7ca"/><path d="M-17 7.5V12.5M-19.5 10H-14.5" stroke="#555" stroke-width="1"/></g><g class="wh" data-c="19 10"><circle cx="19" cy="10" r="7.2" fill="#14181b"/><circle cx="19" cy="10" r="3" fill="#c4c7ca"/><path d="M19 7.5V12.5M16.5 10H21.5" stroke="#555" stroke-width="1"/></g></g></g></svg></h1>
       <p class="hero-title">Where the World <em>Meets</em> <span class="wiggle">Africa</span></p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
       <div class="hero-actions">
@@ -1345,6 +1327,66 @@
         else if (e.key === 'ArrowRight' || e.key === 'd') { paddleX += 45; e.preventDefault(); }
         else if (e.key === 'Escape') stopToIdle();
       });
+    })();
+
+    // ── HERO WORDMARK: Land Rover drives through the letters ──
+    (function() {
+      const svg = document.querySelector('.brand-svg');
+      if (!svg) return;
+      const car = svg.querySelector('.rover'), rv = car.querySelector('.rv');
+      const wheels = Array.prototype.map.call(car.querySelectorAll('.wh'), function(g) { const c = g.getAttribute('data-c').split(' '); return { g: g, cx: +c[0], cy: +c[1] }; });
+      const segs = Array.prototype.map.call(svg.querySelectorAll('.drive path'), function(p) { return { p: p, len: p.getTotalLength() }; });
+      const SPEED = 250, REST = 1.8;
+      function place(x, y, rot, flip) { car.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + rot.toFixed(1) + ')' + (flip ? ' scale(-1 1)' : '')); }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { place(0, 62, 90, false); return; }
+      const start = { x: -90, y: 20 };
+      const steps = [];
+      let prev = start;
+      segs.forEach(function(s) {
+        const a = s.p.getPointAtLength(0), b = s.p.getPointAtLength(s.len);
+        steps.push({ hop: true, from: prev, to: a });
+        steps.push({ seg: s });
+        prev = b;
+      });
+      steps.push({ hop: true, from: prev, to: { x: svg.viewBox.baseVal.width + 120, y: 40 } });
+      let si = 0, t = 0, rest = 0, ang = 0, flip = false, spin = 0, last = performance.now(), visible = true, px = start.x, py = start.y;
+      new IntersectionObserver(function(e) { visible = e[0].isIntersecting; last = performance.now(); }).observe(svg);
+      function dur(st) { const d = Math.hypot(st.to.x - st.from.x, st.to.y - st.from.y); return Math.min(0.55, Math.max(0.22, d / 700)); }
+      function norm(a) { while (a > 180) a -= 360; while (a <= -180) a += 360; return a; }
+      function frame(now) {
+        requestAnimationFrame(frame);
+        const dt = Math.min(0.05, (now - last) / 1000); last = now;
+        if (!visible) return;
+        let x = px, y = py, vx = 1, vy = 0, moved = 0;
+        if (rest > 0) { rest -= dt; car.style.opacity = 0; if (rest <= 0) { si = 0; t = 0; px = start.x; py = start.y; } return; }
+        car.style.opacity = 1;
+        const st = steps[si];
+        if (st.hop) {
+          const D = dur(st); t += dt / D;
+          const k = Math.min(1, t), dx = st.to.x - st.from.x, dy = st.to.y - st.from.y, h = 16 + Math.hypot(dx, dy) * 0.07;
+          x = st.from.x + dx * k; y = st.from.y + dy * k - Math.sin(Math.PI * k) * h;
+          vx = dx / D; vy = dy / D - Math.cos(Math.PI * k) * Math.PI * h / D;
+          moved = Math.hypot(vx, vy) * dt;
+          if (t >= 1) { si++; t = 0; }
+        } else {
+          t += SPEED * dt; moved = SPEED * dt;
+          const l = Math.min(st.seg.len, t), p0 = st.seg.p.getPointAtLength(l), p1 = st.seg.p.getPointAtLength(Math.min(st.seg.len, l + 1));
+          x = p0.x; y = p0.y; vx = p1.x - p0.x; vy = p1.y - p0.y;
+          if (!vx && !vy) { vx = 1; }
+          if (t >= st.seg.len) { si++; t = 0; }
+        }
+        if (si >= steps.length) { rest = REST; }
+        const th = Math.atan2(vy, vx) * 180 / Math.PI, c = Math.cos(th * Math.PI / 180);
+        const wasFlip = flip;
+        if (!flip && c < -0.25) flip = true; else if (flip && c > 0.25) flip = false;
+        const target = norm(flip ? th - 180 : th);
+        if (flip !== wasFlip) ang = target; else ang += norm(target - ang) * Math.min(1, dt * 16);
+        px = x; py = y;
+        spin += moved * 9;
+        wheels.forEach(function(w) { w.g.setAttribute('transform', 'rotate(' + spin.toFixed(0) + ' ' + w.cx + ' ' + w.cy + ')'); });
+        place(x, y, ang, flip);
+      }
+      requestAnimationFrame(function(n) { last = n; frame(n); });
     })();
 
     // ── HERO GREETING ──
