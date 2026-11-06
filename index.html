@@ -777,6 +777,7 @@
     @media (max-width: 768px) {
       body { padding-left: 0; }
       #hero { padding: 120px 24px 60px; }
+      .hero-ball-hint { right: 90px; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -1233,7 +1234,9 @@
       if (!hero || !ball) return;
       const $ = function(id) { return document.getElementById(id); };
       const paddle = $('game-paddle'), hud = $('game-hud'), over = $('game-over'), hint = $('hero-ball-hint');
-      const SIZE = 84, PH = 14, PB0 = 32, BOOST_EVERY = 5, BOOST = 1.15;
+      const ballSize = function() { return window.innerWidth <= 768 ? 54 : 84; };
+      let SIZE = ballSize();
+      const PH = 14, PB0 = 32, BOOST_EVERY = 5, BOOST = 1.15;
       const waveEl = hero.querySelector('.wave');
       function PBnow() { return PB0 + (waveEl ? waveEl.getBoundingClientRect().height : 0); }
       let state = 'idle', raf = 0, last = 0, visible = true;
@@ -1244,8 +1247,9 @@
       new IntersectionObserver(function(e) { visible = e[0].isIntersecting; last = performance.now(); }).observe(hero);
 
       function placeIdle() {
+        SIZE = ballSize();
         ball.style.width = ball.style.height = SIZE + 'px';
-        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - 48) + 'px,' + (hero.clientHeight - SIZE - 36 - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
+        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - (window.innerWidth <= 768 ? 20 : 48)) + 'px,' + (hero.clientHeight - SIZE - 36 - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
       }
       placeIdle();
       window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
