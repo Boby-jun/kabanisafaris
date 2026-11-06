@@ -144,7 +144,7 @@
     }
     [hidden] { display: none !important; }
     #hero.playing { cursor: none; touch-action: none; }
-    #hero.playing .hero-content, #hero.playing .hero-scroll, #hero.playing .hero-ball-hint { opacity: 0.12; pointer-events: none; transition: opacity 0.4s; }
+    #hero.playing .hero-content, #hero.playing .hero-ball-hint { opacity: 0.12; pointer-events: none; transition: opacity 0.4s; }
     #hero.playing .hero-ghost { opacity: 0 !important; }
     .game-paddle {
       position: absolute; top: 0; left: 0; width: 130px; height: 14px; z-index: 3;
@@ -213,17 +213,6 @@
       transition: border-color 0.3s, color 0.3s;
     }
     .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
-    .hero-scroll {
-      position: absolute; bottom: calc(var(--wave-h) + 24px); left: 50%; transform: translateX(-50%);
-      font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.45);
-      text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 10px;
-      z-index: 2;
-    }
-    .hero-scroll::after {
-      content: '';
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.28), transparent);
-    }
 
     /* ── SECTION SHARED ── */
     section { position: relative; }
@@ -787,7 +776,6 @@
     }
     @media (max-width: 768px) {
       body { padding-left: 0; }
-      .sidebar { display: none; }
       #hero { padding: 120px 24px 60px; }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -798,12 +786,40 @@
       .form-row { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
     }
+  
+    /* mobile menu: the sidebar slides in from a Menu button */
+    .menu-toggle, .sidebar-close, .sidebar-backdrop { display: none; }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        position: fixed; top: 14px; left: 14px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
+        padding: 11px 16px 11px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+        background: #1A3344; color: #fff; font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+        cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      }
+      .menu-toggle svg { width: 18px; height: 18px; display: block; }
+      .sidebar {
+        display: flex; width: min(86vw, 320px); z-index: 130; transform: translateX(-102%); visibility: hidden;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.32s;
+      }
+      .sidebar.open { transform: none; visibility: visible; box-shadow: 12px 0 40px rgba(0,0,0,0.35); transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s; }
+      .sidebar-close {
+        display: flex; position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; align-items: center; justify-content: center;
+        border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-size: 22px; line-height: 1; cursor: pointer;
+      }
+      .sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 120; background: rgba(8,16,22,0.55); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+      .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
+      body.menu-open { overflow: hidden; }
+    }
+    @media (prefers-reduced-motion: reduce) { .sidebar, .sidebar-backdrop { transition: none; } }
   </style>
 </head>
 <body>
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+  <div class="sidebar-backdrop"></div>
+  <aside class="sidebar" id="site-menu">
+    <button class="sidebar-close" type="button" aria-label="Close menu">&times;</button>
     <a class="sidebar-logo" href="#hero">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="#services">Experiences</a>
@@ -851,7 +867,6 @@
         <a href="plan-your-journey.html" class="btn-outline">Start Planning →</a>
       </div>
     </div>
-    <div class="hero-scroll">Scroll</div>
     <svg class="wave bottom" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#F6EEDF"><path d="M0 100V46C160 84 320 78 480 50C640 22 790 32 960 62C1130 92 1290 88 1440 38V100Z"/></svg>
   </section>
 
@@ -1513,6 +1528,20 @@
       }
     });
 
+  </script>
+  <script>
+    // mobile menu
+    (function() {
+      var b = document.querySelector('.menu-toggle'), s = document.querySelector('.sidebar'), bd = document.querySelector('.sidebar-backdrop'), c = document.querySelector('.sidebar-close');
+      if (!b || !s || !bd || !c) return;
+      function set(o) { s.classList.toggle('open', o); bd.classList.toggle('show', o); b.setAttribute('aria-expanded', o ? 'true' : 'false'); document.body.classList.toggle('menu-open', o); }
+      b.addEventListener('click', function() { set(true); });
+      c.addEventListener('click', function() { set(false); });
+      bd.addEventListener('click', function() { set(false); });
+      s.addEventListener('click', function(e) { if (e.target.closest('a')) set(false); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') set(false); });
+      window.addEventListener('resize', function() { if (window.innerWidth > 768) set(false); });
+    })();
   </script>
 </body>
 </html>
