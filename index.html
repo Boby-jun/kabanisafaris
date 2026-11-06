@@ -92,6 +92,7 @@
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
+      min-height: 100svh;
       position: relative; overflow: hidden;
       display: flex; align-items: flex-start; justify-content: center;
       padding: clamp(130px, 21vh, 230px) 72px 0;
@@ -129,6 +130,7 @@
     }
     .hero-brand > span { color: var(--tan-light); }
     .hero-ball {
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
       position: absolute; top: 0; left: 0; width: 84px; height: 84px;
       z-index: 3; cursor: pointer; user-select: none; -webkit-user-drag: none;
       will-change: transform; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
@@ -776,8 +778,9 @@
     }
     @media (max-width: 768px) {
       body { padding-left: 0; }
-      #hero { padding: 120px 24px 60px; }
-      .hero-ball-hint { right: 90px; }
+      #hero { padding: 120px 24px calc(var(--wave-h) + 190px); }
+      .hero-ball-hint { right: 90px; bottom: calc(var(--wave-h) + 42px); }
+      .hero-ghost { bottom: calc(var(--wave-h) + 112px); }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -1249,7 +1252,7 @@
       function placeIdle() {
         SIZE = ballSize();
         ball.style.width = ball.style.height = SIZE + 'px';
-        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - (window.innerWidth <= 768 ? 20 : 48)) + 'px,' + (hero.clientHeight - SIZE - 36 - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
+        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - (window.innerWidth <= 768 ? 20 : 48)) + 'px,' + (hero.clientHeight - SIZE - (window.innerWidth <= 768 ? 24 : 36) - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
       }
       placeIdle();
       window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
