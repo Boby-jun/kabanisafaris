@@ -1370,13 +1370,34 @@
     (function() {
       const el = document.getElementById('hero-greeting');
       if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const words = ['Karibu', 'Welcome', 'Bienvenue', 'Bienvenido', 'Willkommen', 'Bem-vindo'];
+      // "Welcome" in the 50 most-spoken languages (Swahili first), as [text, language code]
+      const words = [
+        ['Karibu','sw'], ['Welcome','en'], ['欢迎','zh'], ['स्वागत है','hi'], ['Bienvenido','es'], ['Bienvenue','fr'],
+        ['مرحباً','ar'], ['স্বাগতম','bn'], ['Bem-vindo','pt'], ['Добро пожаловать','ru'], ['خوش آمدید','ur'], ['Selamat datang','id'],
+        ['Willkommen','de'], ['ようこそ','ja'], ['स्वागत आहे','mr'], ['స్వాగతం','te'], ['Hoş geldiniz','tr'], ['வரவேற்கிறோம்','ta'],
+        ['歡迎','yue'], ['Chào mừng','vi'], ['환영합니다','ko'], ['Benvenuto','it'], ['ยินดีต้อนรับ','th'], ['આપનું સ્વાગત છે','gu'],
+        ['Sugeng rawuh','jv'], ['Witamy','pl'], ['Ласкаво просимо','uk'], ['ਜੀ ਆਇਆਂ ਨੂੰ','pa'], ['ಸ್ವಾಗತ','kn'], ['സ്വാഗതം','ml'],
+        ['Barka da zuwa','ha'], ['ကြိုဆိုပါတယ်','my'], ['Welkom','nl'], ['Bine ați venit','ro'], ['Καλώς ήρθατε','el'], ['Vítejte','cs'],
+        ['Välkommen','sv'], ['Üdvözöljük','hu'], ['ברוכים הבאים','he'], ['እንኳን ደህና መጡ','am'], ['Siyakwamukela','zu'], ['Ẹ káàbọ̀','yo'],
+        ['Nnọọ','ig'], ['Maligayang pagdating','fil'], ['स्वागत छ','ne'], ['සාදරයෙන් පිළිගනිමු','si'], ['ស្វាគមន៍','km'],
+        ['Murakaza neza','rw'], ['Soo dhawoow','so'], ['Xush kelibsiz','uz']
+      ];
+      const RTL = { ar: 1, ur: 1, he: 1 };
       let i = 0;
+      const heroEl = document.getElementById('hero');
+      function fit() { // long words shrink to stay on screen
+        el.style.fontSize = '';
+        const max = heroEl.clientWidth - 56, w = el.getBoundingClientRect().width;
+        if (w > max) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * max / w).toFixed(1) + 'px';
+      }
       setInterval(function() {
         el.classList.add('swap');
         setTimeout(function() {
           i = (i + 1) % words.length;
-          el.textContent = words[i];
+          el.textContent = words[i][0];
+          el.lang = words[i][1];
+          el.dir = RTL[words[i][1]] ? 'rtl' : 'ltr';
+          fit();
           el.classList.remove('swap');
         }, 900);
       }, 3200);
