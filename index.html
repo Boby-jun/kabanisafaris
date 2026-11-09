@@ -94,8 +94,8 @@
       min-height: 100vh;
       min-height: 100svh;
       position: relative; overflow: hidden;
-      display: flex; align-items: flex-start; justify-content: center;
-      padding: clamp(130px, 21vh, 230px) 72px 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: clamp(104px, 17vh, 230px) 72px calc(var(--wave-h) + 64px);
       text-align: center;
     }
     .hero-bg {
@@ -109,9 +109,10 @@
       background: rgba(10,20,28,0.5);
     }
     .hero-ghost {
-      position: absolute; left: 50%; bottom: calc(var(--wave-h) + 120px); transform: translateX(-50%);
+      /* in the flow, under the buttons: it can never collide with them, whatever the screen */
+      position: relative; order: 2; margin-top: auto; padding-top: 36px; max-width: 100%;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(44px, min(6.2vw, 10vh), 104px);
+      font-size: clamp(40px, min(6.2vw, 8.5vh), 104px);
       font-weight: 300; line-height: 1;
       color: transparent;
       -webkit-text-stroke: 1.5px rgba(255,255,255,0.7);
@@ -120,8 +121,8 @@
       z-index: 2;
       transition: opacity 0.9s ease, transform 0.9s ease;
     }
-    .hero-ghost.swap { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .hero-ghost.swap { opacity: 0; transform: translateY(10px); }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; order: 1; }
     .hero-brand {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(48px, 7vw, 108px);
@@ -729,7 +730,7 @@
       .lc { animation: none; opacity: 1; left: 66%; } .lc svg, .lc .wheel, .lc .dust, .tree { animation: none; }
       .lc .dust { display: none; }
     }
-    @media (max-height: 760px) { .hero-ghost { bottom: calc(var(--wave-h) + 56px); } }
+    @media (max-width: 1100px) { #hero { padding-bottom: calc(var(--wave-h) + 132px); } }
     .hero-title .wiggle {
       display: inline-block; padding-bottom: 0.14em;
       background: linear-gradient(90deg, rgba(196,145,90,0), var(--tan-light) 18%, var(--tan-light)) left bottom / 100% 2px no-repeat;
@@ -778,9 +779,8 @@
     }
     @media (max-width: 768px) {
       body { padding-left: 0; }
-      #hero { padding: 120px 24px calc(var(--wave-h) + 190px); }
+      #hero { padding: 112px 24px calc(var(--wave-h) + 116px); }
       .hero-ball-hint { right: 90px; bottom: calc(var(--wave-h) + 42px); }
-      .hero-ghost { bottom: calc(var(--wave-h) + 112px); }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -1373,17 +1373,17 @@
     (function() {
       const el = document.getElementById('hero-greeting');
       if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // "Welcome" in the 50 most-spoken languages (Swahili first), as [text, language code]
+      // "Welcome" in the 50 most-spoken languages: Swahili, then the world's top 10, then the rest, as [text, language code]
       const words = [
-        ['Karibu','sw'], ['Welcome','en'], ['欢迎','zh'], ['स्वागत है','hi'], ['Bienvenido','es'], ['Bienvenue','fr'],
-        ['مرحباً','ar'], ['স্বাগতম','bn'], ['Bem-vindo','pt'], ['Добро пожаловать','ru'], ['خوش آمدید','ur'], ['Selamat datang','id'],
+        ['Karibu','sw'], ['Welcome','en'], ['Bienvenue','fr'], ['Bienvenido','es'], ['Bem-vindo','pt'], ['欢迎','zh'],
+        ['स्वागत है','hi'], ['مرحباً','ar'], ['স্বাগতম','bn'], ['Добро пожаловать','ru'], ['خوش آمدید','ur'], ['Selamat datang','id'],
         ['Willkommen','de'], ['ようこそ','ja'], ['स्वागत आहे','mr'], ['స్వాగతం','te'], ['Hoş geldiniz','tr'], ['வரவேற்கிறோம்','ta'],
         ['歡迎','yue'], ['Chào mừng','vi'], ['환영합니다','ko'], ['Benvenuto','it'], ['ยินดีต้อนรับ','th'], ['આપનું સ્વાગત છે','gu'],
         ['Sugeng rawuh','jv'], ['Witamy','pl'], ['Ласкаво просимо','uk'], ['ਜੀ ਆਇਆਂ ਨੂੰ','pa'], ['ಸ್ವಾಗತ','kn'], ['സ്വാഗതം','ml'],
         ['Barka da zuwa','ha'], ['ကြိုဆိုပါတယ်','my'], ['Welkom','nl'], ['Bine ați venit','ro'], ['Καλώς ήρθατε','el'], ['Vítejte','cs'],
         ['Välkommen','sv'], ['Üdvözöljük','hu'], ['ברוכים הבאים','he'], ['እንኳን ደህና መጡ','am'], ['Siyakwamukela','zu'], ['Ẹ káàbọ̀','yo'],
-        ['Nnọọ','ig'], ['Maligayang pagdating','fil'], ['स्वागत छ','ne'], ['සාදරයෙන් පිළිගනිමු','si'], ['ស្វាគមន៍','km'],
-        ['Murakaza neza','rw'], ['Soo dhawoow','so'], ['Xush kelibsiz','uz']
+        ['Nnọọ','ig'], ['Maligayang pagdating','fil'], ['स्वागत छ','ne'], ['සාදරයෙන් පිළිගනිමු','si'], ['ស្វាគមន៍','km'], ['Murakaza neza','rw'],
+        ['Soo dhawoow','so'], ['Xush kelibsiz','uz']
       ];
       const RTL = { ar: 1, ur: 1, he: 1 };
       let i = 0;
