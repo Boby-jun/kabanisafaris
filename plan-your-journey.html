@@ -75,7 +75,7 @@
     }
     .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
     .page { min-height: 100vh; display: flex; align-items: center; padding: 4vh 56px; position: relative; overflow: hidden; }
-    @media (min-width: 769px) and (min-height: 640px) {
+    @media (min-width: 769px) and (min-height: 960px) {
       body { height: 100vh; overflow: hidden; }
       .page { height: 100vh; }
     }
@@ -103,8 +103,8 @@
     .pill:hover { transform: translateY(-1px); }
     .details a:focus-visible { outline: 2px solid var(--tan); outline-offset: 3px; border-radius: 6px; }
     .pill:focus-visible { border-radius: 999px; }
-    .detail:hover .detail-icon { background: var(--tan); color: var(--white); }
-    .detail-icon { color: var(--dark); transition: background 0.2s, color 0.2s; width: 38px; height: 38px; border-radius: 50%; background: var(--white); border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .detail:hover .detail-icon { background: var(--green); border-color: var(--green); color: var(--white); }
+    .detail-icon { color: var(--green-dark); transition: background 0.2s, color 0.2s, border-color 0.2s; width: 38px; height: 38px; border-radius: 50%; background: var(--tan-pale); border: 2px solid var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .detail-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan-text); }
     .detail-value { font-size: 14px; font-weight: 500; }
     .detail-value a { color: inherit; text-decoration: none; }
@@ -136,14 +136,15 @@
       color: var(--white); background: var(--tan); border: 2px solid var(--dark); border-radius: 999px;
       padding: 14px 30px; cursor: pointer; box-shadow: 4px 4px 0 var(--dark); transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
-    .submit { width: 100%; }
+    .submit { width: 100%; display: inline-flex; align-items: center; justify-content: center; }
     .submit[disabled] { opacity: 0.65; cursor: wait; transform: none; }
     .submit:hover { background: var(--tan-text); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dark); }
     .form-error { display: none; font-size: 12px; color: #B04040; }
     .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; }
     .success-overlay.visible { display: flex; }
     .success-box { background: var(--off-white); border: 2px solid var(--dark); border-radius: 20px; padding: 44px 40px; text-align: center; max-width: 420px; width: 90%; box-shadow: 8px 8px 0 var(--dark); }
-    .success-icon { font-size: 2.2rem; margin-bottom: 14px; color: var(--tan); }
+    .success-icon { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--tan-pale); border: 2px solid var(--green-dark); color: var(--green-dark); display: flex; align-items: center; justify-content: center; }
+    .success-icon svg { width: 26px; height: 26px; display: block; }
     .success-box h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
     .success-box p { font-size: 0.92rem; color: #6A5A4A; line-height: 1.65; margin-bottom: 22px; }
     .success-close { background: var(--tan); color: var(--white); border: 2px solid var(--dark); border-radius: 999px; padding: 12px 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
@@ -168,7 +169,7 @@
     @media (max-width: 768px) {
       .menu-toggle {
         position: fixed; top: 14px; left: 14px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
-        padding: 11px 16px 11px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+        padding: 13px 16px 13px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
         background: #1A3344; color: #fff; font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
         cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       }
@@ -187,13 +188,21 @@
       body.menu-open { overflow: hidden; }
     }
     @media (prefers-reduced-motion: reduce) { .sidebar, .sidebar-backdrop { transition: none; } }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
+  
+    /* touch targets: 44px minimum on touch screens */
+    @media (pointer: coarse) {
+      .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding-top: 0; padding-bottom: 0; }
+      .detail-value a:not(.pill) { display: inline-flex; align-items: center; min-height: 44px; }
+    }
   </style>
 </head>
 <body>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
   <div class="sidebar-backdrop"></div>
   <aside class="sidebar" id="site-menu">
-    <button class="sidebar-close" type="button" aria-label="Close menu">&times;</button>
+    <button class="sidebar-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
@@ -241,14 +250,13 @@
           <textarea id="message" name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
         </div>
         <p class="form-error" id="form-error">Something went wrong. Please try again or email reservations@kabanisafaris.com.</p>
-        <button type="submit" class="submit">Send Message →</button>
+        <button type="submit" class="submit">Send Message<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></button>
       </form>
       <div class="details">
-        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.25"/><path d="M12 6.5l1.7 3.8 3.8 1.7-3.8 1.7L12 17.5l-1.7-3.8L6.5 12l3.8-1.7z"/></svg></span><div><div class="detail-label">Base</div><div class="detail-value">Geneva, Switzerland</div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 19.5L12 5l9 14.5z"/><path d="M9.6 19.5L12 14.8l2.4 4.7"/></svg></span><div><div class="detail-label">Base</div><div class="detail-value">Geneva, Switzerland</div></div></div>
         <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><rect x="15" y="8.5" width="3.5" height="4" rx="0.8"/><path d="M6.5 10h5M6.5 13.5h6.5"/></svg></span><div><div class="detail-label">Email</div><div class="detail-value"><a href="mailto:reservations@kabanisafaris.com?subject=Planning%20my%20journey%20with%20Kabani%20Safaris">reservations@kabanisafaris.com</a></div></div></div>
-        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.2 4.5h3l1.6 4-2 1.3a9 9 0 0 0 4.4 4.4l1.3-2 4 1.6v3a1.7 1.7 0 0 1-1.8 1.7A14.5 14.5 0 0 1 3.5 6.3a1.7 1.7 0 0 1 1.7-1.8z"/><path d="M14 3.5a6.5 6.5 0 0 1 6.5 6.5M14 7a3 3 0 0 1 3 3"/></svg></span><div><div class="detail-label">Reach out</div><div class="detail-value">+41 78 611 23 30</div>
-          <div class="contact-actions"><a class="pill" href="https://wa.me/41786112330?text=Hello%20Kabani%20Safaris%2C%20I%27d%20love%20your%20help%20planning%20a%20trip." target="_blank" rel="noopener">WhatsApp</a><a class="pill alt" href="tel:+41786112330">Call</a></div></div></div>
-        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8V6.5A2.5 2.5 0 0 1 6.5 4H8M16 4h1.5A2.5 2.5 0 0 1 20 6.5V8M20 16v1.5a2.5 2.5 0 0 1-2.5 2.5H16M8 20H6.5A2.5 2.5 0 0 1 4 17.5V16"/><circle cx="12" cy="12" r="3.2"/></svg></span><div><div class="detail-label">Instagram</div><div class="detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener">@barakatrafael</a></div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.2 4.5h3l1.6 4-2 1.3a9 9 0 0 0 4.4 4.4l1.3-2 4 1.6v3a1.7 1.7 0 0 1-1.8 1.7A14.5 14.5 0 0 1 3.5 6.3a1.7 1.7 0 0 1 1.7-1.8z"/><path d="M14 3.5a6.5 6.5 0 0 1 6.5 6.5M14 7a3 3 0 0 1 3 3"/></svg></span><div><div class="detail-label">Reach out</div><div class="contact-actions"><a class="pill" href="https://wa.me/41786112330?text=Hello%20Kabani%20Safaris%2C%20I%27d%20love%20your%20help%20planning%20a%20trip." target="_blank" rel="noopener">WhatsApp</a><a class="pill alt" href="tel:+41786112330">Call</a></div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="7.5" cy="15.5" r="3.6"/><circle cx="16.5" cy="15.5" r="3.6"/><path d="M10.6 14.8h2.8M5.6 12.6L6.8 6.5h2.7l.6 2.9M18.4 12.6l-1.2-6.1h-2.7l-.6 2.9"/></svg></span><div><div class="detail-label">Instagram</div><div class="detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener">@barakatrafael</a></div></div></div>
       </div>
       </div>
     </div>
@@ -256,7 +264,7 @@
 
   <div class="success-overlay" id="success-overlay">
     <div class="success-box">
-      <div class="success-icon">✦</div>
+      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 12.5l4.3 4.3 8.7-9.6"/></svg></div>
       <h3>Application Submitted</h3>
       <p>Thank you for reaching out. I'll review your request and be in touch within 24 hours.</p>
       <button class="success-close" onclick="document.getElementById('success-overlay').classList.remove('visible')">Close</button>
@@ -267,14 +275,14 @@
       e.preventDefault();
       const form = e.target, err = document.getElementById('form-error');
       err.style.display = 'none';
-      const btn = form.querySelector('.submit'), label = btn.textContent;
+      const btn = form.querySelector('.submit'), label = btn.innerHTML;
       btn.disabled = true; btn.textContent = 'Sending…';
       try {
         const res = await fetch('https://formspree.io/f/xaewjgdg', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
         if (res.ok) { form.reset(); document.getElementById('success-overlay').classList.add('visible'); }
         else err.style.display = 'block';
       } catch { err.style.display = 'block'; }
-      btn.disabled = false; btn.textContent = label;
+      btn.disabled = false; btn.innerHTML = label;
     });
   </script>
   <script>

@@ -125,10 +125,10 @@
     .card:nth-child(3) { background: var(--ochre); color: var(--dark); transform: rotate(-0.8deg); }
     .card:hover { transform: rotate(0) translateY(-6px); box-shadow: 9px 9px 0 var(--dark); }
     .card-icon {
-      width: 44px; height: 44px; border-radius: 50%; background: var(--off-white);
-      border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 12px;
+      width: 46px; height: 46px; border-radius: 50%; background: var(--tan-pale); color: var(--green-dark);
+      border: 2px solid var(--green-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
     }
+    .card-icon svg { width: 25px; height: 25px; display: block; }
     .card h3 { font-size: clamp(16px, 2.3vh, 21px); font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.15; }
     .card p { font-size: clamp(12.5px, 1.65vh, 14.5px); line-height: 1.5; font-weight: 400; opacity: 0.95; }
     @media (max-width: 1100px) { .who { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr; } }
@@ -138,7 +138,7 @@
     @media (max-width: 768px) {
       .menu-toggle {
         position: fixed; top: 14px; left: 14px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
-        padding: 11px 16px 11px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+        padding: 13px 16px 13px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
         background: #1A3344; color: #fff; font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
         cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       }
@@ -157,19 +157,22 @@
       body.menu-open { overflow: hidden; }
     }
     @media (prefers-reduced-motion: reduce) { .sidebar, .sidebar-backdrop { transition: none; } }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
   </style>
 </head>
 <body>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
   <div class="sidebar-backdrop"></div>
   <aside class="sidebar" id="site-menu">
-    <button class="sidebar-close" type="button" aria-label="Close menu">&times;</button>
+    <button class="sidebar-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
       <a href="index.html#destinations">Destinations</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="about.html" class="active">About Us</a>
+      <a href="blog/">Blog</a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM <span class="nav-new">New</span></a>
       <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
@@ -182,7 +185,7 @@
     <span class="blob b1"></span><span class="blob b2"></span>
     <div class="about-wrap">
       <section class="who">
-        <div class="portrait"><img src="rafael-portrait.jpg" alt="Rafael Barakat" /></div>
+        <div class="portrait"><img src="images/site/rafael-portrait.jpg" alt="Rafael Barakat" /></div>
         <div class="who-text">
           <p class="eyebrow">Who I Am</p>
           <h1>A Consultant <em>Rooted in Africa</em></h1>
@@ -196,9 +199,9 @@
           <h2>Three principles that <span>guide every journey</span></h2>
         </div>
         <div class="cards">
-          <div class="card"><div class="card-icon">🧭</div><h3>Tailor-Made by Design</h3><p>No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p></div>
-          <div class="card"><div class="card-icon">🤝</div><h3>Local Professionals</h3><p>We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p></div>
-          <div class="card"><div class="card-icon">🌱</div><h3>Impact-Led Travel</h3><p>Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p></div>
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="18.5" r="2"/><path d="M7.7 18.5h6.8a3.5 3.5 0 0 0 3.5-3.5v-3.4"/><path d="M18 11.6c-2.1-2.2-3.4-3.8-3.4-5.5a3.4 3.4 0 1 1 6.8 0c0 1.7-1.3 3.3-3.4 5.5z"/><circle cx="18" cy="6.1" r="1.2"/></svg></div><h3>Tailor-Made by Design</h3><p>No two travellers are the same. Every itinerary is built from zero around your pace, interests, and budget — then refined until it fits perfectly.</p></div>
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3.3 2.4-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><circle cx="16.8" cy="9" r="2.4"/><path d="M15.6 13.7c.4-.1.9-.2 1.4-.2 2.7 0 4.5 2 4.5 5"/></svg></div><h3>Local Professionals</h3><p>We connect you exclusively with guides and operators who live and breathe their territory. Deep knowledge is not taught in a classroom — it is inherited.</p></div>
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21v-8.5M7.5 21h9"/><path d="M12 14.2c-4.4 0-6.8-2.3-6.8-6.2 4.4 0 6.8 2.3 6.8 6.2z"/><path d="M12 11.6c0-3.9 2.4-6.2 6.8-6.2 0 3.9-2.4 6.2-6.8 6.2z"/></svg></div><h3>Impact-Led Travel</h3><p>Where possible, we route itineraries through cooperatives, community farms, and independent operators so that tourism becomes a direct economic engine for local producers.</p></div>
         </div>
       </section>
     </div>

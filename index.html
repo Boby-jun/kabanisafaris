@@ -12,7 +12,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="preload" as="image" href="images/photography/calm-before-storm-1600.jpg" media="(max-width: 1200px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/photography/calm-before-storm-2560.jpg" media="(min-width: 1201px)" fetchpriority="high" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -101,8 +103,11 @@
     .hero-bg {
       position: absolute;
       top: -15%; left: 0; right: 0; bottom: -15%;
-      background: url('calm-before-storm.jpg') center/cover no-repeat;
+      background: #1a2b36 url('images/photography/calm-before-storm-1600.jpg') center/cover no-repeat;
       z-index: 0; will-change: transform;
+    }
+    @media (min-width: 1201px) {
+      .hero-bg { background-image: url('images/photography/calm-before-storm-2560.jpg'); }
     }
     .hero-bg::after {
       content: ''; position: absolute; inset: 0;
@@ -430,6 +435,8 @@
       transition: color 0.2s;
     }
     .gallery-close:hover { color: var(--white); }
+    .gallery-close svg { width: 26px; height: 26px; display: block; }
+    .gallery-arrow svg { width: 30px; height: 30px; display: block; }
     .gallery-main {
       display: flex; align-items: center; justify-content: center;
       width: 100%; max-width: 960px;
@@ -507,9 +514,6 @@
       display: flex; align-items: flex-start; gap: 14px;
       font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.75);
       padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .coffee-list li::before {
-      content: '✦'; color: var(--tan-light); flex-shrink: 0; margin-top: 1px;
     }
 
     /* ── IMPACT DASHBOARD ── */
@@ -702,8 +706,7 @@
     .coffee-list li:nth-child(even) { transform: rotate(0.5deg); }
     .coffee-list li:hover { transform: rotate(0) translateX(4px); }
     .coffee-list li::before {
-      content: '✦'; width: 28px; height: 28px; border-radius: 50%; background: var(--ochre); border: 2px solid var(--dark);
-      display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--dark); margin-top: 0;
+      content: ''; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--tan-pale) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23354F28' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.3 4.3 8.7-9.6'/%3E%3C/svg%3E") center / 16px 16px no-repeat; border: 2px solid var(--green-dark); margin-top: 0;
     }
 
     /* hero: playful touches */
@@ -753,24 +756,47 @@
     .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: var(--white); transform: translate(-2px, -2px); box-shadow: 8px 8px 0 rgba(255,255,255,0.5); }
 
     /* ── FOOTER ── */
-    footer {
-      padding: 48px 60px; background: #0E1F2A;
-      display: flex; align-items: center; justify-content: space-between;
+    footer { background: #0E1F2A; color: rgba(255,255,255,0.72); }
+    .f-strip {
+      display: grid; grid-template-columns: 1.2fr 1fr 1.1fr 1.5fr; gap: 24px;
+      padding: 36px 60px; background: #14293A;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .footer-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; font-weight: 500; color: var(--white);
+    .f-item { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .f-icon {
+      flex: none; width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--tan-pale); color: var(--green-dark);
     }
+    .f-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 3px; }
+    .f-value { font-size: 14px; color: var(--white); overflow-wrap: break-word; }
+    .f-value a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); text-decoration-thickness: 1px; text-underline-offset: 5px; transition: text-decoration-color .2s, color .2s; }
+    .f-value a:hover { color: var(--tan-light); text-decoration-color: var(--tan-light); }
+    .f-main {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px;
+      padding: 56px 60px 40px;
+    }
+    .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 500; color: var(--white); }
     .footer-logo span { color: var(--tan-light); }
-    .footer-copy {
-      font-size: 12px; color: rgba(255,255,255,0.35);
+    .f-tag { margin: 14px 0 22px; font-size: 14px; line-height: 1.6; max-width: 280px; color: rgba(255,255,255,0.62); }
+    .f-social { display: flex; gap: 10px; }
+    .f-social a {
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--tan-pale); color: var(--green-dark); transition: background .2s, color .2s, transform .2s;
     }
-    .footer-admin a {
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); text-decoration: none;
-      transition: color 0.3s;
+    .f-social a:hover { background: var(--green); color: var(--white); transform: translateY(-2px); }
+    .f-col h3 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--tan-light); margin: 0 0 16px; }
+    .f-col a { display: block; padding: 5px 0; font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; transition: color .2s; }
+    .f-col a:hover { color: var(--white); }
+    .f-bottom {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      padding: 22px 60px; border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 12px; color: rgba(255,255,255,0.5);
     }
-    .footer-admin a:hover { color: var(--tan-light); }
+    .f-bottom a { color: inherit; text-decoration: none; margin-left: 20px; transition: color .2s; }
+    .f-bottom a:first-child { margin-left: 0; }
+    .f-bottom a:hover { color: var(--tan-light); }
+    .f-strip a:focus-visible, .f-col a:focus-visible, .f-social a:focus-visible, .f-bottom a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; border-radius: 4px; }
 
     /* ── RESPONSIVE ── */
     .coffee-grid > * { min-width: 0; }
@@ -788,7 +814,12 @@
       .stats-row { grid-template-columns: 1fr; }
       .charts-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .f-strip { grid-template-columns: 1fr 1fr; padding: 28px 24px; gap: 22px 16px; }
+      .f-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .f-item:nth-child(4) { grid-column: 1 / -1; }
+      .f-main { grid-template-columns: 1fr 1fr; gap: 36px 24px; padding: 40px 24px 28px; }
+      .f-brand { grid-column: 1 / -1; }
+      .f-bottom { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
     }
   
     /* mobile menu: the sidebar slides in from a Menu button */
@@ -796,7 +827,7 @@
     @media (max-width: 768px) {
       .menu-toggle {
         position: fixed; top: 14px; left: 14px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
-        padding: 11px 16px 11px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+        padding: 13px 16px 13px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
         background: #1A3344; color: #fff; font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
         cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       }
@@ -815,21 +846,33 @@
       body.menu-open { overflow: hidden; }
     }
     @media (prefers-reduced-motion: reduce) { .sidebar, .sidebar-backdrop { transition: none; } }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
+  
+    /* touch targets: 44px minimum on touch screens */
+    @media (pointer: coarse) {
+      .view-photos-btn, .dest-popup-btn { min-height: 44px; }
+      .f-social a { width: 44px; height: 44px; }
+      .f-col a { display: flex; align-items: center; min-height: 44px; padding: 0; }
+      .f-strip a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; margin: 0 -8px; }
+      .f-bottom a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; margin: 0 -8px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- SIDEBAR -->
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
   <div class="sidebar-backdrop"></div>
   <aside class="sidebar" id="site-menu">
-    <button class="sidebar-close" type="button" aria-label="Close menu">&times;</button>
+    <button class="sidebar-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <a class="sidebar-logo" href="#hero">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="#services">Experiences</a>
       <a href="#destinations">Destinations</a>
       <a href="#coffee">Coffee</a>
       <a href="about.html">About Us</a>
+      <a href="blog/">Blog</a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM <span class="nav-new">New</span></a>
       <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
@@ -863,12 +906,12 @@
       </div>
     </div>
     <div class="hero-content">
-      <h1 class="hero-brand">Kabani <span>Safaris</span><i class="road" aria-hidden="true"><i class="tree t1"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t2"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t3"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="lc"><svg viewBox="4 8 190 88" style="overflow:visible"><circle class="dust" cx="4" cy="86" r="5"/><circle class="dust d2" cx="4" cy="86" r="5"/><circle class="dust d3" cx="4" cy="86" r="5"/><path d="M22 21H108M26 21V28M58 21V28M88 21V28M106 21V28" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="30" y="12" width="46" height="9" rx="3" fill="#232323"/><rect x="86" y="14" width="23" height="7" rx="1.5" fill="#1b1b1b"/><g fill="#FFF3B8"><rect x="88" y="15.5" width="4" height="4" rx=".8"/><rect x="93.5" y="15.5" width="4" height="4" rx=".8"/><rect x="99" y="15.5" width="4" height="4" rx=".8"/><rect x="104" y="15.5" width="3.5" height="4" rx=".8"/></g><path d="M14 72V33Q14 28 19 28H111L127 47L170 50Q179 51 179 59V72Z" fill="#6B6A3C"/><path d="M14 62H179V72H14Z" fill="#57562F"/><path d="M19 28H111" stroke="#8A8955" stroke-width="1.6"/><path d="M14 50H170" stroke="#82814C" stroke-width="1.2"/><path d="M20 33H110L121 46H20Z" fill="#27373E"/><path d="M44 33H47V46H44ZM72 33H75V46H72ZM98 33H101L104 46H98Z" fill="#6B6A3C"/><path d="M24 34H40L33 45H24ZM50 34H66L59 45H50Z" fill="#6A8591" opacity=".35"/><path d="M73.5 47V66M99.5 47V66" stroke="#3E3D20" stroke-width="1"/><rect x="66" y="53" width="6" height="2" rx="1" fill="#2c2b17"/><rect x="92" y="53" width="6" height="2" rx="1" fill="#2c2b17"/><path d="M132 52V49L116 30V24H121" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="127" y="37" width="6" height="9" rx="2" fill="#1b1b1b"/><rect x="171" y="52" width="8" height="7" rx="3" fill="#F4F1E2" stroke="#1b1b1b" stroke-width="1.2"/><rect x="172" y="61" width="7" height="2.6" rx="1" fill="#E58A2B"/><rect x="152" y="55" width="5" height="2.4" rx="1" fill="#E58A2B"/><rect x="14" y="52" width="2.6" height="8" fill="#B03A2E"/><rect x="160" y="68" width="24" height="8" rx="2" fill="#2a2a2a"/><rect x="8" y="68" width="14" height="7" rx="2" fill="#2a2a2a"/><path d="M182 51V71M182 54H169" stroke="#1b1b1b" stroke-width="2.6" stroke-linecap="round" fill="none"/><rect x="70" y="70" width="52" height="3" rx="1.5" fill="#1b1b1b"/><path d="M28 72A20 20 0 0 1 68 72Z" fill="#171717"/><path d="M126 72A20 20 0 0 1 166 72Z" fill="#171717"/><path d="M26 72A22 22 0 0 1 70 72M124 72A22 22 0 0 1 168 72" stroke="#2a2a2a" stroke-width="3.4" fill="none"/><g class="wheel" style="transform-origin:48px 75px"><circle cx="48" cy="75" r="17" fill="#1a1a19"/><circle cx="48" cy="75" r="15" fill="none" stroke="#3b3b38" stroke-width="4" stroke-dasharray="4.1 3.15"/><circle cx="48" cy="75" r="9" fill="#8e8e86"/><circle cx="48" cy="75" r="3.5" fill="#55554f"/><path d="M48 67V83M40 75H56" stroke="#55554f" stroke-width="1.6"/></g><g class="wheel" style="transform-origin:146px 75px"><circle cx="146" cy="75" r="17" fill="#1a1a19"/><circle cx="146" cy="75" r="15" fill="none" stroke="#3b3b38" stroke-width="4" stroke-dasharray="4.1 3.15"/><circle cx="146" cy="75" r="9" fill="#8e8e86"/><circle cx="146" cy="75" r="3.5" fill="#55554f"/><path d="M146 67V83M138 75H154" stroke="#55554f" stroke-width="1.6"/></g></svg></i></i></i></h1>
+      <h1 class="hero-brand">Kabani <span>Safaris</span><i class="road" aria-hidden="true"><i class="tree t1"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t2"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="tree t3"><svg viewBox="0 0 60 44"><path d="M30 44V24M30 31L21 24M30 28L40 22" stroke="#9C7E55" stroke-width="3.4" stroke-linecap="round" fill="none"/><ellipse cx="30" cy="16" rx="27" ry="7" fill="#7C9A5B"/><ellipse cx="20" cy="22" rx="12" ry="4.5" fill="#6F8F4E"/><ellipse cx="42" cy="21" rx="12" ry="4.5" fill="#6F8F4E"/></svg></i><i class="lc"><svg viewBox="4 8 190 88" style="overflow:visible"><circle class="dust" cx="4" cy="86" r="5"/><circle class="dust d2" cx="4" cy="86" r="5"/><circle class="dust d3" cx="4" cy="86" r="5"/><path d="M22 21H108M26 21V28M58 21V28M88 21V28M106 21V28" stroke="#1b1b1b" stroke-width="1.75" stroke-linecap="round" fill="none"/><rect x="30" y="12" width="46" height="9" rx="3" fill="#232323"/><rect x="86" y="14" width="23" height="7" rx="1.5" fill="#1b1b1b"/><g fill="#FFF3B8"><rect x="88" y="15.5" width="4" height="4" rx=".8"/><rect x="93.5" y="15.5" width="4" height="4" rx=".8"/><rect x="99" y="15.5" width="4" height="4" rx=".8"/><rect x="104" y="15.5" width="3.5" height="4" rx=".8"/></g><path d="M14 72V33Q14 28 19 28H111L127 47L170 50Q179 51 179 59V72Z" fill="#6B6A3C"/><path d="M14 62H179V72H14Z" fill="#57562F"/><path d="M19 28H111" stroke="#8A8955" stroke-width="1.6"/><path d="M14 50H170" stroke="#82814C" stroke-width="1.2"/><path d="M20 33H110L121 46H20Z" fill="#27373E"/><path d="M44 33H47V46H44ZM72 33H75V46H72ZM98 33H101L104 46H98Z" fill="#6B6A3C"/><path d="M24 34H40L33 45H24ZM50 34H66L59 45H50Z" fill="#6A8591" opacity=".35"/><path d="M73.5 47V66M99.5 47V66" stroke="#3E3D20" stroke-width="1"/><rect x="66" y="53" width="6" height="2" rx="1" fill="#2c2b17"/><rect x="92" y="53" width="6" height="2" rx="1" fill="#2c2b17"/><path d="M132 52V49L116 30V24H121" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="127" y="37" width="6" height="9" rx="2" fill="#1b1b1b"/><rect x="171" y="52" width="8" height="7" rx="3" fill="#F4F1E2" stroke="#1b1b1b" stroke-width="1.2"/><rect x="172" y="61" width="7" height="2.6" rx="1" fill="#E58A2B"/><rect x="152" y="55" width="5" height="2.4" rx="1" fill="#E58A2B"/><rect x="14" y="52" width="2.6" height="8" fill="#B03A2E"/><rect x="160" y="68" width="24" height="8" rx="2" fill="#2a2a2a"/><rect x="8" y="68" width="14" height="7" rx="2" fill="#2a2a2a"/><path d="M182 51V71M182 54H169" stroke="#1b1b1b" stroke-width="2.6" stroke-linecap="round" fill="none"/><rect x="70" y="70" width="52" height="3" rx="1.5" fill="#1b1b1b"/><path d="M28 72A20 20 0 0 1 68 72Z" fill="#171717"/><path d="M126 72A20 20 0 0 1 166 72Z" fill="#171717"/><path d="M26 72A22 22 0 0 1 70 72M124 72A22 22 0 0 1 168 72" stroke="#2a2a2a" stroke-width="3.4" fill="none"/><g class="wheel" style="transform-origin:48px 75px"><circle cx="48" cy="75" r="17" fill="#1a1a19"/><circle cx="48" cy="75" r="15" fill="none" stroke="#3b3b38" stroke-width="4" stroke-dasharray="4.1 3.15"/><circle cx="48" cy="75" r="9" fill="#8e8e86"/><circle cx="48" cy="75" r="3.5" fill="#55554f"/><path d="M48 67V83M40 75H56" stroke="#55554f" stroke-width="1.6"/></g><g class="wheel" style="transform-origin:146px 75px"><circle cx="146" cy="75" r="17" fill="#1a1a19"/><circle cx="146" cy="75" r="15" fill="none" stroke="#3b3b38" stroke-width="4" stroke-dasharray="4.1 3.15"/><circle cx="146" cy="75" r="9" fill="#8e8e86"/><circle cx="146" cy="75" r="3.5" fill="#55554f"/><path d="M146 67V83M138 75H154" stroke="#55554f" stroke-width="1.6"/></g></svg></i></i></i></h1>
       <p class="hero-title">Where the World <em>Meets</em> <span class="wiggle">Africa</span></p>
       <p class="hero-sub">Born from four years in East Africa — driven by a belief that the best journeys happen when the right people meet.</p>
       <div class="hero-actions">
-        <a href="#services" class="btn-primary">Explore Experiences ↓</a>
-        <a href="plan-your-journey.html" class="btn-outline">Start Planning →</a>
+        <a href="#services" class="btn-primary">Explore Experiences<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4.5v15M6 13.5l6 6 6-6"/></svg></a>
+        <a href="plan-your-journey.html" class="btn-outline">Start Planning<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></a>
       </div>
     </div>
     <svg class="wave bottom" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="fill:#F6EEDF"><path d="M0 100V46C160 84 320 78 480 50C640 22 790 32 960 62C1130 92 1290 88 1440 38V100Z"/></svg>
@@ -884,7 +927,7 @@
         <!-- 01 Wildlife -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img src="gallery-wildlife-zebras.jpg" alt="Wildlife Safari" style="display:block;" />
+            <img src="images/wildlife/gallery-wildlife-zebras.jpg" alt="Wildlife Safari" style="display:block;" />
           </div>
           <div class="service-number">01 — Wildlife</div>
           <h3 class="service-title">Wildlife Safaris</h3>
@@ -909,7 +952,7 @@
               </div>
             </div>
             <button class="view-photos-btn" onclick="openGallery('wildlife')">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="9.8" r="1.7"/><path d="M4 17.5l4.6-4.3 3.2 2.8 3.2-3 5 4.5"/></svg>
               View Photos
             </button>
           </div>
@@ -918,7 +961,7 @@
         <!-- 02 Agro-Tourism -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img id="img-agro" src="agro-tourism-safaris.jpg" alt="Agro Tourism Safari" style="display:block;" />
+            <img id="img-agro" src="images/site/agro-tourism-safaris.jpg" alt="Agro Tourism Safari" style="display:block;" />
           </div>
           <div class="service-number">02 — Agro-Tourism</div>
           <h3 class="service-title">Agro-Tourism Safaris</h3>
@@ -944,7 +987,7 @@
               </div>
             </div>
             <button class="view-photos-btn" onclick="openGallery('agro')">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="9.8" r="1.7"/><path d="M4 17.5l4.6-4.3 3.2 2.8 3.2-3 5 4.5"/></svg>
               View Photos
             </button>
           </div>
@@ -953,7 +996,7 @@
         <!-- 03 Adventure -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img id="img-adventure" src="adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
+            <img id="img-adventure" src="images/site/adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
           </div>
           <div class="service-number">03 — Adventure</div>
           <h3 class="service-title">Adventure Safaris</h3>
@@ -978,7 +1021,7 @@
               </div>
             </div>
             <button class="view-photos-btn" onclick="openGallery('adventure')">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><circle cx="7.5" cy="8.5" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="9.8" r="1.7"/><path d="M4 17.5l4.6-4.3 3.2 2.8 3.2-3 5 4.5"/></svg>
               View Photos
             </button>
           </div>
@@ -992,14 +1035,14 @@
   <div class="gallery-overlay" id="gallery-overlay" onclick="handleOverlayClick(event)">
     <div class="gallery-header">
       <span class="gallery-title" id="gallery-title-label"></span>
-      <button class="gallery-close" onclick="closeGallery()">&#215;</button>
+      <button class="gallery-close" onclick="closeGallery()" aria-label="Close gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     </div>
     <div class="gallery-main">
-      <button class="gallery-arrow" onclick="galleryPrev()">&#8592;</button>
+      <button class="gallery-arrow" onclick="galleryPrev()" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
       <div class="gallery-img-wrap">
         <img id="gallery-img" src="" alt="" />
       </div>
-      <button class="gallery-arrow" onclick="galleryNext()">&#8594;</button>
+      <button class="gallery-arrow" onclick="galleryNext()" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
     </div>
     <div class="gallery-caption">
       <p class="gallery-caption-text" id="gallery-caption"></p>
@@ -1130,7 +1173,7 @@
           </ul>
         </div>
         <div class="coffee-visual">
-          <img src="coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="images/site/coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
       </div>
     </div>
@@ -1139,9 +1182,47 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Kabani <span>Safaris</span></div>
-    <div class="footer-copy">© 2024 Kabani Safaris. All rights reserved.</div>
-    <div class="footer-admin"><a href="admin.html">Admin</a></div>
+    <div class="f-strip">
+      <div class="f-item"><span class="f-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 19.5L12 5l9 14.5z"/><path d="M9.6 19.5L12 14.8l2.4 4.7"/></svg></span><div><div class="f-label">Based in</div><div class="f-value">Geneva, Switzerland</div></div></div>
+      <div class="f-item"><span class="f-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 17.5h18"/><path d="M6.5 17.5a5.5 5.5 0 0 1 11 0"/><path d="M12 6.5v2.2M4.9 9.9l1.5 1.5M19.1 9.9l-1.5 1.5"/></svg></span><div><div class="f-label">Replies</div><div class="f-value">Within 24 hours</div></div></div>
+      <div class="f-item"><span class="f-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.2 4.5h3l1.6 4-2 1.3a9 9 0 0 0 4.4 4.4l1.3-2 4 1.6v3a1.7 1.7 0 0 1-1.8 1.7A14.5 14.5 0 0 1 3.5 6.3a1.7 1.7 0 0 1 1.7-1.8z"/><path d="M14 3.5a6.5 6.5 0 0 1 6.5 6.5M14 7a3 3 0 0 1 3 3"/></svg></span><div><div class="f-label">Reach out</div><div class="f-value"><a href="https://wa.me/41786112330?text=Hello%20Kabani%20Safaris%2C%20I%27d%20love%20your%20help%20planning%20a%20trip." target="_blank" rel="noopener">WhatsApp</a> &nbsp;·&nbsp; <a href="tel:+41786112330">Call</a></div></div></div>
+      <div class="f-item"><span class="f-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><rect x="15" y="8.5" width="3.5" height="4" rx="0.8"/><path d="M6.5 10h5M6.5 13.5h6.5"/></svg></span><div><div class="f-label">Email</div><div class="f-value"><a href="mailto:reservations@kabanisafaris.com">reservations@kabanisafaris.com</a></div></div></div>
+    </div>
+    <div class="f-main">
+      <div class="f-brand">
+        <div class="footer-logo">Kabani <span>Safaris</span></div>
+        <p class="f-tag">Tailor-made journeys through Africa, from wildlife to coffee farms.</p>
+        <div class="f-social">
+          <a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="7.5" cy="15.5" r="3.6"/><circle cx="16.5" cy="15.5" r="3.6"/><path d="M10.6 14.8h2.8M5.6 12.6L6.8 6.5h2.7l.6 2.9M18.4 12.6l-1.2-6.1h-2.7l-.6 2.9"/></svg></a>
+          <a href="https://wa.me/41786112330" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10.5H10.5L6.5 19.5V16H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></a>
+          <a href="mailto:reservations@kabanisafaris.com" aria-label="Email"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><rect x="15" y="8.5" width="3.5" height="4" rx="0.8"/><path d="M6.5 10h5M6.5 13.5h6.5"/></svg></a>
+        </div>
+      </div>
+      <nav class="f-col" aria-label="Plan and contact">
+        <h3>Plan &amp; Contact</h3>
+        <a href="plan-your-journey.html">Plan your journey</a>
+        <a href="https://wa.me/41786112330" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:reservations@kabanisafaris.com">Email us</a>
+      </nav>
+      <nav class="f-col" aria-label="Experiences">
+        <h3>Experiences</h3>
+        <a href="index.html#services">Wildlife</a>
+        <a href="index.html#services">Adventure</a>
+        <a href="index.html#services">Agro-Tourism</a>
+        <a href="index.html#destinations">Destinations</a>
+      </nav>
+      <nav class="f-col" aria-label="Discover">
+        <h3>Discover</h3>
+        <a href="about.html">About us</a>
+        <a href="blog/">Blog</a>
+        <a href="index.html#coffee">Coffee</a>
+        <a href="travel-esim.html">Travel eSIM</a>
+      </nav>
+    </div>
+    <div class="f-bottom">
+      <div>© 2026 Kabani Safaris. All rights reserved.</div>
+      <div><a href="admin.html">Admin</a></div>
+    </div>
   </footer>
 
   <script>
@@ -1447,34 +1528,34 @@
       wildlife: {
         label: 'Wildlife Safaris',
         photos: [
-          { src: 'gallery-wildlife-zebras.jpg',         caption: 'Zebra herd on the move, Serengeti, Tanzania' },
-          { src: 'gallery-wildlife-elephants.jpg',      caption: 'A herd crossing the Serengeti plains, Tanzania' },
-          { src: 'gallery-wildlife-giraffes.jpg',       caption: 'Masai giraffes grazing at golden hour, Kenya' },
-          { src: 'gallery-wildlife-gorilla-female.jpg', caption: 'Female mountain gorilla in the forest undergrowth, Uganda' },
-          { src: 'gallery-wildlife-lioness.jpg',        caption: 'Two lionesses resting on a kopje, Tanzania' },
-          { src: 'gallery-wildlife-lion-roar.jpg',      caption: 'Male lion at midday, Serengeti' },
-          { src: 'gallery-wildlife-lion-stare.jpg',     caption: 'Close encounter — a lion looks skyward, East Africa' },
-          { src: 'gallery-photo-calm-storm.jpg',        caption: 'Calm before the storm — Serengeti at dusk' },
-          { src: 'gallery-photo-serengeti-sunrise.jpg', caption: 'First light over the Serengeti plains, Tanzania' },
-          { src: 'gallery-photo-close.jpg',             caption: 'Close yet so far — a wildlife moment, East Africa' },
-          { src: 'gallery-photo-quiet-proximity.jpg',   caption: 'Quiet proximity — gorilla family, Bwindi Forest, Uganda' },
-          { src: 'gallery-photo-sleeping-mother.jpg',   caption: 'A sleeping mother — gorilla at rest, Uganda' },
-          { src: 'gallery-photo-wandering-eyes.jpg',    caption: 'Wandering eyes — an encounter in the wild, East Africa' },
+          { src: 'images/wildlife/gallery-wildlife-zebras.jpg',         caption: 'Zebra herd on the move, Serengeti, Tanzania' },
+          { src: 'images/wildlife/gallery-wildlife-elephants.jpg',      caption: 'A herd crossing the Serengeti plains, Tanzania' },
+          { src: 'images/wildlife/gallery-wildlife-giraffes.jpg',       caption: 'Masai giraffes grazing at golden hour, Kenya' },
+          { src: 'images/wildlife/gallery-wildlife-gorilla-female.jpg', caption: 'Female mountain gorilla in the forest undergrowth, Uganda' },
+          { src: 'images/wildlife/gallery-wildlife-lioness.jpg',        caption: 'Two lionesses resting on a kopje, Tanzania' },
+          { src: 'images/wildlife/gallery-wildlife-lion-roar.jpg',      caption: 'Male lion at midday, Serengeti' },
+          { src: 'images/wildlife/gallery-wildlife-lion-stare.jpg',     caption: 'Close encounter — a lion looks skyward, East Africa' },
+          { src: 'images/photography/gallery-photo-calm-storm.jpg',        caption: 'Calm before the storm — Serengeti at dusk' },
+          { src: 'images/photography/gallery-photo-serengeti-sunrise.jpg', caption: 'First light over the Serengeti plains, Tanzania' },
+          { src: 'images/photography/gallery-photo-close.jpg',             caption: 'Close yet so far — a wildlife moment, East Africa' },
+          { src: 'images/photography/gallery-photo-quiet-proximity.jpg',   caption: 'Quiet proximity — gorilla family, Bwindi Forest, Uganda' },
+          { src: 'images/photography/gallery-photo-sleeping-mother.jpg',   caption: 'A sleeping mother — gorilla at rest, Uganda' },
+          { src: 'images/photography/gallery-photo-wandering-eyes.jpg',    caption: 'Wandering eyes — an encounter in the wild, East Africa' },
         ]
       },
       agro: {
         label: 'Agro-Tourism Safaris',
         photos: [
-          { src: 'gallery-agro-coffee-farm.jpg',   caption: 'Kenyan coffee farm — smallholder cooperative, Kenya' },
-          { src: 'gallery-agro-tea-kenya.jpg',      caption: 'Tea estate in the highlands, Kenya' },
-          { src: 'gallery-agro-tea-tanzania.jpg',   caption: 'Tea plantation at the foot of the mountains, Tanzania' },
+          { src: 'images/agro/gallery-agro-coffee-farm.jpg',   caption: 'Kenyan coffee farm — smallholder cooperative, Kenya' },
+          { src: 'images/agro/gallery-agro-tea-kenya.jpg',      caption: 'Tea estate in the highlands, Kenya' },
+          { src: 'images/agro/gallery-agro-tea-tanzania.jpg',   caption: 'Tea plantation at the foot of the mountains, Tanzania' },
         ]
       },
       adventure: {
         label: 'Adventure Safaris',
         photos: [
-          { src: 'gallery-adventure-forest.jpg', caption: 'Lost in the forest — rainforest trekking, East Africa' },
-          { src: 'gallery-adventure-walk.jpg',   caption: 'Walk the talk — on the trail, Kenya' },
+          { src: 'images/adventure/gallery-adventure-forest.jpg', caption: 'Lost in the forest — rainforest trekking, East Africa' },
+          { src: 'images/adventure/gallery-adventure-walk.jpg',   caption: 'Walk the talk — on the trail, Kenya' },
         ]
       }
     };

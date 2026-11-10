@@ -119,7 +119,7 @@
     @media (max-width: 768px) {
       .menu-toggle {
         position: fixed; top: 14px; left: 14px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
-        padding: 11px 16px 11px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+        padding: 13px 16px 13px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
         background: #1A3344; color: #fff; font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
         cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       }
@@ -138,19 +138,22 @@
       body.menu-open { overflow: hidden; }
     }
     @media (prefers-reduced-motion: reduce) { .sidebar, .sidebar-backdrop { transition: none; } }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
   </style>
 </head>
 <body>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
   <div class="sidebar-backdrop"></div>
   <aside class="sidebar" id="site-menu">
-    <button class="sidebar-close" type="button" aria-label="Close menu">&times;</button>
+    <button class="sidebar-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <a class="sidebar-logo" href="index.html">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
       <a href="index.html#services">Experiences</a>
       <a href="index.html#destinations">Destinations</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="about.html">About Us</a>
+      <a href="blog/">Blog</a>
       <a href="travel-esim.html" class="nav-gold active">Travel eSIM <span class="nav-new">New</span></a>
       <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
@@ -174,11 +177,11 @@
           <li>Keep your existing number</li>
           <li>Flexible plans, easy top-up</li>
         </ul>
-        <a href="https://peydsim.com/?affiliateCode=kabanisafaris" target="_blank" rel="noopener" class="btn-esim">Get Your eSIM →</a>
+        <a href="https://peydsim.com/?affiliateCode=kabanisafaris" target="_blank" rel="noopener" class="btn-esim">Get Your eSIM<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></a>
       </div>
       <div>
         <div class="qr-card">
-          <img src="peydsim-qr.jpg" alt="Scan to get your eSIM" />
+          <img src="images/site/peydsim-qr.jpg" alt="Scan to get your eSIM" />
           <p class="qr-label">Scan to activate</p>
           <p class="qr-sub">Point your camera at the QR code to go straight to your eSIM plan</p>
         </div>

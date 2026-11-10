@@ -53,7 +53,7 @@
       display: flex; align-items: center; gap: 8px;
     }
     .nav-back:hover { color: var(--tan-light); }
-    .nav-back::before { content: '←'; font-size: 14px; }
+    .nav-back::before { content: ''; width: 16px; height: 16px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12h-15M10.5 6l-6 6 6 6'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12h-15M10.5 6l-6 6 6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
 
     /* ── HERO ── */
     .portfolio-hero {
@@ -127,7 +127,7 @@
       transition: color 0.2s, gap 0.2s;
     }
     .section-card:hover .section-cta { color: var(--tan); gap: 12px; }
-    .section-cta::after { content: '→'; font-size: 14px; }
+    .section-cta::after { content: ''; width: 16px; height: 16px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
     .section-card.coming-soon { opacity: 0.5; cursor: default; }
     .section-card.coming-soon:hover { box-shadow: none; }
     .coming-badge {
@@ -176,6 +176,8 @@
       padding: 4px 8px; transition: color 0.2s;
     }
     .lb-close:hover { color: #fff; }
+    .lb-close svg { width: 24px; height: 24px; display: block; }
+    .lb-arrow svg { width: 28px; height: 28px; display: block; }
 
     .lb-stage {
       flex: 1; display: flex; align-items: center;
@@ -256,6 +258,8 @@
       .section-card-inner { min-height: 200px; padding: 36px 28px 32px; }
       .lb-arrow { padding: 16px 10px; font-size: 22px; }
     }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
   </style>
 </head>
 <body>
@@ -281,10 +285,10 @@
           <h2 class="section-name">Gallery Work</h2>
           <p class="section-count">Swiss Photo Club — 4 photographs</p>
           <div class="section-thumbs">
-            <img class="section-thumb" src="spc-calm-before-storm.jpg" alt="" />
-            <img class="section-thumb" src="spc-kiss-or-slap.jpg" alt="" />
-            <img class="section-thumb" src="spc-resembling-truth.jpg" alt="" />
-            <img class="section-thumb" src="spc-sitting-woman.jpg" alt="" />
+            <img class="section-thumb" src="images/portfolio/spc-calm-before-storm.jpg" alt="" />
+            <img class="section-thumb" src="images/portfolio/spc-kiss-or-slap.jpg" alt="" />
+            <img class="section-thumb" src="images/portfolio/spc-resembling-truth.jpg" alt="" />
+            <img class="section-thumb" src="images/portfolio/spc-sitting-woman.jpg" alt="" />
           </div>
           <span class="section-cta">View slideshow</span>
         </div>
@@ -332,14 +336,14 @@
   <div class="lightbox" id="lightbox" onclick="handleLbClick(event)">
     <div class="lb-header">
       <span class="lb-title" id="lb-title"></span>
-      <button class="lb-close" onclick="closeLightbox()">&#215;</button>
+      <button class="lb-close" onclick="closeLightbox()" aria-label="Close photo viewer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     </div>
     <div class="lb-stage">
-      <button class="lb-arrow" id="lb-prev" onclick="lbPrev()">&#8592;</button>
+      <button class="lb-arrow" id="lb-prev" onclick="lbPrev()" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
       <div class="lb-img-wrap">
         <img id="lb-img" src="" alt="" />
       </div>
-      <button class="lb-arrow" id="lb-next" onclick="lbNext()">&#8594;</button>
+      <button class="lb-arrow" id="lb-next" onclick="lbNext()" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
     </div>
     <div class="lb-footer">
       <p class="lb-caption" id="lb-caption"></p>
@@ -353,10 +357,10 @@
       'gallery-work': {
         title: 'Gallery Work — Swiss Photo Club',
         photos: [
-          { src: 'spc-calm-before-storm.jpg',  caption: 'Calm Before the Storm' },
-          { src: 'spc-kiss-or-slap.jpg',       caption: 'Kiss or Slap' },
-          { src: 'spc-resembling-truth.jpg',   caption: 'Resembling Truth' },
-          { src: 'spc-sitting-woman.jpg',      caption: 'Sitting Woman' },
+          { src: 'images/portfolio/spc-calm-before-storm.jpg',  caption: 'Calm Before the Storm' },
+          { src: 'images/portfolio/spc-kiss-or-slap.jpg',       caption: 'Kiss or Slap' },
+          { src: 'images/portfolio/spc-resembling-truth.jpg',   caption: 'Resembling Truth' },
+          { src: 'images/portfolio/spc-sitting-woman.jpg',      caption: 'Sitting Woman' },
         ]
       }
     };

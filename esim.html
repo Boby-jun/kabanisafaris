@@ -44,6 +44,8 @@
       z-index: 10;
     }
     .back-link:hover { color: var(--tan-light); }
+    .back-link { display: inline-flex; align-items: center; }
+    svg.ar.l { margin: 0 0.5em 0 0; }
 
     /* ── HERO WRAPPER ── */
     .page {
@@ -201,11 +203,13 @@
       .logo-wrap img { height: 42px; }
       .qr-frame img { width: 170px; height: 170px; }
     }
+      .sidebar-close svg { width: 18px; height: 18px; display: block; }
+    svg.ar { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-left: 0.5em; flex: none; }
   </style>
 </head>
 <body>
 
-  <a class="back-link" href="index.html">← Kabani Safaris</a>
+  <a class="back-link" href="index.html"><svg class="ar l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.5 12h-15M10.5 6l-6 6 6 6"/></svg>Kabani Safaris</a>
 
   <div class="page">
     <p class="eyebrow">Partner Recommendation</p>
@@ -224,7 +228,7 @@
     <div class="qr-block">
       <p class="qr-label">Scan to get yours</p>
       <div class="qr-frame">
-        <img src="peydsim-qr.jpg" alt="peydsim QR code" />
+        <img src="images/site/peydsim-qr.jpg" alt="peydsim QR code" />
       </div>
       <p class="qr-caption">Or tap below</p>
     </div>
