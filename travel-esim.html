@@ -54,6 +54,8 @@
     .sidebar-nav a:hover .nav-new { transform: rotate(-4deg) scale(1.06); transition: transform 0.2s; }
     @keyframes new-pop { from { opacity: 0; transform: scale(0.4) rotate(-12deg); } to { opacity: 1; transform: none; } }
     @keyframes new-ring { 0% { box-shadow: 0 0 0 0 rgba(226,176,74,0.6); } 35%, 100% { box-shadow: 0 0 0 11px rgba(226,176,74,0); } }
+    .sidebar-nav a.nav-badge { display: flex; align-items: center; gap: 18px; }
+    .nav-new[hidden] { display: none; }
     @media (prefers-reduced-motion: reduce) { .nav-new { animation: none; } }
     .sidebar-nav a.nav-cta {
       margin-top: 18px; text-align: center; color: var(--white);
@@ -153,8 +155,8 @@
       <a href="index.html#destinations">Destinations</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="about.html">About Us</a>
-      <a href="blog/">Field Notes</a>
-      <a href="travel-esim.html" class="nav-gold active">Travel eSIM <span class="nav-new">New</span></a>
+      <a href="blog/" class="nav-badge">Field Notes <span class="nav-new" hidden>New</span></a>
+      <a href="travel-esim.html" class="nav-gold active">Travel eSIM</a>
       <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
     </nav>
     <div class="sidebar-footer">
@@ -209,5 +211,6 @@
       window.addEventListener('resize', function() { if (window.innerWidth > 768) set(false); });
     })();
   </script>
+<script src="/new-badge.js" defer></script>
 </body>
 </html>
