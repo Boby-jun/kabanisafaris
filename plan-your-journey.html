@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
   <title>Plan Your Journey — Kabani Safaris</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" href="favicon.ico">
@@ -90,9 +91,17 @@
     .plan-left h1 { font-size: clamp(28px, min(3.8vw, 6vh), 54px); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 16px; }
     .plan-left h1 em { font-style: normal; color: var(--tan); }
     .intro { font-size: clamp(13.5px, 1.85vh, 15.5px); line-height: 1.6; color: #4D4034; margin-bottom: 3vh; max-width: 440px; }
-    .details { display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 16px); }
-    .detail { display: flex; align-items: center; gap: 14px; }
-    .detail-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--white); border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .plan-right { display: flex; flex-direction: column; gap: clamp(14px, 2.6vh, 24px); min-width: 0; }
+    .details { display: flex; flex-direction: column; gap: clamp(8px, 1.5vh, 14px); padding: 0 6px; }
+    .detail { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .detail > div { min-width: 0; }
+    .detail-value { overflow-wrap: break-word; }
+    .contact-actions { display: flex; gap: 8px; margin-top: 5px; }
+    .pill { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--white); background: var(--green); border: 1.5px solid var(--dark); border-radius: 999px; padding: 5px 14px; transition: transform 0.15s; }
+    .pill.alt { background: var(--white); color: var(--dark); }
+    .pill:hover { transform: translateY(-1px); }
+    .detail:hover .detail-icon { background: var(--tan); color: var(--white); }
+    .detail-icon { color: var(--dark); transition: background 0.2s, color 0.2s; width: 38px; height: 38px; border-radius: 50%; background: var(--white); border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .detail-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan); }
     .detail-value { font-size: 14px; font-weight: 500; }
     .detail-value a { color: inherit; text-decoration: none; }
@@ -108,13 +117,24 @@
       background: var(--off-white); border: 1.5px solid var(--cream-dark); border-radius: 8px;
       padding: 11px 14px; outline: none; transition: border-color 0.2s; width: 100%;
     }
-    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--tan); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--tan); background: var(--white); box-shadow: 0 0 0 4px rgba(162,103,48,0.16); }
+    .field input::placeholder, .field textarea::placeholder { color: #A99A89; }
+    .field input, .field select { min-height: 46px; }
+    .field select { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%232D2D2D' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; }
+    .field.req label::after { content: " *"; color: var(--tan); }
+    .form-head { padding-bottom: clamp(8px, 1.4vh, 14px); border-bottom: 1.5px dashed var(--cream-dark); }
+    .form-head h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .form-head p { font-size: 12.5px; color: #7A6A5A; margin-top: 2px; }
     .field textarea { resize: none; height: clamp(64px, 11vh, 110px); }
     .submit {
       font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--white); background: var(--tan); border: 2px solid var(--dark); border-radius: 999px;
       padding: 14px 30px; cursor: pointer; box-shadow: 4px 4px 0 var(--dark); transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
+    .submit { width: 100%; }
+    .submit[disabled] { opacity: 0.65; cursor: wait; transform: none; }
     .submit:hover { background: var(--tan-light); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dark); }
     .form-error { display: none; font-size: 12px; color: #B04040; }
     .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; }
@@ -124,7 +144,20 @@
     .success-box h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
     .success-box p { font-size: 0.92rem; color: #6A5A4A; line-height: 1.65; margin-bottom: 22px; }
     .success-close { background: var(--tan); color: var(--white); border: 2px solid var(--dark); border-radius: 999px; padding: 12px 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
-    @media (max-width: 1100px) { .plan-wrap { grid-template-columns: 1fr; } }
+    @media (min-width: 769px) and (max-height: 860px) {
+      body { height: auto !important; overflow-y: auto !important; }
+      .page { height: auto !important; min-height: 100vh; padding-top: 5vh; padding-bottom: 5vh; }
+    }
+    @media (max-width: 768px) {
+      .blob { display: none; }
+      .field input, .field select, .field textarea { font-size: 16px; }
+      .plan-form { box-shadow: 5px 5px 0 var(--dark); padding: 22px 20px; }
+    }
+    @media (max-width: 1100px) {
+      .plan-wrap { grid-template-columns: 1fr; gap: 28px; }
+      body { height: auto !important; overflow-y: auto !important; }
+      .page { height: auto !important; min-height: 100vh; }
+    }
     @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
   
     /* mobile menu: the sidebar slides in from a Menu button */
@@ -164,6 +197,7 @@
       <a href="index.html#destinations">Destinations</a>
       <a href="index.html#coffee">Coffee</a>
       <a href="about.html">About Us</a>
+      <a href="blog/">Blog</a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM <span class="nav-new">New</span></a>
       <a href="plan-your-journey.html" class="nav-cta active">Plan Your Journey</a>
     </nav>
@@ -179,20 +213,16 @@
         <p class="eyebrow">Get in Touch</p>
         <h1>Let's Plan <em>Your Journey</em></h1>
         <p class="intro">Whether you have a vague idea or a detailed wish list, I start with a conversation. Tell me what excites you and I'll take it from there — connecting you with the right people in the right places.</p>
-        <div class="details">
-          <div class="detail"><span class="detail-icon">📍</span><div><div class="detail-label">Base</div><div class="detail-value">Geneva, Switzerland</div></div></div>
-          <div class="detail"><span class="detail-icon">✉️</span><div><div class="detail-label">Email</div><div class="detail-value">reservations@kabanisafaris.com</div></div></div>
-          <div class="detail"><span class="detail-icon">💬</span><div><div class="detail-label">WhatsApp</div><div class="detail-value">+41 78 611 23 30</div></div></div>
-          <div class="detail"><span class="detail-icon">📸</span><div><div class="detail-label">Instagram</div><div class="detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener">@barakatrafael</a></div></div></div>
-        </div>
       </div>
+      <div class="plan-right">
       <form class="plan-form" id="contact-form">
+        <div class="form-head"><h2>Tell me about your trip</h2><p>I reply within 24 hours.</p></div>
         <div class="row">
-          <div class="field"><label for="first_name">First Name</label><input id="first_name" type="text" name="first_name" placeholder="Marie" required /></div>
-          <div class="field"><label for="last_name">Last Name</label><input id="last_name" type="text" name="last_name" placeholder="Dupont" required /></div>
+          <div class="field req"><label for="first_name">First Name</label><input id="first_name" type="text" name="first_name" placeholder="Marie" required /></div>
+          <div class="field req"><label for="last_name">Last Name</label><input id="last_name" type="text" name="last_name" placeholder="Dupont" required /></div>
         </div>
         <div class="row">
-          <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" placeholder="marie@example.com" required /></div>
+          <div class="field req"><label for="email">Email</label><input id="email" type="email" name="email" placeholder="marie@example.com" required /></div>
           <div class="field"><label for="experience_type">Experience Type</label>
             <select id="experience_type" name="experience_type">
               <option value="">Select an experience…</option>
@@ -203,12 +233,21 @@
             </select>
           </div>
         </div>
+        <div class="field"><label for="departure_date">Preferred Departure Date</label><input id="departure_date" type="date" name="departure_date" /></div>
         <div class="field"><label for="message">Tell me about your dream journey</label>
           <textarea id="message" name="message" placeholder="Destinations you're curious about, travel dates, group size, anything that inspires you…"></textarea>
         </div>
         <p class="form-error" id="form-error">Something went wrong. Please try again or email reservations@kabanisafaris.com.</p>
         <button type="submit" class="submit">Send Message →</button>
       </form>
+      <div class="details">
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg></span><div><div class="detail-label">Base</div><div class="detail-value">Geneva, Switzerland</div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.5 18-4-7.5L3 9.5z"/></svg></span><div><div class="detail-label">Email</div><div class="detail-value"><a href="mailto:reservations@kabanisafaris.com?subject=Planning%20my%20journey%20with%20Kabani%20Safaris">reservations@kabanisafaris.com</a></div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><div><div class="detail-label">Reach out</div><div class="detail-value">+41 78 611 23 30</div>
+          <div class="contact-actions"><a class="pill" href="https://wa.me/41786112330?text=Hello%20Kabani%20Safaris%2C%20I%27d%20love%20your%20help%20planning%20a%20trip." target="_blank" rel="noopener">WhatsApp</a><a class="pill alt" href="tel:+41786112330">Call</a></div></div></div>
+        <div class="detail"><span class="detail-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6.5" width="18" height="13.5" rx="3.5"/><circle cx="12" cy="13.2" r="3.6"/><path d="M8.2 6.5L9.4 4h5.2l1.2 2.5"/></svg></span><div><div class="detail-label">Instagram</div><div class="detail-value"><a href="https://www.instagram.com/barakatrafael/" target="_blank" rel="noopener">@barakatrafael</a></div></div></div>
+      </div>
+      </div>
     </div>
   </main>
 
@@ -225,11 +264,14 @@
       e.preventDefault();
       const form = e.target, err = document.getElementById('form-error');
       err.style.display = 'none';
+      const btn = form.querySelector('.submit'), label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Sending…';
       try {
         const res = await fetch('https://formspree.io/f/xaewjgdg', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
         if (res.ok) { form.reset(); document.getElementById('success-overlay').classList.add('visible'); }
         else err.style.display = 'block';
       } catch { err.style.display = 'block'; }
+      btn.disabled = false; btn.textContent = label;
     });
   </script>
   <script>
