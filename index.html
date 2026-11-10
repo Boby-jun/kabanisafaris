@@ -927,7 +927,7 @@
         <!-- 01 Wildlife -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img src="images/wildlife/gallery-wildlife-zebras.jpg" alt="Wildlife Safari" style="display:block;" />
+            <img src="images/wildlife/gallery-wildlife-zebras-900.jpg" srcset="images/wildlife/gallery-wildlife-zebras-900.jpg 900w, images/wildlife/gallery-wildlife-zebras.jpg 1600w" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 30vw, 440px" width="1600" height="1059" alt="Wildlife Safari" loading="lazy" decoding="async" style="display:block;" />
           </div>
           <div class="service-number">01 — Wildlife</div>
           <h3 class="service-title">Wildlife Safaris</h3>
@@ -961,7 +961,7 @@
         <!-- 02 Agro-Tourism -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img id="img-agro" src="images/site/agro-tourism-safaris.jpg" alt="Agro Tourism Safari" style="display:block;" />
+            <img id="img-agro" src="images/site/agro-tourism-safaris-900.jpg" srcset="images/site/agro-tourism-safaris-900.jpg 900w, images/site/agro-tourism-safaris-1500.jpg 1500w" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 30vw, 440px" width="1500" height="998" alt="Agro Tourism Safari" loading="lazy" decoding="async" style="display:block;" />
           </div>
           <div class="service-number">02 — Agro-Tourism</div>
           <h3 class="service-title">Agro-Tourism Safaris</h3>
@@ -996,7 +996,7 @@
         <!-- 03 Adventure -->
         <div class="service-card">
           <div class="service-card-photo">
-            <img id="img-adventure" src="images/site/adventure-safaris.jpg" alt="Adventure Safari" style="display:block;" />
+            <img id="img-adventure" src="images/site/adventure-safaris-900.jpg" srcset="images/site/adventure-safaris-900.jpg 900w, images/site/adventure-safaris-1500.jpg 1500w" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 30vw, 440px" width="1500" height="998" alt="Adventure Safari" loading="lazy" decoding="async" style="display:block;" />
           </div>
           <div class="service-number">03 — Adventure</div>
           <h3 class="service-title">Adventure Safaris</h3>
@@ -1173,7 +1173,7 @@
           </ul>
         </div>
         <div class="coffee-visual">
-          <img src="images/site/coffee-cherry.jpg" alt="Coffee Cherry" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="images/site/coffee-cherry-800.jpg" srcset="images/site/coffee-cherry-800.jpg 800w, images/site/coffee-cherry-1200.jpg 1200w" sizes="(max-width: 768px) 92vw, 520px" width="800" height="1202" alt="Coffee cherries ripening on the branch" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
       </div>
     </div>
@@ -1604,7 +1604,7 @@
       wrap.innerHTML = '';
       GALLERIES[gCurrent].photos.forEach((p, i) => {
         const img = document.createElement('img');
-        img.src = p.src; img.alt = ''; img.className = 'gallery-thumb';
+        img.src = p.src.replace(/\.jpg$/, '-thumb.jpg'); img.alt = ''; img.loading = 'lazy'; img.className = 'gallery-thumb';
         img.onclick = () => showPhoto(i);
         wrap.appendChild(img);
       });
