@@ -142,7 +142,7 @@
     .hero-brand > span { color: var(--tan-light); }
     .hero-ball {
       -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-      position: absolute; top: 0; left: 0; width: 84px; height: 84px;
+      position: absolute; top: 0; left: 0; width: 62px; height: 62px;
       z-index: 3; cursor: pointer; user-select: none; -webkit-user-drag: none;
       will-change: transform; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
       transition: filter 0.25s;
@@ -151,8 +151,8 @@
     .hero-ball.extra { pointer-events: none; }
     .hero-ball:focus-visible { outline: 2px solid var(--tan-light); outline-offset: 4px; border-radius: 50%; }
     .hero-ball-hint {
-      position: absolute; right: 148px; bottom: calc(var(--wave-h) + 62px); z-index: 3;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      position: absolute; right: 126px; bottom: calc(var(--wave-h) + 38px); z-index: 3;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
       color: rgba(255,255,255,0.55); pointer-events: none;
     }
     [hidden] { display: none !important; }
@@ -830,7 +830,7 @@
     @media (max-width: 768px) {
       body { padding-left: 0; }
       #hero { padding: 112px 24px calc(var(--wave-h) + 116px); }
-      .hero-ball-hint { right: 90px; bottom: calc(var(--wave-h) + 42px); }
+      .hero-ball-hint { right: 78px; bottom: calc(var(--wave-h) + 26px); }
       .section-inner { padding: 0 24px; }
       .about-grid, .coffee-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: 1fr; }
@@ -1346,7 +1346,7 @@
       if (!hero || !ball) return;
       const $ = function(id) { return document.getElementById(id); };
       const paddle = $('game-paddle'), hud = $('game-hud'), over = $('game-over'), hint = $('hero-ball-hint');
-      const ballSize = function() { return window.innerWidth <= 768 ? 54 : 84; };
+      const ballSize = function() { return window.innerWidth <= 768 ? 46 : 62; };
       let SIZE = ballSize();
       const PH = 14, PB0 = 32, BOOST_EVERY = 5, BOOST = 1.15;
       const waveEl = hero.querySelector('.wave');
@@ -1361,7 +1361,7 @@
       function placeIdle() {
         SIZE = ballSize();
         ball.style.width = ball.style.height = SIZE + 'px';
-        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - (window.innerWidth <= 768 ? 20 : 48)) + 'px,' + (hero.clientHeight - SIZE - (window.innerWidth <= 768 ? 24 : 36) - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
+        ball.style.transform = 'translate(' + (hero.clientWidth - SIZE - (window.innerWidth <= 768 ? 20 : 48)) + 'px,' + (hero.clientHeight - SIZE - (window.innerWidth <= 768 ? 10 : 14) - (waveEl ? waveEl.getBoundingClientRect().height : 0)) + 'px)';
       }
       placeIdle();
       window.addEventListener('resize', function() { if (state === 'idle') placeIdle(); });
