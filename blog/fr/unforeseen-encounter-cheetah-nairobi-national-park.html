@@ -67,6 +67,9 @@
     @keyframes new-ring { 0% { box-shadow: 0 0 0 0 rgba(226,176,74,0.6); } 35%, 100% { box-shadow: 0 0 0 11px rgba(226,176,74,0); } }
     .sidebar-nav a.nav-cta { margin-top: 18px; text-align: center; color: var(--white); background: var(--tan); border-bottom: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; }
     .sidebar-nav a.nav-cta:hover { background: #85521F; transform: translateY(-1px); }
+    .sidebar-nav a.nav-login { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; padding: 13px 0; color: var(--white); background: transparent; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .sidebar-nav a.nav-login svg { width: 18px; height: 18px; flex: none; }
+    .sidebar-nav a.nav-login:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-1px); }
     .sidebar-footer { margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 0.06em; line-height: 1.9; }
 
 
@@ -224,6 +227,7 @@
       <a href="/blog/" class="active nav-badge">Field Notes <span class="nav-new" hidden>New</span></a>
       <a href="/travel-esim.html" class="nav-gold">Travel eSIM</a>
       <a href="/plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
+      <a href="https://portal.kabanisafaris.com/" class="nav-login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>Client Login</a>
     </nav>
     <div class="sidebar-footer">
       <p>Geneva, Switzerland</p>
