@@ -65,9 +65,10 @@
     .sidebar-nav a.nav-gold:hover { color: var(--tan-pale); }
     .nav-new { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; line-height: 1; padding: 4px 9px; border-radius: 999px; background: var(--ochre); color: var(--navy-dark); animation: new-ring 4s ease-out 1.2s infinite; }
     @keyframes new-ring { 0% { box-shadow: 0 0 0 0 rgba(226,176,74,0.6); } 35%, 100% { box-shadow: 0 0 0 11px rgba(226,176,74,0); } }
-    .sidebar-nav a.nav-cta { margin-top: 18px; text-align: center; color: var(--white); background: var(--tan); border-bottom: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; }
+    .sidebar-nav a.nav-cta { margin-top: auto; text-align: center; color: var(--white); background: var(--tan); border-bottom: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; }
     .sidebar-nav a.nav-cta:hover { background: #85521F; transform: translateY(-1px); }
-    .sidebar-nav a.nav-login { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; padding: 13px 0; color: var(--white); background: transparent; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .sidebar-nav a.nav-login { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; margin-bottom: auto; padding: 13px 0; color: var(--white); background: transparent; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .sidebar-nav a:has(+ .nav-cta) { margin-bottom: 18px; }
     .sidebar-nav a.nav-login svg { width: 18px; height: 18px; flex: none; }
     .sidebar-nav a.nav-login:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-1px); }
     .sidebar-footer { margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 0.06em; line-height: 1.9; }
