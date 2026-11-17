@@ -307,5 +307,16 @@
     })();
   </script>
 <script src="/new-badge.js" defer></script>
+<script>
+(function () {
+  var m = document.cookie.match(/(?:^|; )kb_portal=(client|admin)/);
+  if (!m) return;
+  [].forEach.call(document.querySelectorAll('a.nav-login'), function (a) {
+    var admin = m[1] === 'admin';
+    a.href = 'https://portal.kabanisafaris.com/' + (admin ? 'admin.html' : 'trip.html');
+    if (a.lastChild && a.lastChild.nodeType === 3) a.lastChild.nodeValue = admin ? 'Admin' : 'My trip';
+  });
+})();
+</script>
 </body>
 </html>
