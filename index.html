@@ -82,13 +82,14 @@
     .sidebar-nav a:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
     .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--white); }
     .sidebar-nav a.nav-cta {
-      margin-top: auto; text-align: center; color: var(--white);
+      margin-top: 4px; text-align: center; color: var(--white);
       background: var(--tan); border-bottom: none; border-radius: 2px;
       transition: background 0.2s, transform 0.2s;
     }
     .sidebar-nav a.nav-cta:hover, .sidebar-nav a.nav-cta.active { background: var(--tan-light); color: var(--white); transform: translateY(-1px); }
-    .sidebar-nav a.nav-login { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; margin-bottom: auto; padding: 13px 0; color: var(--white); background: transparent; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
-    .sidebar-nav a:has(+ .nav-cta) { margin-bottom: 18px; }
+    .sidebar-nav a.nav-login { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; margin-bottom: 14px; padding: 13px 0; color: var(--white); background: transparent; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .sidebar-nav a.nav-cta { border-top: none; }
+    .sidebar-nav a.nav-login + a { border-top: 1px solid rgba(255,255,255,0.07); }
     .sidebar-nav a.nav-login svg { width: 18px; height: 18px; flex: none; }
     .sidebar-nav a.nav-login:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-1px); }
     .sidebar-footer {
@@ -897,14 +898,14 @@
     <button class="sidebar-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <a class="sidebar-logo" href="#hero">Kabani <span>Safaris</span></a>
     <nav class="sidebar-nav">
+      <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
+      <a href="https://portal.kabanisafaris.com/" class="nav-login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>Client Login</a>
       <a href="#services">Experiences</a>
       <a href="#destinations">Destinations</a>
       <a href="#coffee">Coffee</a>
       <a href="about.html">About Us</a>
       <a href="blog/" class="nav-badge">Field Notes <span class="nav-new" hidden>New</span></a>
       <a href="travel-esim.html" class="nav-gold">Travel eSIM</a>
-      <a href="plan-your-journey.html" class="nav-cta">Plan Your Journey</a>
-      <a href="https://portal.kabanisafaris.com/" class="nav-login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>Client Login</a>
     </nav>
     <div class="sidebar-footer">
       <p>Geneva, Switzerland</p>
